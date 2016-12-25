@@ -1,0 +1,53 @@
+.carousel-fade .carousel-inner .item {
+    opacity: 0;
+    -webkit-transition-property: opacity;
+    -moz-transition-property: opacity;
+    -o-transition-property: opacity;
+    transition-property: opacity;
+
+    transition-timing-function:linear;
+
+}
+.carousel-fade .carousel-inner .active {
+    opacity: 1;
+
+}
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+    left: 0;
+    opacity: 0;
+    z-index: 1;
+
+}
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {/*velocidad de aparicion nueva diapositiva*/
+    opacity: 1;
+
+    -webkit-transition-property: opacity;
+    -moz-transition-property: opacity;
+    -o-transition-property: opacity;
+    transition-property: opacity;
+    -moz-transition-duration: 3s;
+    -webkit-transition-duration: 3s;
+    -o-transition-duration: 3s;
+    transition-duration: 3s;
+    transition-timing-function:linear;
+}
+.carousel-fade .carousel-control {
+    z-index: 2;
+}
+
+
+
+.carousel-control.left {
+    background-image: none;
+
+}
+.carousel-control.right {
+    background-image: none;
+}
+.carousel-caption{
+    width: 100%;
+    left: 0%;
+
+}

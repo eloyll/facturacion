@@ -1,0 +1,79 @@
+{% extends 'layout_main.html.twig' %}
+
+{% block css %}
+
+    {{ parent () }}
+    <title>CLIENTES - Echip</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid" style="padding: 0">
+
+    {{ parent () }}
+    <form id="frm-acliente">
+    <div class="float-left-100-pad15" style="margin: 70px 0 15px 0;font-size: 18px;color: #900;text-decoration: underline">Añadir Clientes</div>
+    <div style="float: left;width: 33%">
+        <div class="mylabel">Nombre</div>
+        <div class="mydivinput"><input name="nombre" id="nombre" type="text" class="e-input font-12 ancho-100"></div>
+        <div class="mylabel">CIF/NIF</div>
+        <div class="mydivinput"><input name="cif" id="cif" type="text" class="e-input font-12" maxlength="20"></div>
+        <div class="mylabel">Dirección</div>
+        <div class="mydivinput"><input name="direccion" id="direccion" type="text" class="e-input font-12 ancho-100" maxlength="100"></div>
+        <div class="mylabel">Población</div>
+        <div class="mydivinput"><input name="poblacion" id="poblacion" type="text" class="e-input font-12 ancho-100" maxlength="50"></div>
+        <div class="mylabel">C.P.</div>
+        <div class="mydivinput"><input name="cp" id="cp" type="text" class="e-input font-12" maxlength="7"></div>
+        <div class="mylabel">Provincia</div>
+        <div class="mydivinput"><input name="provincia" id="provincia" type="text" class="e-input font-12 ancho-100" maxlength="25" list="aux-prov"></div>
+        <datalist id="aux-prov">
+            {% for pr in provincias %}
+                <option value="{{ pr.provincia }}">{{ pr.provincia }}</option>
+            {% endfor %}
+        </datalist>
+        <div class="mylabel">Pais</div>
+        <div class="mydivinput"><input name="pais" id="pais" type="text" class="e-input font-12 ancho-100" maxlength="25" value="España"></div>
+    </div>
+    <div style="float: left;width: 32%">
+        <div class="mylabel">Teléfono</div>
+        <div class="mydivinput"><input name="telf" id="telf" type="text" class="e-input font-12" maxlength="15"></div>
+        <div class="mylabel">Móvil</div>
+        <div class="mydivinput"><input name="movil" id="movil" type="text" class="e-input font-12" maxlength="15"></div>
+        <div class="mylabel">E-mail</div>
+        <div class="mydivinput"><input name="email" id="email" type="text" class="e-input font-12 ancho-100" maxlength="255"></div>
+        <div class="mylabel">Pág. WEB</div>
+        <div class="mydivinput"><input name="web" id="web" type="text" class="e-input font-12 ancho-100" maxlength="100"></div>
+        <div class="mylabel">Descuento</div>
+        <div class="mydivinput"><input name="descuento" id="descuento" type="text" class="e-input font-12 text-right" maxlength="15" size="6" value="0.00"> %</div>
+        <div class="mylabel">F. Pago</div>
+        <div class="mydivinput"><input name="forma_pago" id="forma_pago" type="text" class="e-input font-12" maxlength="25" placeholder="Forma de Pago" list="aux-pagos"></div>
+        <datalist id="aux-pagos">
+            {% for pg in formaspago %}
+                <option value="{{ pg.forma_pago }}">{{ pg.forma_pago }}</option>
+            {% endfor %}
+        </datalist>
+    </div>
+    <div style="float: left;width: 32%; height: auto;padding-left: 15px">
+        <fieldset>
+            <legend>Observaciones</legend>
+            <textarea name="obser" id="obser" class="font-12 ancho-100" rows="6" style="border:none;"></textarea>
+        </fieldset>
+        <div style="clear: both;float: left;width: 30%"><button type="reset" id="btn-limpiarcli" class="btn btn-default input-sm" style="margin-right: 40px">limpiar Datos</button></div>
+        <div style="float: right;width: 30%"><button type="button" id="btn-anadircli" class="btn-trans input-sm">Añadir Cliente</button></div>
+    </div>
+    </form>
+
+
+
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
+
+    {{ parent() }}
+    <script src="static/js/clientes.js"></script>
+
+
+{% endblock %}

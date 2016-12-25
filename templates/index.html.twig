@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <title>FACTURACION - E-chip</title>
+    <meta name="keywords" content="facturacion, facturación, programa facturacion, empresas, gestion, gestión, gestion empresarial, servicios, informaticos, programacion, development, desarrollo, analisis "/>
+    <meta name="description" content="Programa de facturación para empresas totalmente escalable" />
+    <meta name="author" content="Echip.es">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/perso-bootstrap.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" />
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 text-center" style="margin-top: 8%">
+            <img class="img-responsive" src="/static/img/splash.png" style="margin: 20px 15% 40px 15%" width="65%">
+        </div>
+        <div class="col-md-12 text-center" style="margin-top: 40px">
+            <form class="form-inline">
+                <div class="row">
+                    <div class="col-md-push-4 col-md-1 col-xs-push-2 col-xs-9 text-left e-label-16b-azul">Usuario</div>
+                    <div class="col-md-push-4 col-md-3 col-xs-push-2 col-xs-9 text-left">
+                        <input type="text" class="e-input" id="usuario" name="usuario" data-tipo="noval" maxlength="15" autofocus>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-md-push-4 col-md-1 col-xs-push-2 col-xs-9 text-left e-label-16b-azul">DNI/NIE</div>
+                    <div class="col-md-push-4 col-md-3 col-xs-push-2 col-xs-9 text-left">
+                        <input type="text" class="e-input" id="dni" name="dni" data-tipo="noval" maxlength="9">
+                    </div>
+                </div>
+                <div id="ver-rand" class="col-md-12" style="visibility: hidden;padding-left: 5px">
+                        <div class="row" style="margin-top: 20px">
+                            <div class="col-md-push-4 col-md-1 col-xs-push-2 col-xs-9 text-left e-label-16b-azul">Clave</div>
+                            <div class="col-md-push-4 col-md-3 col-xs-push-2 col-xs-9 text-left">
+                                <div id="pass-1" class="e-div-pass-red"><i class="fa fa-circle"></i></div>
+                                <div id="pass-2" class="e-div-pass-red"><i class="fa fa-circle"></i></div>
+                                <div id="pass-3" class="e-div-pass-red"><i class="fa fa-circle"></i></div>
+                                <div id="pass-4" class="e-div-pass-red"><i class="fa fa-circle"></i></div>
+                                <div id="pass-5" class="e-div-pass-red"><i class="fa fa-circle"></i></div>
+                                <div id="pass-6" class="e-div-pass-red"><i class="fa fa-circle"></i></div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 20px">
+                            <div class="col-md-push-4 col-md-1 col-xs-push-2 col-xs-9 text-left e-label-16b-azul"><button id="btn-borra-clave" type="button" class="btn btn-primary">Borrar</button></div>
+                            <div class="col-md-push-4 col-md-3 col-xs-push-2 col-xs-9 text-left">
+
+                                <div id="num-btn1">
+                                    <input class="btn-pass" type="button" id="btn-0" style="width: 37px;height: 30px" value="0">
+                                    <input class="btn-pass" type="button" id="btn-1" style="width: 37px;height: 30px" value="1">
+                                    <input class="btn-pass" type="button" id="btn-2" style="width: 37px;height: 30px" value="2">
+                                    <input class="btn-pass" type="button" id="btn-3" style="width: 37px;height: 30px" value="3">
+                                    <input class="btn-pass" type="button" id="btn-4" style="width: 37px;height: 30px" value="4">
+                                </div>
+                                <div id="num-btn1">
+                                    <input class="btn-pass" type="button" id="btn-5" style="width: 37px;height: 30px" value="5">
+                                    <input class="btn-pass" type="button" id="btn-6" style="width: 37px;height: 30px" value="6">
+                                    <input class="btn-pass" type="button" id="btn-7" style="width: 37px;height: 30px" value="7">
+                                    <input class="btn-pass" type="button" id="btn-8" style="width: 37px;height: 30px" value="8">
+                                    <input class="btn-pass" type="button" id="btn-9" style="width: 37px;height: 30px" value="9">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 20px">
+                            <div id="pass-txt" class="col-md-push-4 col-md-4 col-xs-push-2 col-xs-10 text-left e-azul">Introduce los números de tu clave que ocupan las posiciones </div>
+                        </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="row" style="margin: 60px 0 0 0;">
+
+        <div class="col-md-12 col-xs-12 text-center color-azul" style="font-size: 16px;color: #900">
+            Software ECHIP - Telf.&nbsp;&nbsp;+34 691509848 -
+            La Palma - Tenerife
+        </div>
+    </div>
+</div>
+<div id="mimodal" class="mimodal">
+    <div id="ventana" class="ventana">
+        <h4 id="titulo-modal" class="titulo">Aviso</h4>
+        <div id="texto-modal" class="texto">Falto solo que se cerrara la ventana</div>
+        <div id="bt-cerrar-modal" class="cerrar"><button class="btn btn-success input-sm" type="button">Cerrar</button> </div>
+    </div>
+</div>
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/js/index.js"></script>
+</body>
+</html>

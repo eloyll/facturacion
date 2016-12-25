@@ -1,0 +1,140 @@
+
+{% extends 'layout_main.html.twig' %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/print.css" media="print">
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" />
+<title>FACTURA - E-chip</title>
+
+{% endblock %}
+
+{% block body %}
+<div style="position: relative;width: 17.4cm;height: 25.8cm;border: 0px solid black;font:normal 12px factura-mono" class="si-print">
+    <div style="float:left;width: 40%;border-top: 12px solid #3371c8"></div>
+    <div style="float:left;width: 20%;height: 10px;text-align: center;font-family: factura-mono-bold, monospace; font-size: 20px;margin-top: -3px;letter-spacing: 2.5px">FACTURA</div>
+    <div style="float:left;width: 40%;border-top: 12px solid #3371c8"></div>
+    <div class="factura-fechanum">
+        <div class="no-print text-left" style="clear: both;width: 20%;float: left"><button type="button" class="btn-trans no-print" onclick="window.print()" style="color: #900"><i class="fa fa-print"></i>&nbsp;Imprimir</button></div>
+        <div id="txt-numfac" class="text-center" style="width: 60%;float: left"><span class="font-factura-bold font-14">FECHA:</span> {{ factura.fecha_factura }} <i class="fa fa-circle" style="font-size: 10px;color: #3371c8;" ></i><span class="font-factura-bold font-14"> NUMERO:</span> {{ factura.numero_fac | upper }}</div>
+    </div>
+    {% set dec = factura.decimales %}
+    <div style="clear:both;float: left;width: 55%;padding: 5px 10px 10px 5px;border-right: 1px solid #000 ">
+        <div style="float: left;width: 100%"><img src="{{ factura.logo }}" height="70"></div>
+        <div class="float-left-100" style="line-height: 0.9">{{ factura.direccion | nl2br}}</div>
+    </div>
+    <div style="position: absolute;top:24.5cm;border-top: 1px solid #000;text-align: center;width: 98.5%;padding: 5px;font-size: 10px">{{ factura.empresa }} - CIF. {{ factura.cif }}
+
+        <span style="font-size: 9px">
+            {% if factura. registro_mercantil is not empty %}
+                  -  {{ factura. registro_mercantil}}
+            {% endif %}
+        </span>
+    </div>
+    <div style="float: left;width: 41%;padding: 5px 0 20px 10px;">
+        <div style="float: left;width: 100%;text-decoration: underline; margin-bottom: 5px">CLIENTE</div>
+        <div class="font-factura-bold" style="float: left;width: 100%; font-size: 12px">{{ factura.cliente }}</div>
+        <div style="float: left;width: 100%;">NIF. {{ factura.cif_cliente }}</div>
+        <div style="float: left;width: 100%;">{{ factura.direc_cliente | nl2br }}</div>
+    </div>
+
+    <div class="float-left-100" style="border-top: 1px solid #000;border-bottom: 1px solid #000;margin-top: 20px; background-color: #3371c8">
+        <div class="font-factura-bold factura-cab-items si-print" style="clear:both;width: 8%"><div>CANT.</div></div>
+        <div class="font-factura-bold factura-cab-items" style="width: 52%"><div>CONCEPTO</div></div>
+        <div class="font-factura-bold factura-cab-items" style="width: 7%"><div>Dcto.</div></div>
+        <div class="font-factura-bold factura-cab-items" style="width: 7%"><div>{{ factura.tipo_iva }}</div></div>
+        <div class="font-factura-bold factura-cab-items" style="width: 10.95%"><div>PRECIO</div></div>
+        <div class="font-factura-bold factura-cab-items" style="width: 11.7%;margin-right: 0"><div>IMPORTE</div></div>
+    </div>
+
+    <!-- Items factgura-->
+    {% for it in items %}
+        <div style="clear: both;float: left;width: 100%; margin-top: 3px">
+            <div style="clear:both;float: left;width: 6.5%; text-align: right;margin-right: 12px">{{ it.cantidad }}</div>
+            <div style="float: left;width: 52%; margin-right: 3px">{{ it.concepto }}</div>
+            <div style="float: left;width: 7%; text-align: center;margin-right: 6px;">{{ it.descuento }}</div>
+            <div style="float: left;width: 6.5%; text-align: center;margin-right: 6px">{{ it.iva }}</div>
+            <div style="float: left;width: 10%; text-align: right;margin-right: 6px">{{ it.precio }}</div>
+            <div style="float: left;width: 12.7%; text-align: right;">{{ it.importe }}</div>
+        </div>
+    {% endfor %}
+
+<!--------------------------------------------->
+<!------------IVA------------->
+    <div style="clear:both;float: left;width: 45%;padding: 10px 10px 10px 5px;border-top: 1px dashed #000;border-bottom: 1px dashed #000; margin: 30px 30px 0 0;">
+        {% if factura.exento_iva == 'no' %}
+            {% for imp in iva %}
+                <div style="clear:both;float: left;">B.I. {{ factura.tipo_iva }} al {{ imp.pctge_iva }} %</div><div style="float: right;">{{ imp.bi_iva }}{{ factura.moneda }}</div>
+                <div style="clear:both;float: left;">Cuota {{ factura.tipo_iva }} {{ imp.pctge_iva }} %</div><div style="float: right;">{{ imp.iva }}{{ factura.moneda }}</div>
+            {% endfor %}
+            {% if factura.recargo_equ > 0 %}
+                <div style="clear:both;float: left;">Req. Equivalencia al {{ factura.pctge_req }} %</div><div style="float: right;">{{ factura.recargo_equ }}{{ factura.moneda }}</div>
+            {% endif %}
+        {% else %}
+            <div style="clear:both;float: left;">{{ factura.texto_exento }} </div>
+        {% endif %}
+
+    </div>
+<!--------------------->
+
+    <div style="float: right;width: 45%;padding: 10px 0 10px 0;border-top: 1px dashed #000;border-bottom: 1px dashed #000; margin: 30px 0 0 0;">
+        <div class="font-factura-bold" style="clear:both;float: left;">TOTAL NETO</div><div style="float: right;font-size: 14px">{{ factura.importe | number_format(dec,'.', ',') }}{{ factura.moneda }}</div>
+
+        {% if factura.exento_iva == 'no' %}
+            <div class="font-factura-bold" style="clear:both;float: left;">TOTAL {{ factura.tipo_iva }}</div><div style="float: right;font-size: 14px">{{ factura.iva | number_format(dec,'.', ',') }}{{ factura.moneda }}</div>
+        {% else %}
+            <div class="font-factura-bold" style="clear:both;float: left;">TOTAL {{ factura.tipo_iva }} Exento</div><div style="float: right;font-size: 14px">{{ 0 | number_format(dec,'.', ',') }}{{ factura.moneda }}</div>
+        {% endif %}
+        {% if factura.retencion > 0 %}
+            <div class="font-factura-bold" style="clear:both;float: left;">RETENCION {{ factura.pctge_retencion }}%</div><div style="float: right;font-size: 14px">{{ factura.retencion | number_format(dec,'.', ',') }}{{ factura.moneda }}</div>
+        {% endif %}
+        <div class="float-left-100"><hr></div>
+        <div class="font-factura-bold" style="clear:both;float: left;font-size: 16px">TOTAL FACTURA</div><div style="float: right;font: bold 16px factura-mono-bold">{{ factura.total | number_format(dec,'.', ',') }}{{ factura.moneda }}</div>
+    </div>
+    <div style="clear:both;float: right;width: 100%; min-height:50px;padding: 4px 0 10px 0;border-top: 1px solid #000;border-bottom: 1px solid #000; margin: 20px 0 0 0;">
+        <div class="font-factura-bold" style="clear:both;float: left;text-decoration: underline">Observaciones:</div>
+        <div style="clear: both;float: left;">
+            {{ factura.obser }}
+        </div>
+    </div>
+
+    <div style="clear:both;float: right;width: 100%;padding: 4px 0 5px 0;border-top: 0px solid #000; margin: 20px 0 0 0;">
+        <div class="font-factura-bold" style="clear:both;float: left;width: 100%; text-align: center;font-size: 16px">FORMA DE PAGO</div>
+        <div class="float-left-100" style="border-top: 1px solid #000;border-bottom: 1px solid #000;margin-top: 5px;background-color: #3371c8">
+            <div class="font-factura-bold factura-cab-items" style="clear:both;width: 15%"><div>FECHA</div></div>
+            <div class="font-factura-bold factura-cab-items" style="width: 15%"><div>IMPORTE</div></div>
+            <div class="font-factura-bold factura-cab-items" style="width: 30%"><div>TIPO DE PAGO</div></div>
+            <div class="font-factura-bold factura-cab-items" style="width: 37.55%"><div>BANCO</div></div>
+        </div>
+    </div>
+
+    <!--vencimientos de los pagos------------->
+
+    {% for v in vcto %}
+        <div style="clear: both;float: left;width: 100%; margin-top: 3px">
+            <div style="clear:both;float: left;width: 15%; text-align: center;margin-right: 12px">{{ v.fecha }}</div>
+            <div style="float: left;width: 13%; margin-right: 12px;text-align: right">{{ v.importe | number_format(dec,'.', ',') }}{{ factura.moneda }}</div>
+            <div style="float: left;width: 30%; text-align: left;margin-right: 6px;">{{ v.tipo | upper }}</div>
+            {% if v.tipo != 'contado' %}
+                <div style="float: left;width: 37%; text-align: left;margin-right: 0">{{ v.numero_cuenta }}<br>Swift {{ v.swift }}</div>
+            {% else %}
+                <div style="float: left;width: 37%; text-align: left;margin-right: 0">&nbsp;</div>
+            {% endif%}
+        </div>
+    {% endfor %}
+
+    <!--vencimientos de los pagos------------->
+
+</div>
+
+
+{% endblock %}
+
+{% block javascript %}
+
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="static/js/main.js"></script>
+
+{% endblock %}

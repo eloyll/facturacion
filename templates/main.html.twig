@@ -1,0 +1,252 @@
+{% extends 'layout_main.html.twig' %}
+
+{% block css %}
+
+{{ parent () }}
+    <title>FACTURACION - Echip</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid" style="padding: 0">
+
+    {{ parent () }}
+
+<form id="formfactura" target="_blank" action="/factura" method="post" enctype="application/x-www-form-urlencoded" onsubmit="subirfactura(this)">
+    <input name="facturaitems" id="facturaitems" type="hidden">
+    <input name="facturaiva" id="facturaiva" type="hidden">
+    <input name="facturabiiva" id="facturabiiva" type="hidden">
+    <input name="facturadatos" id="facturadatos" type="hidden">
+    <input name="facturavenci" id="facturavenci" type="hidden">
+    <input name="facturacliente" id="facturacliente" type="hidden">
+    <div class="row" style="margin: 70px 0 0 0">
+        <div class="col-md-12" style="padding: 0 15px 0 0;">
+
+            <div class="col-md-1 col-xs-6 color-azul">Empresa</div>
+            <div class="col-md-3 col-xs-6">
+                <select id="sel-empresa" class="form-control input-sm e-select no-print" style="font-size: 12px; margin-top: -5px; padding-bottom: 0; padding-top: 0">
+                    {% if empre.nl == '0' %}
+                        <option value="--">No hay empresas</option>
+                    {% else %}
+                        {% for item in empre %}
+                            {% if item.nombre is defined %}
+                                <option value="{{ item.id }}" {% if item.ultima == 'si' %} selected="selected" {% endif %}>{{ item.nombre }} </option>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+            <div class="col-md-3 col-xs-12"><span class="color-azul"> Activar Almacén &nbsp;&nbsp;</span>
+                <input type="radio" name="almacen" id="almasi" value="si"> Sí &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="almacen" id="almano" value="no" checked> No
+            </div>
+            <div class="col-md-5" style="color: #900;">Cambiar Logo
+                <select id="cambialogo" class="e-select input-sm color-negro">
+                    {% for lg in logos %}
+                        {% set log = lg.logo | split('/')%}
+                        {% set long = (log | length) - 1 %}
+                        {% if lg.logo is defined %}
+                            <option value="{{ lg.logo }}" {% if lg.ultimo == 'si' %} selected="selected" {% endif %}>{{ log[long] }} </option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin: 0 0 0 0; border-bottom: 2px dashed #9acfea; padding: 20px 0 10px 0">
+        <div class="col-md-4 col-xs-12 paddleft-0">
+            <div class="col-md-4 color-rojo paddright-0">Empresa:</div>
+            <div id="usunombre" class="col-md-8 paddleft-0">{{ inicial.nombre }}</div>
+            <div class="col-md-4 color-rojo paddright-0">CIF/NIF:</div>
+            <div id="usucif"  class="col-md-8 paddleft-0">{{ inicial.cif | upper}}</div>
+            <div class="col-md-4 color-rojo paddright-0">Exento <span id="tipoexento">{{ inicial.tipo_iva }}</span>:</div>
+            <div id="noiva"  class="col-md-8 paddleft-0">
+                <input type="radio" name="exentoiva" id="exentosi" value="si" {% if inicial.exento_iva == 'si' %} checked {% endif %}> Sí&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="exentoiva" id="exentono" value="no" {% if inicial.exento_iva == 'no' %} checked {% endif %}> No
+            </div>
+
+        </div>
+        <div class=" paddleft-0" style="float: left;width: 25%">
+            <div class="color-rojo paddright-0" style="float: left;width: 33%;margin-right: 10px">Núm. Factura:</div>
+            {% set numerofactura = inicial.numero_fac + 1 %}
+            {% set numerofac = inicial.prefijo_numfac ~ numerofactura ~ inicial.sufijo_numfac%}
+            <div class="paddleft-0"  style="float: left;width: 56%"><input id="usunumfac" class="e-input" value="{{ numerofac }}"></div>
+            <div class="color-rojo paddright-0" style="float: left;width: 33%;margin-right: 10px">Fecha Factura:</div>
+            <div class="paddleft-0"style="float: left;width: 56%"><input id="usufechafac" class="e-input fecha-input" maxlength="10" value="{{ inicial.fecha_factura }}"></div>
+            <div class="paddleft-0"style="clear: both;float: left;width: 100%"><input id="textoexento" class="e-input" list="txtexe" value="{{ inicial.texto_exento }}" placeholder="Texto Exento " style="width: 100%"></div>
+            <datalist id="txtexe">
+                <option value="{{ inicial.texto_exento }}">{{ inicial.texto_exento }}</option>
+            </datalist>
+        </div>
+        <div class="paddleft-0" style="float: left;width: 13%; margin-left: 20px">
+            <div id="usutipoiva" class="color-rojo " style="float: left;width: 45%;margin-right: 10px">{{ inicial.tipo_iva }}:</div>
+            <div style="float: left;width: auto"><span id="usuiva" >{{ inicial.iva }}</span> %</div>
+            <div class="color-rojo" style="float: left;width: 45%;margin-right: 10px">Retención:</div>
+            <div style="float: left;width: auto"><span id="usuret" >{{ inicial.retencion }}</span> %</div>
+            <div class="color-rojo" style="float: left;width: 45%;margin-right: 10px">Req. equi.:</div>
+            <div style="float: left;width: auto"><span id="usureq" >{{ inicial.req_equi }}</span> %</div>
+        </div>
+        <div class="paddleft-0" style="float: left;width: 20%; margin-left: 20px">
+            <img id="logoempresa" src="{{ inicial.logo }}" height="60">
+        </div>
+
+    </div>
+
+    <div class="row" style="margin: 0 0 0 0; padding: 20px 0 10px 0; background-color: #ffffdd">
+        <div class="col-md-3 col-xs-12" style="text-decoration: underline; font-size: 16px; color: #3371c8;">Cliente</div>
+        <div class="col-md-3 col-xs-6 text-right color-azul">CIF/NIF del Cliente</div>
+        <div class="col-md-3 col-xs-6"><input id="factcif" class="e-input" value="" list="data-clientes" placeholder="Buscar por nombre" style="background-color: #ffd"></div>
+        <datalist id="data-clientes">
+            {% for cli in clienteslist %}
+                <option value="{{ cli.cif }}">{{ cli.nombre }}</option>
+            <{% endfor %}
+        </datalist>
+    </div>
+    <div class="row" style="margin: 0 0 0 0; border-bottom: 3px solid #9acfea; padding-bottom: 10px; background-color: #ffffdd">
+        <div class="col-md-4 col-xs-12 paddleft-0">
+            <div class="col-md-4 color-rojo paddright-0">Nombre:</div>
+            <div id="factnombre" class="col-md-8 paddleft-0" style="font-size: 12px"></div>
+
+        </div>
+        <div class="col-md-4 col-xs-12 paddleft-0">
+            <div class="col-md-3 color-rojo paddright-0">Dirección:</div>
+            <div id="factdirec" class="col-md-9 paddleft-0" style="overflow-y: auto;height: 50px;font-size: 12px">&nbsp;</div>
+
+        </div>
+        <div class="col-md-4 col-xs-12 paddleft-0">
+            <div class="col-md-3 color-rojo paddright-0">Obser.:</div>
+            <div id="obsercli" class="col-md-9 paddleft-0" style="overflow-y: auto;height: 50px; font-size: 12px">&nbsp; </div>
+
+        </div>
+        <div class="col-md-4 col-xs-6 paddleft-0">
+            <div class="col-md-3 color-rojo paddright-0">Descuento:</div>
+            <div class="col-md-2 paddleft-0" style="font-size: 12px"><span id="factdesc">0.00</span> %</div>
+            <div class="col-md-4 color-rojo paddright-0">Forma Pago:</div>
+            <div class="col-md-3 paddleft-0" style="font-size: 12px"><span id="factformapago">contado</span></div>
+
+        </div>
+
+    </div>
+
+    <div class="row" style="margin: 0 0 0 0; padding: 20px 0 10px 0; background-color: #fff">
+        <div class="col-md-12 col-xs-12" style="text-decoration: underline; font-size: 16px; color: #3371c8; margin-bottom: 20px">
+            <div class="col-md-3"> Elementos Facturados</div>
+            <div class="col-md-3"><button id="btn-vaciaitems" type="button" class="btn btn-trans color-rojo" style="font-size: 13px; margin-top: 0;padding: 0">Vaciar Elementos</button></div>
+            <div class="col-md-3"><button type="button" id="btn-factalba" class="btn-trans font-14">Facturar Albaranes</button></div>
+        </div>
+        <div class="borde-left" style="margin-left: 15px;float: left;width: 5%">Cant.</div>
+        <div class="borde-left" style="float: left;width: 15%">Codigo</div>
+        <div class="borde-left" style="float: left;width: 35%">Concepto</div>
+        <div class="borde-left" style="float: left;width: 5%">Dcto. %</div>
+        <div id="item-tipoiva" class="borde-left" style="float: left;width: 5%">{{ inicial.tipo_iva }} %</div>
+        <div class="borde-left" style="float: left;width: 10%">Precio <span id="simb-moneda"> {{ inicial.cf_mo_simbolo }}</span></div>
+        <div class="borde-right" style="float: left;width: 10%;margin-right: 0">Importe <span id="simb-moneda2"> {{ inicial.cf_mo_simbolo }}</span></div>
+    </div>
+    <div id="div-items" style="width:100%;height: 250px;background-color: #d9edf7;font: normal 13px 'Courier New'; border-bottom: 2px solid #3371c8;overflow-y: scroll; padding-left: 15px">
+
+    </div>
+    <div class="col-md-12">
+
+        <div style="float: left;">
+            <input type="text" id="cantidad" class="input-sm e-input decimal2" maxlength="6" size="4" placeholder="Cantidad" value="1.00">
+            <input type="hidden" id="iditem">
+        </div>
+        <div style="float: left;">
+            <input type="text" id="codigo" class="input-sm e-input" maxlength="30" size="22" placeholder="Código">
+        </div>
+        <div style="float: left;">
+            <input type="text" id="concepto" class="input-sm e-input" maxlength="100" size="55" placeholder="Concepto">
+        </div>
+        <div style="float: left;">
+            <input type="text" id="descuento" class="input-sm e-input color-verde decimal2 text-right" maxlength="10" size="4" placeholder="Dcto." value="0.00" title="Descuento">
+        </div>
+        <div style="float: left;">
+            <input type="text" id="iva" class="input-sm e-input decimal2 color-azul9 text-right" maxlength="10" size="4" placeholder="{{ inicial.tipo_iva }}" title="{{ inicial.tipo_iva }}"
+                    {% if inicial.exento_iva != 'si' %}
+                        value="{{ inicial.iva }}">
+                    {% else %}
+                        value="0.00" readonly>
+                    {% endif %}
+
+        </div>
+        <div style="float: left;">
+            <input type="text" id="precio" class="input-sm e-input text-right decimals" maxlength="20" size="15" placeholder="Precio">
+        </div>
+        <div style="float: left;">
+            <input type="text" id="totimp" class="input-sm e-input text-right" readonly size="15" value="0.00" style="background-color: #dbdbdb;font: bold 14px monospace">
+        </div>
+        <div style="float: left;">
+            <button id="btn-item" type="button" class="btn btn-primary" title="Grabar Artículo" style="height: 20px; margin: 10px 0 0 10px; padding-top: 0px;font-weight: 600; width: 70px"><i class="fa fa-check-square-o"></i></button>
+        </div>
+        <div style="float: left;">
+            <button id="btn-limpiaritem" type="button" class="btn btn-default" title="Cancelar/Borrar" style="height: 20px; margin: 10px 0 0 10px; padding-top: 0px;font-weight: 600"><i class="fa fa-reply"></i></button>
+        </div>
+
+        <div style="clear: both;float: left;width: 100%">
+            <div id="infoitem" style="height: 36px;color: #900; text-align: center;font-size: 18px;margin-top: 20px;float: left;width: 45%"></div>
+            <div style="float: right">
+                <button id="btn-verfactura" type="button" class="btn btn-success" title="Ver Factura / Facturar" style="height: 20px; margin: 10px 0 0 10px; padding-top: 0px;font-weight: 600; width: 123px" ><i class="fa fa-file-text-o"></i> Facturar</button>
+            </div>
+        </div>
+
+        <div class="col-md-5" style="padding-left: 0">
+            <textarea id="fact-obser" placeholder="Notas de la factura" rows="3" class="input-sm" style="width: 100%; border: 1px solid #3371c8"></textarea>
+        </div>
+        <div class="col-md-7" style="padding-left: 0">
+            <div class="col-md-12 color-rojo" style="border-bottom: 1px solid #900;padding-left: 0">Vencimientos / Cobros</div>
+            <div style="float: left;margin-right: 10px"><input id="vfecha" class="e-input fecha-input" size="10" maxlength="10" value="{{ inicial.fecha_factura }}"></div>
+            <div style="float: left;margin-right: 10px "><input id="vtipo"class="e-input" value="Transferencia" list="aux-pagos" style="font-size: 12px"></div>
+            <datalist id="tipocobro">
+                <datalist id="aux-pagos">
+                    {% for pg in formaspago %}
+                        <option value="{{ pg.forma_pago }}">{{ pg.forma_pago }}</option>
+                    {% endfor %}
+                </datalist>
+            </datalist>
+            <div style="float: left;margin-right: 10px "><input id="vimporte"class="e-input text-right decimals" style="font: normal 13px monospace" size="15" value="0.00"></div>
+            <div style="float: left;margin-right: 10px ">
+                <select id="vbanco"class="e-input" style="font:normal 12px monospace;width: 240px">
+                    <option value="--" selected>Selcciona el Banco</option>
+                    {% for bank in bancos %}
+                        {% if bank.numero_cuenta is defined %}
+                            <option value="{{ bank.numero_cuenta~'#'~bank.swift }}">{{ bank.nombre ~ ' - ' ~  bank.numero_cuenta[-10:] | trim}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div id="div-vctos" class="col-md-7" style="background-color: #dddddd; height: 70px;overflow-y: scroll;margin-top: 5px;font-size: 12px"></div>
+            <div class="col-md-5">
+                <div style="float: left;margin-right: 10px "><button type="button" id="btn-v-anadir" class="btn btn-trans" style="height: 20px; margin: 5px 0 0 10px; padding-top: 0px;font-weight: 600;">Añadir</button></div>
+
+                <div style="float: left;font-weight: bold;color: #009;margin-top: 8px">Total Factura... <span id="totalfactura" style="font: bold 13px monospace">0.00</span></div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</form>
+
+
+
+
+
+
+
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
+
+    {{ parent() }}
+    <script src="static/js/facturas.js"></script>
+    <script>
+        var g_decimales = {{ inicial.cf_decimales }}
+    </script>
+
+{% endblock %}

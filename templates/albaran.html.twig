@@ -1,0 +1,93 @@
+
+{% extends 'layout_main.html.twig' %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/print.css" media="print">
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" />
+<title>FACTURA - E-chip</title>
+
+{% endblock %}
+
+{% block body %}
+<div style="position: relative;width: 17.4cm;height: 25.8cm;border: 0px solid black;font:normal 12px factura-mono" class="si-print">
+    <div style="float:left;width: 18%;height: 10px;text-align: left;font-family: factura-mono-bold, monospace; font-size: 20px;margin-top: -3px;letter-spacing: 3px">ALBARAN</div>
+    <div style="float:left;width: 82%;border-top: 12px solid #3371c8"></div>
+    <div class="factura-fechanum">
+        <div class="no-print text-left" style="clear: both;width: 20%;float: left"><button type="button" class="btn-trans no-print" onclick="window.print()" style="color: #900"><i class="fa fa-print"></i>&nbsp;Imprimir</button></div>
+        <div id="txt-numfac" class="text-center" style="width: 60%;float: left"><span class="font-factura-bold font-14">FECHA:</span> {{ albaran.fecha_alba }} <i class="fa fa-circle" style="font-size: 10px;color: #3371c8;" ></i><span class="font-factura-bold font-14"> NUMERO:</span> {{ albaran.numero_alba | upper }}</div>
+    </div>
+    {% set dec = empresa.decimales %}
+    <div style="clear:both;float: left;width: 55%;padding: 5px 10px 10px 5px;border-right: 1px solid #000 ">
+        <div style="float: left;width: 100%"><img src="{{ empresa.logo }}" height="70"></div>
+        <div class="float-left-100" style="line-height: 0.9">{{ empresa.dire | nl2br}}</div>
+    </div>
+    <div style="position: absolute;top:24.5cm;border-top: 1px solid #000;text-align: center;width: 98.5%;padding: 5px;font-size: 10px">{{ empresa.nombre }} - CIF. {{ empresa.cif | upper }}
+
+        <span style="font-size: 9px">
+            {% if empresa. registro_mercantil is not empty %}
+                  -  {{ empresa. registro_mercantil}}
+            {% endif %}
+        </span>
+    </div>
+    <div style="float: left;width: 41%;padding: 5px 0 20px 10px;">
+        <div style="float: left;width: 100%;text-decoration: underline; margin-bottom: 5px">CLIENTE</div>
+        <div class="font-factura-bold" style="float: left;width: 100%; font-size: 12px">{{ cliente.nombre }}</div>
+        <div style="float: left;width: 100%;">NIF. {{ cliente.cif | upper}}</div>
+        <div style="float: left;width: 100%;">{{ cliente.direccion }}<br>{{ cliente.cp }} - {{ cliente.poblacion }}<br>Tlf. {{ cliente.telf }} - {{ cliente.movil }}<br>{{ cliente.provincia | capitalize }} ({{ cliente.pais |capitalize }})</div>
+    </div>
+
+    <div class="float-left-100" style="border-top: 1px solid #000;border-bottom: 1px solid #000;margin-top: 20px; background-color: #3371c8">
+        <div class="font-factura-bold factura-cab-items si-print" style="clear:both;width: 8%"><div>CANT.</div></div>
+        <div class="font-factura-bold factura-cab-items" style="width: 52%"><div>CONCEPTO</div></div>
+        <div class="font-factura-bold factura-cab-items" style="width: 7%"><div>Dcto.</div></div>
+        <div class="font-factura-bold factura-cab-items" style="width: 7%"><div>{{ empresa.tipo_iva }}</div></div>
+        <div class="font-factura-bold factura-cab-items" style="width: 10.95%"><div>PRECIO</div></div>
+        <div class="font-factura-bold factura-cab-items" style="width: 11.7%;margin-right: 0"><div>IMPORTE</div></div>
+    </div>
+
+    <!-- Items albaran-->
+    {% set totalba = 0 %}
+    {% for it in items %}
+        <div style="clear: both;float: left;width: 100%; margin-top: 3px">
+            <div style="clear:both;float: left;width: 6.5%; text-align: right;margin-right: 12px">{{ it.cantidad }}</div>
+            <div style="float: left;width: 52%; margin-right: 3px">{{ it.concepto }}</div>
+            <div style="float: left;width: 7%; text-align: center;margin-right: 6px;">{{ it.descuento }}</div>
+            <div style="float: left;width: 6.5%; text-align: center;margin-right: 6px">{{ it.iva }}</div>
+            <div style="float: left;width: 10%; text-align: right;margin-right: 6px">{{ it.precio }}</div>
+            <div style="float: left;width: 12.7%; text-align: right;">{{ it.importe }}</div>
+            {% set totalba = totalba + it.importe %}
+        </div>
+    {% endfor %}
+
+<!--------------------------------------------->
+    <!------------Firma------------>
+    <div style="clear:both;float: left;width: 45%;padding: 10px 10px 10px 5px;border-bottom: 1px dashed #000; margin: 30px 30px 0 0;">
+        <div style="clear: both;float: left;width: 45%;padding: 10px 0 10px 0; margin: 10px 0 0 0;">
+            Racogido por: {{ albaran.firma | capitalize }}
+        </div>
+
+    </div>
+    <!--------------------->
+
+    <div style="float: right;width: 45%;padding: 10px 0 10px 0; margin: 30px 0 0 0;">
+
+        <div class="float-left-100"><hr></div>
+        <div class="font-factura-bold" style="clear:both;float: left;font-size: 16px">TOTAL ALBARAN</div><div style="float: right;font: bold 16px factura-mono-bold">{{ totalba | number_format(dec,'.', ',') }}{{ empresa.moneda }}</div>
+    </div>
+
+
+
+</div>
+
+
+{% endblock %}
+
+{% block javascript %}
+
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<!--<script src="/static/js/albaranes.js"></script>-->
+
+{% endblock %}

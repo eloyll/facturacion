@@ -1,0 +1,77 @@
+@page {
+    size: A4 portrait;
+}
+@media print {
+
+    /* body{
+         font-family: Arial !important;
+         font-size: 14px !important;
+     }
+     table{
+         border-collapse: collapse;
+         border-spacing: 0;
+     }
+     input{
+         font-family: Arial;
+         font-size: 14px;
+     }
+
+     #cabecera, #buscador, #edicionhist, #content, #dereindi, #indi-anterior, .indi-separador{
+         display: none !important;
+     }
+
+     *{
+         -webkit-print-color-adjust: exact !important;
+         print-color-adjust: exact !important;
+     }*/
+
+
+    .no-print{
+        display: none !important;
+     }
+    .si-print{
+        display: block !important;
+    }
+
+    .div-print{
+        overflow-y: visible;
+        height: auto;
+        border: none;
+    }
+    .divprt-5{
+        width: 5%;
+        float: left;
+        clear: both;
+    }
+    .divprt-80{
+        width: 80%;
+        float: left;
+    }
+    .prt-subra{
+        text-decoration: underline;
+    }
+    .prt-marg-bt20{
+        margin-bottom: 20px;
+    }
+    #prt-empre{
+        display: block;
+    }
+    #txt-numfac{
+        width: 100% !important;
+    }
+
+   /* #div-imprime{
+        border: 0px solid transparent;
+        width: 100%;
+    }
+    #logo-imp{
+        width: 200px;
+    }
+    #div-cliente{
+        font-size: 14px;
+    }
+    #fac-items{
+        height:600px;
+    }*/
+
+}

@@ -1,0 +1,384 @@
+
+@font-face {
+    font-family: as-fina_ttf;
+    src: url("/static/css/fonts/Raleway-Thin.ttf");
+}
+@font-face {
+    font-family: as-normal_ttf;
+    src: url("/static/css/fonts/Raleway-Light.ttf");
+}
+@font-face {
+    font-family: as-media_ttf;
+    src: url("/static/css/fonts/Raleway-Medium.ttf");
+}
+@font-face {
+    font-family: as-regular_ttf;
+    src: url("/static/css/fonts/Raleway-Regular.ttf");
+}
+@font-face {
+    font-family: factura-mono;
+    src: url("/static/css/fonts/Inconsolata-Regular.ttf");
+}
+@font-face {
+    font-family: factura-mono-bold;
+    src: url("/static/css/fonts/Inconsolata-Bold.ttf");
+}
+
+.font-factura{
+    font-family: factura-mono, monospace;
+}
+.font-factura-bold{
+    font-family: factura-mono-bold, monospace;
+}
+
+
+body{
+
+    font:bold 14px as-normal_ttf;
+    color:black;
+    /*background: url("/static/img/riego-cesped-gotas-de-agua2.jpg") no-repeat fixed;
+    background-size: 100% 100%;*/
+
+}
+
+hr {
+    display: block;
+    margin: 0.9em 0 0.3em 0;
+    border-top:1px solid #a3a3a3;
+}
+.e-label{
+    color: #3371c8; font-family: 'Courier 10 Pitch';
+    font-size: 14px;
+}
+.e-input{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #3371c8;
+    padding-bottom: 2px;
+}
+.e-input-form{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #3371c8;
+    padding-bottom: 2px;
+    margin: 8px 10px;
+    color: #000;
+}
+.e-input-form-right{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #3371c8;
+    padding-bottom: 2px;
+    margin: 8px 10px;
+    color: #000;
+    text-align: right;
+}
+
+#p-admin:hover, #pm-admin:hover{
+    cursor: pointer;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #9d9d9d;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #9d9d9d;
+    opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #9d9d9d;
+    opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:    #9d9d9d;
+}
+
+
+.e-select{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #3371c8;
+    padding-bottom: 2px;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.e-label-16b-azul{
+    font: bold 16px as-regular_ttf; color:#3371c8;
+}
+
+.e-div-pass-red{
+    float: left;width: 30px;border:1px solid #3371c8; height: 30px;text-align: center;padding: 7px 0 0 0;margin-right: 5px;
+    color: #900;
+}
+.e-div-pass-blk{
+    float: left;width: 30px;border:1px solid #3371c8; height: 30px;text-align: center;padding: 7px 0 0 0;margin-right: 5px;
+    color: #000;
+}
+.e-div-main{
+    float:left;margin: 140px 25% 0 25%;width: 50%;padding: 15px 20px;box-shadow: 2px 2px 5px #999;border-radius: 5px;
+}
+
+.row-marg20{
+    margin-left: 20px;
+}
+
+.fa-pencil:hover, .fa-sort-amount-asc:hover, .fa-close:hover{
+    cursor: pointer;
+}
+
+.btn-trans{
+    background: none;
+    border: none;
+    text-decoration: underline;
+    color: #3371c8;
+}
+.btn-trans:hover{
+    cursor: pointer;
+}
+
+.sombra-blanca{
+    text-shadow: 2px 2px 5px #FFF;
+}
+.sombra{
+    text-shadow: 2px 2px 5px #000;
+}
+.sombra-solida{
+    text-shadow: 1px 0px #000;
+}
+.sombra-blancasolida{
+    text-shadow: 1px 0px #FFF;
+}
+.sombra-azul{
+    text-shadow: 1px 0px #00F;
+}
+.sombra-img{
+    box-shadow: #000 5px 2px 3px;
+}
+.fondo-azul{
+    background-color: #3371c8;
+}
+.bgcolor-gris{
+    background-color: rgb(240,240,240);
+}
+.titulos{
+    font:bold 22px as-normal_ttf ;
+    color: rgb(0, 48, 157);
+    margin-top: 10px;
+    text-decoration: underline;
+}
+.titulos-tienda{
+    font-size: 20px;text-decoration: underline;
+}
+.color-verde{
+    color: #009900;
+}
+.c-azul{
+    color: #3371c8;
+}
+.color-azul9{
+    color: #009;
+}
+.color-rojo{
+    color: #900;
+}
+.color-amarillo{
+    color: #ffb41b;
+}
+.color-negro{
+    color: #000;
+}
+#div-ver-pedido:hover{
+    cursor: pointer;
+}
+.fa-question-circle-o:hover, .fa-arrow-up:hover{
+    cursor: pointer;
+}
+
+.planempresa{
+    border:1px solid #3371c8;height: 350px;padding: 5px 0;overflow-y: scroll;
+}
+
+#prt-empre{
+    display: none;
+}
+
+legend{
+    width: 120px;font-size: 14px;margin: 5px 0 0 10px;padding-left: 10px;border: none;
+    color: #009;background-color: whitesmoke;
+}
+fieldset{
+    border-left: 6px solid #009;width: 100%;padding: 5px 10px;background-color: #dce1df;
+    height: 51px;
+}
+.div-field-left{
+    height: 20px;
+    text-align: left;
+}
+.div-field-right{
+    height: 20px;
+    text-align: right;
+}
+
+#error-apuntes{
+    clear: both;float: left;width: 100%; margin: 5px 3px 0 0;height: 40px;padding-top: 12px;background-color: #900;color: #fff;border-radius: 5px;font-size: 16px;text-align: center;display: none;
+}
+
+#micarro{
+    color: #009;font-size: 14px;border: 1px solid #ccc;border-radius: 5px;height: 250px;padding: 10px 8px;
+}
+
+#div-trans{
+    border: 1px solid #009;padding: 10px;border-radius: 4px;background-color: #009;color: #FFF;text-align: center;width: 100px;font-size: 12px;
+}
+#div-trans:hover, .pagotarjeta:hover{
+    background-color: #FFF; color: #009; cursor: pointer;
+}
+
+
+.lineas-dash-rojas{
+    border-top: 1px dashed #900;border-bottom: 1px dashed #900;color: #900; margin-top: 20px;padding: 10px 0;margin-bottom: 20px;
+}
+
+#beneficiosas{
+    padding-left: 10px;
+    margin-left: 10px;
+    list-style-type: none;
+}
+#beneficiosas li {
+    margin-bottom: 15px;
+    list-style-image: url("/static/img/logo_15_21.png");
+
+}
+#form-cliente input, #form-conec input{
+    font-size: 14px;
+}
+.font-12{
+    font-size: 12px;
+}
+.font-14{
+    font-size: 14px;
+}
+.font-16{
+    font-size: 16px;
+}
+#div-imprime{
+    border: 1px dashed #439A00; border-radius: 5px; padding-top: 10px;
+}
+
+.ancho-100{
+    width: 100%;
+}
+.padd-0{
+    padding:0;
+}
+.paddleft-0{
+    padding-left:0;
+}
+.paddright-0{
+    padding-right:0;
+}
+.padd-lr-0{
+    padding-left:0;
+    padding-right:0;
+}
+.margin-top-bot{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.margin-bot{
+    margin-bottom: 10px;
+}
+
+.borde-left{
+    border-top: 1px solid #900;
+    border-right: none;
+    border-bottom: 1px solid #900;
+    border-left: 1px solid #900;
+    padding:3px 5px;
+    text-align: center;
+}
+
+.borde-right{
+    border-top: 1px solid #900;
+    border-right: 1px solid #900;
+    border-bottom: 1px solid #900;
+    border-left: 1px solid #900;;
+    padding:3px 5px;
+    text-align: center;
+}
+
+.factura-fechanum{
+    clear: both;float: left;width: 100%; text-align: center;font-size: 12px;margin: 15px 0 0 0;border-bottom: 1px solid #000;padding-bottom: 5px;
+}
+.float-left-100{
+    float: left;
+    width: 100%;
+}
+.float-left-100-pad15{
+    float: left;
+    width: 100%;
+    padding-left: 15px;
+}
+.factura-cab-items{
+    float: left;height: 15px;color: #FFF;text-align: center;margin-right: 2px;font-size: 14px;background-color: #3371c8;
+}
+
+.check-alba{
+    width:13px;height:15px;float: left;text-align: right;margin-top: 10px;background-color:#3371c8;
+}
+.check-alba:hover{
+    cursor: pointer;
+}
+
+.mylabel{
+    clear: both;float: left;width: 20%;color: #3371c8;margin: 10px 0 0 15px;
+}
+.mydivinput{
+    float: left;width: 75%;margin-top: 5px;
+}
+fieldset{
+    margin: 10px auto;
+    border: 1px solid #3371c8;
+    font-size: 14px;
+    padding: 10px 5px 5px 5px;
+    border-radius: 2px;
+    background-color: transparent;
+    height:auto;
+}
+
+legend{
+    font-size: 14px;
+    color: #3371c8;
+    background-color: transparent;
+}
+
+
+
+
+
+
+
+
+/*-----------Ventana Modal--------*/
+.mimodal{
+    position: absolute;top: 0;left: 0;width: 100%; height: 100%;background-color: rgba(126,126,126,0.4);z-index: 665566; overflow: hidden;display: none;
+}
+
+.mimodal .ventana{
+    position: absolute;top: 0;left: 0;margin: 20% 30% 33% 30%;width: 40%;max-height: 200px;background-color: white; border-radius: 7px;padding: 10px 20px;
+}
+.mimodal .ventana .titulo{
+    text-decoration: underline;color: #900;font-weight: bold;
+}
+.mimodal .ventana .texto{
+    position: relative;width:100%; height:30%;border-bottom:1px dashed #900;text-align: center;margin-top: 10px;
+}
+.mimodal .ventana .cerrar{
+    position: relative;text-align: right; margin-top: 10px;
+}
+/*--------------------------------*/

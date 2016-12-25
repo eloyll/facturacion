@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="keywords" content="facturacion, facturación, programa facturacion, empresas, gestion, gestión, gestion empresarial, servicios, informaticos, programacion, development, desarrollo, analisis "/>
+    <meta name="description" content="Programa de facturación para empresas totalmente escalable" />
+    <meta name="author" content="Echip.es">
+
+    {% block css %}
+
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/static/css/perso-bootstrap.css">
+        <link rel="stylesheet" href="/static/css/index.css">
+        <link rel="stylesheet" href="/static/css/print.css" media="print">
+        <link rel="icon" type="image/png" href="/static/img/favicon.png" />
+
+    {% endblock %}
+
+</head>
+<body>
+
+
+{% block body %}
+
+    <div id="pie" class="navbar navbar-default navbar-fixed-top c-azul" style="font-size: 12px">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display                      .navbar-collapse-->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" style="padding: 0 0 0 20px;" href="/main"><img src="/static/img/splash.png" class="img-responsive" style="height: 50px"></a>
+            </div>
+            {% set nover = 'block'  %}
+            {% if id == 'popup' %}
+                {% set nover = 'none !important'  %}
+            {% endif %}
+            <div id="nav-main" class="collapse navbar-collapse" style="display: {{ nover }}">
+                <div class="col-md-7 col-xs-8">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">INICIO <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="cierra" href="#" target="_self">Portada</a></li>
+
+                                <li role="separator" class="divider"></li>
+                                <li><a class="cierra" href="javascript:window.print()">Imprimir</a></li>
+                                <!--<li><a href="/main">Pág Inicial</a></li>-->
+                                <li role="separator" class="divider"></li>
+                                <li><a class="cierra" href="/">Salir</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Empresas <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="cierra" href="#" target="_self">Cambiar de Empresa</a></li>
+                                <li><a class="cierra" href="#" target="_self">Nueva</a></li>
+                                <li><a class="cierra"  href="#">Modificar</a></li>
+                                <li><a class="cierra"  href="#">Eliminar</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Facturas <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="cierra" href="/main" target="_self">Facturación</a></li>
+                                <li><a class="cierra" href="#" target="_self">Anular Factura</a></li>
+                                <li><a class="cierra" href="#" target="_self">Facturar Albaranes</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a class="cierra"  href="/haceralbaran">Albaranes</a></li>
+                                <li><a class="cierra"  href="#">Modificar Albarán</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Clientes <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="cierra" href="/clientes/no" target="_self">Nuevo Cliente</a></li>
+                                <li><a class="cierra" href="#" target="_self">Modificar</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ayuda <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="cierra" href="#">Tutorial</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a class="cierra" id="a-acercade" href="javascript:void(0)">Acerca de...</a></li>
+
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-md-3 col-xs-3 text-right">
+                    <ul class="nav navbar-nav navbar-right" style="color: #ff0;padding-top: 10px">
+                        <li>Usuario: <span style="color: #FFF;">{{ usuario | capitalize}}</span></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+
+{% block javascript %}
+    <div id="acercade" class="no-print" style="display: none;position: absolute;width: 100%;top: 0px;z-index: 33355;">
+        <div id="acercade-in" tabindex="100" style="clear: both;display: inline-block; margin: 120px 25% 10% 25%; width: 50%; border: 2px solid #3371c8;border-radius: 6px">
+            <div style="float: left;width: 100%; background-color: #3371c8; padding-bottom: 10px">
+                <img src="/static/img/splash.png" class="img-responsive" style="min-height: 60px; max-height: 80px"  >
+            </div>
+            <div style="float: left;width: 100%;padding: 10px; background-image: url(/static/img/acercade.jpg); background-position: right bottom; background-size: 80px; background-repeat: no-repeat;background-color: #ddd">
+                <ul style="font-size: 15px">
+                    <li>Version WEB 1.0</li>
+                    <li>Licencia Software Libre</li>
+                    <li>E-chip Software - Tlf. +34 691 509848 La Palma</li>
+                </ul>
+                <br>
+            </div>
+
+        </div>
+
+    </div>
+    <div id="mimodal" class="mimodal no-print">
+        <div id="ventana" class="ventana">
+            <h4 id="titulo-modal" class="titulo">Aviso</h4>
+            <div id="texto-modal" class="texto">Falto solo que se cerrara la ventana</div>
+            <div id="bt-cerrar-modal" class="cerrar"><button class="btn btn-success input-sm" type="button">Cerrar</button> </div>
+        </div>
+    </div>
+
+    <footer class="footer no-print">
+
+    </footer>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="static/js/main.js"></script>
+
+
+{% endblock %}
+
+</body>
+</html>
