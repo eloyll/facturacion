@@ -5,3 +5,4 @@
 originales
 src/settings.php
 public/bower_components
+/.gitignore
