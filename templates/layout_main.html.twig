@@ -27,9 +27,13 @@
 
     <div id="pie" class="navbar navbar-default navbar-fixed-top c-azul" style="font-size: 12px">
         <div class="container-fluid">
+            {% set nover,menu = 'block',''  %}
+            {% if id == 'popup' %}
+                {% set nover,menu = 'none !important','none !important'  %}
+            {% endif %}
             <!-- Brand and toggle get grouped for better mobile display                      .navbar-collapse-->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" style="display: {{ menu }}">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -37,10 +41,7 @@
                 </button>
                 <a class="navbar-brand" style="padding: 0 0 0 20px;" href="/main"><img src="/static/img/splash.png" class="img-responsive" style="height: 50px"></a>
             </div>
-            {% set nover = 'block'  %}
-            {% if id == 'popup' %}
-                {% set nover = 'none !important'  %}
-            {% endif %}
+
             <div id="nav-main" class="collapse navbar-collapse" style="display: {{ nover }}">
                 <div class="col-md-7 col-xs-8">
                     <ul class="nav navbar-nav navbar-left">
