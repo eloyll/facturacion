@@ -209,10 +209,16 @@ class MainController {
     }
 
     public function clientes(RequestInterface $request, ResponseInterface $response, array $args){
-
         $r = $this->main->clientes($args);
 
-        return $this->view->render($response, "clientes.html.twig",["usuario"=>$r['usuario'],"provincias"=>$r['provincias'],"formaspago"=>$r['formaspago'],"id"=>$r['id']]);
+        return $this->view->render($response, "clientes.html.twig",["usuario"=>$r['usuario'],"provincias"=>$r['provincias'],"formaspago"=>$r['formaspago'],"id"=>$r['id'],"idusu"=>$r['idusu']]);
+    }
+
+    public function anadircliente(RequestInterface $request, ResponseInterface $response, array $args){
+        $params = $request->getParsedBody();
+        $r = $this->main->anadirCliente($params);
+
+        return json_encode($r);
     }
 
 

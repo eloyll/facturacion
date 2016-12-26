@@ -127,4 +127,39 @@ class Validaciones {
 
         return $r;
     }
+
+    public function validarCliente(array $d){
+        $cifcli = '';
+        foreach ($d as $k => $t){
+            foreach ($t as $c => $u) {
+                switch ($c){
+                    case 'value':
+                        $v['value'] = $u;
+                        break;
+                    case 'tipo':
+                        $v['tipo'] = $u;
+                        break;
+                    case 'name':
+                        $v['id'] = $u;
+                        break;
+                }
+                if($t['name'] == 'cif'){
+                    $cifcli = $t['value'];
+                }
+            }
+
+            $r = $this->validaDatosFactura($v);
+            if($r['ok'] == 'no'){
+                return $r;
+            }
+        }
+        $r = $this->clientes->clienteCif($cifcli);
+        if($r['nl'] >= 1){
+            $r['ok'] = 'no';
+            $r['id'] = 'cif';
+            return $r;
+        }
+        $r['ok'] = 'si';
+        return $r;
+    }
 }

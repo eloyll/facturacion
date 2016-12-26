@@ -239,8 +239,9 @@ $container['main'] = function($c){
     $logos = $c->get('logos');
     $auxprovinciasDAO = $c->get('auxprovinciasDAO');
     $auxformaspago = $c->get('auxformaspago');
+    $validaciones = $c->get('validaciones');
 
-    $main = new \Facturacion\Model\Main($gestionsesion,$empresas,$clientes,$bancos,$logos,$auxprovinciasDAO,$auxformaspago);
+    $main = new \Facturacion\Model\Main($gestionsesion,$empresas,$clientes,$bancos,$logos,$auxprovinciasDAO,$auxformaspago,$validaciones);
 
     return $main;
 };

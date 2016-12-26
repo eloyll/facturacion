@@ -16,8 +16,9 @@ class Main {
     private $logos;
     private $auxprovinciasDAO;
     private $auxformaspago;
+    private $validaciones;
 
-    public function __construct(GestionSesion $gestionsesion, Empresas $empresas, Clientes $clientes, Bancos $bancos, Logos $logos, AuxProvinciasDAO $auxprovinciasDAO, AuxFormasPago $auxformaspago) {
+    public function __construct(GestionSesion $gestionsesion, Empresas $empresas, Clientes $clientes, Bancos $bancos, Logos $logos, AuxProvinciasDAO $auxprovinciasDAO, AuxFormasPago $auxformaspago, Validaciones $validaciones) {
 
         $this->gestionsesion = $gestionsesion;
         $this->empresas = $empresas;
@@ -26,6 +27,7 @@ class Main {
         $this->logos = $logos;
         $this->auxprovinciasDAO = $auxprovinciasDAO;
         $this->auxformaspago = $auxformaspago;
+        $this->validaciones = $validaciones;
     }
 
     public function inicio(){
@@ -58,10 +60,17 @@ class Main {
     }
 
     public function clientes(array $d){
+        $r['idusu'] = $this->gestionsesion->getKey('FAC-IDUSU');
         $r['usuario'] = $this->gestionsesion->getKey('FAC-USUARIO');
         $r['provincias'] = $this->auxprovinciasDAO->selectProvincias();
         $r['formaspago'] = $this->auxformaspago->getFormasPago();
         $r['id'] = $d['id'];
+
+        return $r;
+    }
+
+    public function anadirCliente(array $d){
+        $r = $this->validaciones->validarCliente($d);
 
         return $r;
     }

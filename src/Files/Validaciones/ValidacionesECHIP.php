@@ -19,8 +19,10 @@ class ValidacionesECHIP {
         $patron['nombres'] = "/^[a-zñáéíóúÑÁÉÍÓÚ\-\/ ]{3,}$/i";
         $patron['nombres-b'] = "/^(|[a-zñáéíóúÑÁÉÍÓÚ\-\/ ]{3,})$/i";
         $patron['ciudad'] = "/^[a-zñáéíóúÑÁÉÍÓÚ()\/\- ]{3,}$/i";
-        $patron['dni'] = "/^([a-z]{1}[0-9]+|[0-9]+[a-z]{1})$/i";
-        $patron['dni-b'] = "/^(|[a-z]{1}[0-9]+|[0-9]+[a-z]{1})$/i";
+        $patron['direc'] = "/^([a-z0-9ñáéíóúÑÁÉÍÓÚºª#:\/\,\.\- ]{3,})$/i";
+        $patron['direc-b'] = "/^(|[a-z0-9ñáéíóúÑÁÉÍÓÚºª#:\/\,\.\- ]{3,})$/i";
+        $patron['dni'] = "/^([a-z]{1}[0-9]+|[0-9]+[a-z]{1}|[a-z]{1}[0-9]+[a-z]{1})$/i";
+        $patron['dni-b'] = "/^(|[a-z]{1}[0-9]+|[0-9]+[a-z]{1}|[a-z]{1}[0-9]+[a-z]{1})$/i";
         $patron['cp'] = "/^[0-9]{2,7}$/i";
         $patron['combo'] = "/^[a-z]{2,7}$/i";
         $patron['cp-b'] = "/^(|[0-9]{4,7})$/i";
@@ -29,6 +31,7 @@ class ValidacionesECHIP {
         $patron['sexo'] = "/^(hombre|mujer){1}$/i";
         $patron['pass'] = "/^\\S{5,15}$/";
         $patron['email'] = "/^[a-zA-Z0-9\.\-\_]+@[a-zA-Z0-9\.\-\_]+[\.][a-zA-Z]{2,3}$/";
+        $patron['email-b'] = "/^(|[a-zA-Z0-9\.\-\_]+@[a-zA-Z0-9\.\-\_]+[\.][a-zA-Z]{2,3})$/";
         $patron['empresas'] = "/^[a-z0-9ñáéíóúÑÁÉÍÓÚ&\.\- ]{3,}$/i";
         $patron['codigos'] = "/^[a-z0-9\-]+$/i";
         $patron['codigos-b'] = "/^(|[a-z0-9\-]+)$/i";
@@ -52,7 +55,7 @@ class ValidacionesECHIP {
 
          switch($v['tipo']){
                 case 'noval':
-                        continue;      //Para que no valide poner la clave noval
+                        continue;      //Para que no valide poner tipo = noval
                     break;
                 case 'fecha':
                     $r = [];

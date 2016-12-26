@@ -1,9 +1,13 @@
 $('#btn-anadircli').click(function(){
-    var datos = {};
-    datos = $('#frm-acliente').serializeArray();
+    var datos = $('#frm-acliente').serializeArray();
+    for(var i in datos){
+        var name = datos[i].name;
+        var tipo = $('input[name='+name+']').data('tipo');
+        datos[i]['tipo'] = tipo;
+   }
 
-   /* $.ajax({
-        type:'post',
+    $.ajax({
+        type:'put',
         dataType:'json',
         headers:{'Content-Type':'application/json'},
         url:'/anadircliente',
@@ -20,18 +24,26 @@ $('#btn-anadircli').click(function(){
                     self.location.reload(true);
                     break;
                 case 'no':
-                    switch (data['id']) {
-                        case 'usufechafac':
+                    if(data['id'] == 'cif'){
+                        $('#' + data['id']).errorForm();
+                        Modal.poner("Hay errores en este campo o está duplicado <br>("+data['nombre']+")", 'Clientes', data['id']);
+                    }else{
+                        $('#' + data['id']).errorForm();
+                        Modal.poner('Hay errores en este campo o está vacio', 'Clientes', data['id']);
+                    }
+
+                    /*switch (data['id']) {
+                        case 'nombre':
                             $('#' + data['id']).errorForm();
-                            Modal.poner('Fecha de la factura con errores', 'Error en los datos', 'usufechafac');
+                            Modal.poner('Hay errores en este campo o está vacio', 'Clientes', data['id']);
                             break;
-                        case 'factcif':
+                        case 'cif':
                             $('#' + data['id']).errorForm();
-                            Modal.poner('El cliente no existe, revisa el CIF', 'Error en los datos', 'factcif');
+                            Modal.poner('Revisa el CIF', 'Error en los datos', data['id']);
                             break;
-                        case 'items':
-                            $('#cantidad').errorForm();
-                            Modal.poner('Debes de facturar un producto', 'Items de la factura', 'cantidad');
+                        case 'direccion':
+                            $('#' + data['id']).errorForm();
+                            Modal.poner('El nombre tiene errores o está vacio', 'Clientes', data['id']);
                             break;
                         case 'cantidad':
                         case 'descuento':
@@ -48,7 +60,7 @@ $('#btn-anadircli').click(function(){
                             $('#' + data['id']).errorForm();
                             Modal.poner('La fecha de un vencimiento es errónea', 'Vencimientos/Cobros', 'vfecha');
                             break;
-                    }
+                    }*/
                     break;
                 case 'sesion':
                     window.self.location.assign('/');
@@ -57,7 +69,7 @@ $('#btn-anadircli').click(function(){
 
             }
         }
-    });*/
+    });
 });
 
 $(document).ready(function(){
