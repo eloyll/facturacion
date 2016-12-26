@@ -153,10 +153,12 @@ class Validaciones {
                 return $r;
             }
         }
-        $r = $this->clientes->clienteCif($cifcli);
-        if($r['nl'] >= 1){
+        $c = $this->clientes->clienteCif($cifcli);
+        if($c['nl'] >= 1){
             $r['ok'] = 'no';
             $r['id'] = 'cif';
+            $r['nombre'] = $c['nombre'];
+            $r['nl'] = $c['nl'];
             return $r;
         }
         $r['ok'] = 'si';
