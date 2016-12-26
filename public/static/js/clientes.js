@@ -59,3 +59,35 @@ $('#btn-anadircli').click(function(){
         }
     });*/
 });
+
+$(document).ready(function(){
+
+    g_ancho = $(window).width();
+    var disp = navigator.userAgent.toLowerCase();
+    if(disp.search(/iphone|ipod|ipad|android|sailfish|mobile/) > -1){
+        g_navega = 'movil';
+        //$('#llamada').css('text-align','left');
+
+    }else{
+        g_navega = 'pc';
+        //$('#llamada').css('text-align','right');
+    }
+
+    if(g_ancho <= 850){
+        $('#cli-col1,#cli-col2,#cli-col3').css('width','50%');
+    }
+    window.addEventListener('resize',function(){
+        g_ancho = $(window).width();
+        if(g_ancho >= 900){
+            $('#cli-col1').css('width','33%');
+            $('#cli-col2').css('width','32%');
+            $('#cli-col3').css('width','32%');
+        }else{
+            $('#cli-col1,#cli-col2,#cli-col3').css('width','50%');
+        }
+    });
+
+
+
+});
+
