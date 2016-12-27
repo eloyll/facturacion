@@ -1,5 +1,21 @@
 var g_trgexe = '';
 
+function decimal2(da,id){
+
+    var valor = '';
+    var patron = /^(\-)?[0-9]+([\.])?[0-9]{0,}$/;
+    if(!patron.test(da)){
+        Modal.poner("Solo se adminten números y el signo 'menos'<br>Ejemplo: -3.36 ó 236","Error en el número");
+        setTimeout(function(){
+            $('#'+id).focus().select();
+        },100);
+        return false;
+    }else{
+        valor = (da/1).toFixed(2);
+        $('#'+id).val(valor);
+        return true;
+    }
+}
 
 $('#precio').keyup(function(e){
     if(e.keyCode == 13){
@@ -89,7 +105,7 @@ $('#btn-limpiaritem').click(function(){
     $('#codio').val('');
     $('#concepto').val('');
     $('#descuento').val('0.00');
-    $('#iva').val($('#usuiva').html());
+    $('#iva').val($('#usuiva').val());
     $('#precio').val('0.00');
     $('#infoitem').empty();
     g_moditem = 'no';
@@ -198,7 +214,7 @@ function poneritems(){
     $('#concepto').val('');
     $('#descuento').val('0.00');
     var siniva = $('input[name=exentoiva]:checked').val();
-    $('#iva').val($('#usuiva').html());
+    $('#iva').val($('#usuiva').val());
     if(siniva == 'si'){
         $('#iva').val('0.00');
     }
@@ -347,11 +363,11 @@ function calaculartotal(){
         g_totitem = g_totitem + imp;
         giva = giva + iva;
     }
-    var ret = parseFloat($('#usuret').html());
+    var ret = parseFloat($('#usuret').val());
     g_ret = parseFloat((g_totitem * ret / 100).toFixed(2));
 
     if(reqsn == 'no'){
-        var req = parseFloat($('#usureq').html());
+        var req = parseFloat($('#usureq').val());
     }else{
         var req = 0;
     }
@@ -367,7 +383,7 @@ $('input[name=exentoiva]').change(function(){
     var v =$(this).val();
     if(v == 'no'){
         $('#textoexento').val('');
-        $('#iva').prop('readonly',false).val($('#usuiva').html());
+        $('#iva').prop('readonly',false).val($('#usuiva').val());
     }else{
         $('#iva').prop('readonly',true).val('0.00');
     }
@@ -587,6 +603,17 @@ $('#cambialogo').change(function(){
 
 });
 
+$('#usuiva').blur(function() {
+    var da = $(this).val();
+    var id = $(this).prop('id');
+    var exe = $("input[name='exentoiva']:checked").val();
+    if(decimal2(da,id)){
+        if(exe == 'no'){
+            $('#iva').val($(this).val());
+        }
+    }
+
+})
 
 //-------------------------------------
 
@@ -695,9 +722,9 @@ $('#sel-empresa').change(function(){
                     $('#factdirec').html('');
                     $('#usufechafac').val(data['fecha_factura']);
                     $('#usutipoiva').empty().html(data['tipo_iva']+":");
-                    $('#usuiva').empty().html(data['iva']);
-                    $('#usuret').empty().html(data['retencion']);
-                    $('#usureq').empty().html(data['req_equi']);
+                    $('#usuiva').val(data['iva']);
+                    $('#usuret').val(data['retencion']);
+                    $('#usureq').val(data['req_equi']);
                     $('#logoempresa').prop('src',data['logo']);
                     $('#item-tipoiva,#tipoexento').empty().html(data['tipo_iva']);
                     $('#simb-moneda,#simb-moneda2').empty().html(data['cf_mo_simbolo']);

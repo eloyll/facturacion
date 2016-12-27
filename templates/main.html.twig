@@ -81,11 +81,11 @@
         </div>
         <div class="paddleft-0" style="float: left;width: 13%; margin-left: 20px">
             <div id="usutipoiva" class="color-rojo " style="float: left;width: 45%;margin-right: 10px">{{ inicial.tipo_iva }}:</div>
-            <div style="float: left;width: auto"><span id="usuiva" >{{ inicial.iva }}</span> %</div>
+            <div style="float: left;width: auto"><input type="text" class="e-input input-sm text-right" id="usuiva" value="{{ inicial.iva }}" style="width: 40px;padding: 0;height: 20px;"> %</div>
             <div class="color-rojo" style="float: left;width: 45%;margin-right: 10px">Retención:</div>
-            <div style="float: left;width: auto"><span id="usuret" >{{ inicial.retencion }}</span> %</div>
+            <div style="float: left;width: auto"><input type="text" class="e-input input-sm text-right decimal2" id="usuret" value="{{ inicial.retencion }}" style="width: 40px;padding: 0;height: 20px;"> %</div>
             <div class="color-rojo" style="float: left;width: 45%;margin-right: 10px">Req. equi.:</div>
-            <div style="float: left;width: auto"><span id="usureq" >{{ inicial.req_equi }}</span> %</div>
+            <div style="float: left;width: auto"><input type="text" class="e-input input-sm text-right decimal2" id="usureq" value="{{ inicial.req_equi }}" style="width: 40px;padding: 0;height: 20px;"> %</div>
         </div>
         <div class="paddleft-0" style="float: left;width: 20%; margin-left: 20px">
             <img id="logoempresa" src="{{ inicial.logo }}" height="60">
