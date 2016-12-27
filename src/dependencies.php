@@ -174,8 +174,7 @@ $container['validacionesECHIP'] = function($c){
 
 $container['validaciones'] = function($c){
     $validacionesEchip = $c->get('validacionesECHIP');
-    $clientes = $c->get('clientes');
-    $validaciones = new Facturacion\Model\Validaciones($validacionesEchip,$clientes);
+    $validaciones = new Facturacion\Model\Validaciones($validacionesEchip);
 
     return $validaciones;
 };
@@ -202,7 +201,8 @@ $container['empresas'] = function($c){
 
 $container['clientes'] = function($c){
     $clientesDAO = $c->get('clientesDAO');
-    $clientes = new Facturacion\Model\Clientes($clientesDAO);
+    $validaciones = $c->get('validaciones');
+    $clientes = new Facturacion\Model\Clientes($clientesDAO,$validaciones);
 
     return $clientes;
 };
@@ -250,7 +250,8 @@ $container['albaranes'] = function($c){
     $albaranesDAO = $c->get('albaranesDAO');
     $transacciones = $c->get('transacciones');
     $clientesDAO = $c->get('clientesDAO');
-    $albaranes = new \Facturacion\Model\Albaranes($albaranesDAO,$transacciones,$clientesDAO);
+    $validaciones = $c->get('validaciones');
+    $albaranes = new \Facturacion\Model\Albaranes($albaranesDAO,$transacciones,$clientesDAO,$validaciones);
 
     return $albaranes;
 };

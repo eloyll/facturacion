@@ -8,13 +8,13 @@ use Files\Validaciones\ValidacionesECHIP;
 class Validaciones {
 
     private $validar;
-    private $clientes;
 
 
-    public function __construct(ValidacionesECHIP $validacionesECHIP,Clientes $clientes) {
+
+    public function __construct(ValidacionesECHIP $validacionesECHIP) {
 
         $this->validar = $validacionesECHIP;
-        $this->clientes = $clientes;
+
 
     }
 
@@ -24,12 +24,7 @@ class Validaciones {
         if($r['ok'] == 'no'){
             return $r;
         }
-        $r = $this->clientes->clienteCif($d['factcif']);
-        if($r['nl'] < 1){
-            $r['ok'] = 'no';
-            $r['id'] = 'factcif';
-            return $r;
-        }
+
         $r = [];
         $r['ok'] = 'si';
         if(count($d['items']) < 1){
@@ -110,12 +105,7 @@ class Validaciones {
         if($r['ok'] == 'no'){
             return $r;
         }
-        $r = $this->clientes->clienteCif($d['albacif']);
-        if($r['nl'] < 1){
-            $r['ok'] = 'no';
-            $r['id'] = 'albacif';
-            return $r;
-        }
+
         $r = [];
         $r['ok'] = 'si';
         if(count($d['items']) < 1){
@@ -153,14 +143,7 @@ class Validaciones {
                 return $r;
             }
         }
-        $c = $this->clientes->clienteCif($cifcli);
-        if($c['nl'] >= 1){
-            $r['ok'] = 'no';
-            $r['id'] = 'cif';
-            $r['nombre'] = $c['nombre'];
-            $r['nl'] = $c['nl'];
-            return $r;
-        }
+
         $r['ok'] = 'si';
         return $r;
     }

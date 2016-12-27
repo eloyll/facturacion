@@ -112,7 +112,7 @@ class MainController {
 
     public function validardatosfactura(RequestInterface $request, ResponseInterface $response, array $args){
         $params = $request->getParsedBody();
-        $r = $this->validaciones->validarDatos($params);
+        $r = $this->main->validarDatosFactura($params);
         return json_encode($r);
     }
 
@@ -162,7 +162,7 @@ class MainController {
 
     public function validardatosalbaran(RequestInterface $request, ResponseInterface $response, array $args){
         $params = $request->getParsedBody();
-        $r = $this->validaciones->validarDatosAlbaran($params);
+        $r = $this->albaranes->validarDatosAlbaran($params);
         return json_encode($r);
     }
 
@@ -216,7 +216,7 @@ class MainController {
 
     public function anadircliente(RequestInterface $request, ResponseInterface $response, array $args){
         $params = $request->getParsedBody();
-        $r = $this->main->anadirCliente($params);
+        $r = $this->clientes->anadirCliente($params);
 
         return json_encode($r);
     }

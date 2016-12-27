@@ -13,12 +13,14 @@ class Albaranes {
     private $albaranesDAO;
     private $transacciones;
     private $clientesDAO;
+    private $validaciones;
 
-    public function __construct(AlbaranesDAO $albaranesDAO, Transacciones $transacciones, ClientesDAO $clientesDAO) {
+    public function __construct(AlbaranesDAO $albaranesDAO, Transacciones $transacciones, ClientesDAO $clientesDAO, Validaciones $validaciones) {
 
         $this->albaranesDAO = $albaranesDAO;
         $this->transacciones = $transacciones;
         $this->clientesDAO = $clientesDAO;
+        $this->validaciones = $validaciones;
     }
 
     public function grabarAlbaran(array $d){
@@ -77,6 +79,23 @@ class Albaranes {
                         "moneda"=>$_SESSION['EMP-CF_MO_SIMBOLO'],
                         "decimales"=>$_SESSION['EMP-CF_DECIMALES']];
         $r['cliente'] = $this->clientesDAO->selectClienteCif($d['clicif']);
+
+        return $r;
+    }
+
+    public function validarDatosAlbaran(array $d){
+
+        $r = $this->validaciones->validarDatosAlbaran($d);
+        if($r['ok'] == 'no'){
+            return $r;
+        }
+
+        $r = $this->clientesDAO->selectClienteCif($d['albacif']);
+        if($r['nl'] < 1){
+            $r['ok'] = 'no';
+            $r['id'] = 'albacif';
+            return $r;
+        }
 
         return $r;
     }

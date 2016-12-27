@@ -69,8 +69,17 @@ class Main {
         return $r;
     }
 
-    public function anadirCliente(array $d){
-        $r = $this->validaciones->validarCliente($d);
+    public function validarDatosFactura(array $d){
+        $r = $this->validaciones->validarDatos($d);
+        if($r['ok'] == 'no'){
+            return $r;
+        }
+        $r = $this->clientes->clienteCif($d['factcif']);
+        if($r['nl'] < 1){
+            $r['ok'] = 'no';
+            $r['id'] = 'factcif';
+            return $r;
+        }
 
         return $r;
     }
