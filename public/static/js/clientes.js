@@ -17,16 +17,25 @@ $('#btn-anadircli').click(function(){
 
             switch(data['ok']){
 
-                case 'sis':
-                    var url = "/factura/"+data['numero_fact']+"/"+idemp;
-                    var mipop = window.open(url,data['numero_fact'],"width=800,height=600,resizable=yes,top=30,left=100,menubar=yes,location=no,scrollbars=yes");
-                    mipop.focus();
-                    self.location.reload(true);
+                case 'si':
+                    Modal.poner("Cliente añadido correctamente","Clientes");
+                    $('#frm-acliente')[0].reset();
+                    if(opener.popcli.length){
+                        opener.popcli.close();
+                    }else{
+                        self.location.reload(true);
+                    }
+
                     break;
                 case 'no':
                     if(data['id'] == 'cif'){
                         $('#' + data['id']).errorForm();
-                        Modal.poner("Hay errores en este campo o está duplicado <br>("+data['nombre']+")", 'Clientes', data['id']);
+                        if(data['nombre'] == undefined){
+                            var campo = "";
+                        }else{
+                            var campo = "("+data['nombre']+")";
+                        }
+                        Modal.poner("Hay errores en este campo o está duplicado <br>"+campo, 'Clientes', data['id']);
                     }else{
                         $('#' + data['id']).errorForm();
                         Modal.poner('Hay errores en este campo o está vacio', 'Clientes', data['id']);

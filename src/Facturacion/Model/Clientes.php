@@ -35,12 +35,8 @@ class Clientes {
         if($r['ok'] == 'no'){
             return $r;
         }
-        for($i=0;$i<count($d)-1;$i++){
-            if($d[$i]['name'] == 'cif'){
-                $cifcli = $d[$i]['value'];
-            }
-        }
-        $c = $this->clienteCif($cifcli);
+
+        $c = $this->clienteCif($r['cif']);
         if($c['nl'] >= 1){
             $r['ok'] = 'no';
             $r['id'] = 'cif';
@@ -48,9 +44,10 @@ class Clientes {
             $r['nl'] = $c['nl'];
             return $r;
         }
-        //$r = $this->clientesDAO->insertCliente($d);
+        unset($r['ok']);
+        $s = $this->clientesDAO->insertCliente($r);
 
-        return $r;
+        return $s;
     }
 
 }

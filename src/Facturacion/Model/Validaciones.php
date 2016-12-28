@@ -136,11 +136,13 @@ class Validaciones {
                 if($t['name'] == 'cif'){
                     $cifcli = $t['value'];
                 }
+                $r[$t['name']] = $t['value']; //si es correcto devuelve el array para el insert
             }
 
-            $r = $this->validaDatosFactura($v);
-            if($r['ok'] == 'no'){
-                return $r;
+            $f = $this->validaDatosFactura($v);
+            if($f['ok'] == 'no'){
+                //$r['ok'] = 'no';
+                return $f;
             }
         }
 

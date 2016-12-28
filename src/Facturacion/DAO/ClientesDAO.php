@@ -41,9 +41,9 @@ class ClientesDAO {
     }
 
     public function insertCliente(array $d){
-        $ins = "insert into clientes (id_usuario, cif, nombre, direccion, poblacion, cp, provincia, pais, web, email, obser, descuento, forma_pago, movil, telf) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $ins = "insert into clientes (id_usuario, cif, nombre, direccion, poblacion, cp, provincia, pais, web, email, obser, descuento, forma_pago, movil, telf,contacto) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $this->db->prepare($ins);
-        $stmt->bind_param('isssssssssdssss',$d['idusu'],$d['cif'],$d['nombre'],$d['direccion'],$d['poblacion'],$d['cp'],$d['provincia'],$d['pais'],$d['web'],$d['email'],$d['obser'],$d['descuento'],$d['forma_pago'],$d['movil'],$d['telf']);
+        $stmt->bind_param('issssssssssdssss',$d['idusu'],$d['cif'],$d['nombre'],$d['direccion'],$d['poblacion'],$d['cp'],$d['provincia'],$d['pais'],$d['web'],$d['email'],$d['obser'],$d['descuento'],$d['forma_pago'],$d['movil'],$d['telf'],$d['contacto']);
         $r['st'] = $stmt->execute();
         if(!$r['st']){
             $r['ok'] = 'no';
