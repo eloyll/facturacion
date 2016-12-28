@@ -1,4 +1,24 @@
 var g_trgexe = '';
+var g_optdialog = {
+    autoOpen: false,
+    height: 600,
+    //minHeight: 400,
+    width: 850,
+    draggable: true,
+    resizable: true,
+    position: {my: "top-250", at: "right"},
+    closeText: "Cerrar/Close",
+    hide: {effect: "fadeOut", duration: 500},
+    show: {effect: "fadeIn", duration: 500},
+    close: function (event, ui) {
+        //$(this).dialog("destroy");
+    }
+    /* open: function (event, ui) {
+
+     }*/
+
+
+};
 
 function decimal2(da,id){
 
@@ -650,8 +670,10 @@ $('#factcif').focusout(function(){
                 case 'si':
                     if(data['nl'] < 1){
                         //Modal.poner("Ese cliente no existe",'Error en el cliente','factcif');
-                        var popcli = window.open("/clientes/popup","anadirclientes","width=800,height=600,resizable=yes,top=30,left=100,menubar=yes,location=no,scrollbars=yes");
-                        popcli.focus();
+                        $('#dialog').dialog(g_optdialog).dialog('open');
+                        $('#webcliente').prop("src","/clientes/popup")
+                       /* var popcli = window.open("/clientes/popup","anadirclientes","width=800,height=600,resizable=yes,top=30,left=100,menubar=yes,location=no,scrollbars=yes");
+                        popcli.focus();*/
                         break;
                     }
                     $('#factnombre').empty().html(data['nombre']);

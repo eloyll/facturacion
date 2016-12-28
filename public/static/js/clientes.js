@@ -18,11 +18,12 @@ $('#btn-anadircli').click(function(){
             switch(data['ok']){
 
                 case 'si':
-                    Modal.poner("Cliente añadido correctamente","Clientes");
-                    $('#frm-acliente')[0].reset();
-                    if(opener.popcli.length){
-                        opener.popcli.close();
+                    if(parent.$('#dialog').length > 0){
+                        parent.$('#dialog').dialog('close');
+                        parent.Modal.poner("Cliente añadido correctamente","Clientes");
                     }else{
+                        Modal.poner("Cliente añadido correctamente","Clientes");
+                        $('#frm-acliente')[0].reset();
                         self.location.reload(true);
                     }
 
@@ -99,7 +100,7 @@ $(document).ready(function(){
     }
     window.addEventListener('resize',function(){
         g_ancho = $(window).width();
-        if(g_ancho >= 900){
+        if(g_ancho >= 851){
             $('#cli-col1').css('width','33%');
             $('#cli-col2').css('width','32%');
             $('#cli-col3').css('width','32%');

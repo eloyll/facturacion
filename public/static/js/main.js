@@ -246,12 +246,13 @@ $('.decimal2').blur(function(){
 
 //cierra colapsa los items del menu cuando estan reducidos
 
-$(function(){
+/*$(function(){
     var navMain = $("#nav-main");
     navMain.on("click", ".cierra", null, function () {
         navMain.collapse('hide');
     });
-});
+});*/
+
 
 
 

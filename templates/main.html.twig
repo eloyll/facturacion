@@ -230,12 +230,6 @@
 
 </form>
 
-
-
-
-
-
-
 </div>
 
 {% endblock %}
@@ -248,5 +242,7 @@
     <script>
         var g_decimales = {{ inicial.cf_decimales }}
     </script>
-
+    <div id="dialog" title="Añdir Cliente" style="width: 900px;height: auto;display: none;">
+        <iframe src="" id="webcliente" style="width: 100%;height: 100%; border: none; background: transparent;margin-top: -50px"></iframe>
+    </div>
 {% endblock %}

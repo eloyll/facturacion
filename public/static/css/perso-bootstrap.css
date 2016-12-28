@@ -45,6 +45,13 @@
     background-color:rgba(255, 246, 192, 1) !important;
 }
 
+.ui-widget-header{
+    background-color: #3371c8;
+    color: whitesmoke;
+}
+.ui-dialog{
+    box-shadow: #0a0a0a 1px 2px 2px;
+}
 /*.navbar-collapse.collapse {
     display: block!important;
 }
