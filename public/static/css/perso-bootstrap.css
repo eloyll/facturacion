@@ -51,6 +51,7 @@
 }
 .ui-dialog{
     box-shadow: #0a0a0a 1px 2px 2px;
+    z-index: 10000;
 }
 /*.navbar-collapse.collapse {
     display: block!important;

@@ -4,6 +4,7 @@ var g_optdialog = {
     height: 600,
     //minHeight: 400,
     width: 850,
+    zindex: 10000,
     draggable: true,
     resizable: true,
     position: {my: "top-250", at: "right"},
