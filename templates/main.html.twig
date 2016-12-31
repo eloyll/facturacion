@@ -43,10 +43,8 @@
             <div class="col-md-5" style="color: #900;">Cambiar Logo
                 <select id="cambialogo" class="e-select input-sm color-negro">
                     {% for lg in logos %}
-                        {% set log = lg.logo | split('/')%}
-                        {% set long = (log | length) - 1 %}
                         {% if lg.logo is defined %}
-                            <option value="{{ lg.logo }}" {% if lg.ultimo == 'si' %} selected="selected" {% endif %}>{{ log[long] }} </option>
+                            <option value="{{ lg.logo }}" {% if lg.ultimo == 'si' %} selected="selected" {% endif %}>{{ lg.nombre }} </option>
                         {% endif %}
                     {% endfor %}
                 </select>
