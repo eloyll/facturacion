@@ -15,13 +15,13 @@ class Logos {
         $this->logosDAO = $logosDAO;
     }
 
-    public function logoInicial(int $idemp){
+    public function logoInicial($idemp){
         $r = $this->logosDAO->selectLogoInicial($idemp);
 
         return $r;
     }
 
-    public function logosEmpresa(int $idemp){
+    public function logosEmpresa($idemp){
         $r = $this->logosDAO->selectLogosEmp($idemp);
 
         return $r;
