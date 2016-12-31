@@ -336,10 +336,10 @@ fieldset{
 }
 
 .mylabel{
-    clear: both;float: left;width: 20%;color: #3371c8;margin: 10px 0 0 15px;
+    clear: both;float: left;width: 23%;color: #3371c8;margin: 10px 0 0 15px;
 }
 .mydivinput{
-    float: left;width: 75%;margin-top: 5px;
+    float: left;width: 72%;margin-top: 5px;
 }
 fieldset{
     margin: 10px auto;
