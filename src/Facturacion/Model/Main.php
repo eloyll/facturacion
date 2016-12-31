@@ -84,4 +84,12 @@ class Main {
         return $r;
     }
 
+    public function empresas(){
+        $r['idusu'] = $this->gestionsesion->getKey('FAC-IDUSU');
+        $r['usuario'] = $this->gestionsesion->getKey('FAC-USUARIO');
+        $r['provincias'] = $this->auxprovinciasDAO->selectProvincias();
+
+        return $r;
+    }
+
 }
