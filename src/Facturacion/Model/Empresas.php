@@ -97,7 +97,7 @@ class Empresas {
                 $this->gestionsesion->setKey('EMP-LOGO',$logos[$j]['logo']);
                 $r['logo'] = $logos[$j]['logo'];
             }
-            $r['logos'] .= '<option value="'.$logos[$j]['logo'].'" '.$chk.'>'.$opt[count($opt)-1].'</option>';
+            $r['logos'] .= '<option value="'.$logos[$j]['logo'].'" '.$chk.'>'.$logos[$j]['nombre'].'</option>';
         }
 
         $r['fecha_factura'] = date("d/m/Y");
