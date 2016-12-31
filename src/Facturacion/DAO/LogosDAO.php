@@ -22,7 +22,7 @@ class LogosDAO {
     }
 
     public function selectLogosEmp($idemp){
-        $sel = "select id,logo,ultimo from logos_empresas where id_empresa='$idemp'";
+        $sel = "select id,logo,ultimo,nombre from logos_empresas where id_empresa='$idemp'";
         $rsel = $this->db->query($sel);
         $r = [];
         for($i=0;$i<$rsel->num_rows;$i++){
