@@ -22,7 +22,7 @@
     </div>
     {% set dec = factura.decimales %}
     <div style="clear:both;float: left;width: 55%;padding: 5px 10px 10px 5px;border-right: 1px solid #000 ">
-        <div style="float: left;width: 100%"><img src="{{ factura.logo }}" height="70"></div>
+        <div style="float: left;width: 100%"><img src="{{ factura.logo }}" height="70" alt=" "></div>
         <div class="float-left-100" style="line-height: 0.9">{{ factura.direccion | nl2br}}</div>
     </div>
     <div style="position: absolute;top:24.5cm;border-top: 1px solid #000;text-align: center;width: 98.5%;padding: 5px;font-size: 10px">{{ factura.empresa }} - CIF. {{ factura.cif }}
