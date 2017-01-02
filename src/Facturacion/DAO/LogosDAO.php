@@ -39,4 +39,20 @@ class LogosDAO {
 
         return $r;
     }
+
+    public function insertLogo(array $d){
+        $ins = "insert into logos_empresas (id_empresa, logo, nombre) VALUES (?,?,?)";
+        $stmt = $this->db->prepare($ins);
+        $stmt->bind_param('iss',$d['id_empresa'],$d['base64'],$d['nombre']);
+        $r['st'] = $stmt->execute();
+        if(!$r['st']){
+            $r['ok'] = 'nob';
+            $r['error'] = $stmt->error;
+            $r['errno'] = $stmt->errno;
+        }else{
+            $r['ok'] = 'si';
+        }
+
+        return $r;
+    }
 }

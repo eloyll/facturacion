@@ -149,4 +149,18 @@ class Validaciones {
         $r['ok'] = 'si';
         return $r;
     }
+
+    public function validarEmpresa(array $d){
+        foreach ($d as $a){
+            $s = $this->validaDatosFactura($a);
+            if($s['ok'] == 'no'){
+                return $s;
+            }
+            $r[$a['id']] = $a['value']; //devuelve el array para insertarlo en la BBDD
+        }
+
+        $r['ok'] = 'si';
+        return $r;
+
+    }
 }

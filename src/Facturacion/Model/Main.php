@@ -92,4 +92,26 @@ class Main {
         return $r;
     }
 
+    public function validarDatosEmpresa (array $d){
+        $v = $this->validaciones->validarEmpresa($d['empresa']);
+        if($v['ok'] == 'no'){
+            return $v;
+        }
+        $v1 = $this->validaciones->validarEmpresa($d['datos_iva']);
+        if($v1['ok'] == 'no'){
+            return $v1;
+        }
+        $v2 = $this->validaciones->validarEmpresa($d['config']);
+        if($v2['ok'] == 'no'){
+            return $v2;
+        }
+
+        $r = $this->empresas->anadirEmpresa($v, $v1, $v2, $d['logo']);
+        if($r['ok'] == 'no'){
+            return $r;
+        }
+
+        return $r;
+    }
+
 }

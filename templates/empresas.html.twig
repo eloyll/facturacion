@@ -1,0 +1,146 @@
+{% extends 'layout_main.html.twig' %}
+
+{% block css %}
+
+    {{ parent () }}
+    <title>EMPRESAS - Echip</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid" style="padding: 0">
+
+    {{ parent () }}
+
+    <div class="float-left-100-pad15" style="margin: 70px 0 15px 0;font-size: 18px;color: #900;text-decoration: underline">Nueva Empresa</div>
+    <form id="frm-empresa1">
+    <div id="emp-col1" style="float: left;width: 33%">
+        <div class="mylabel">Nombre</div><input type="hidden" name="idusu" value="{{ idusu }}" data-tipo="noval">
+        <div class="mydivinput"><input name="nombre" id="nombre" type="text" class="e-input font-12 ancho-100" data-tipo="empresas"></div>
+        <div class="mylabel">CIF/NIF</div>
+        <div class="mydivinput"><input name="cif" id="cif" type="text" class="e-input font-12" maxlength="20" data-tipo="dni"></div>
+        <div class="mylabel">Dirección</div>
+        <div class="mydivinput"><input name="calle" id="calle" type="text" class="e-input font-12 ancho-100" maxlength="100" data-tipo="direc"></div>
+        <div class="mylabel">Población</div>
+        <div class="mydivinput"><input name="ciudad" id="ciudad" type="text" class="e-input font-12 ancho-100" maxlength="50" data-tipo="ciudad"></div>
+        <div class="mylabel">C.P.</div>
+        <div class="mydivinput"><input name="cp" id="cp" type="text" class="e-input font-12" maxlength="7" data-tipo="cp-b"></div>
+        <div class="mylabel">Provincia</div>
+        <div class="mydivinput"><input name="provincia" id="provincia" type="text" class="e-input font-12 ancho-100" maxlength="25" list="aux-prov" data-tipo="ciudad"></div>
+        <datalist id="aux-prov">
+            {% for pr in provincias %}
+                <option value="{{ pr.provincia }}">{{ pr.provincia }}</option>
+            {% endfor %}
+        </datalist>
+        <div class="mylabel">Pais</div>
+        <div class="mydivinput"><input name="pais" id="pais" type="text" class="e-input font-12 ancho-100" maxlength="25" value="España" data-tipo="ciudad"></div>
+        <div class="mylabel">Teléfono</div>
+        <div class="mydivinput"><input name="telf" id="telf" type="text" class="e-input font-12" maxlength="15" data-tipo="telf-b"></div>
+        <div class="mylabel">Móvil</div>
+        <div class="mydivinput"><input name="movil" id="movil" type="text" class="e-input font-12" maxlength="15" data-tipo="telf-b"></div>
+        <div class="mylabel">E-mail</div>
+        <div class="mydivinput"><input name="email" id="email" type="text" class="e-input font-12 ancho-100" maxlength="255" data-tipo="email-b"></div>
+        <div class="mylabel">Pág. WEB</div>
+        <div class="mydivinput"><input name="web" id="web" type="text" class="e-input font-12 ancho-100" maxlength="100" data-tipo="noval"></div>
+    </div>
+    </form>
+
+
+    <div id="emp-col2" style="float: left;width: 32%">
+
+        <form id="frm-empresa2">
+        <div class="mylabel">Tipo Imp.</div>
+        <div class="mydivinput"><input name="tipo_iva" id="tipo_iva" type="text" class="e-input font-12" maxlength="10" data-tipo="codigos" placeholder="IVA,IGIC,IPSI" title="Nombre del Impuesto (IVA, IGIC,IPSI u otro)"></div>
+        <div class="mylabel">Cuota Imp.</div>
+        <div class="mydivinput"><input name="iva" id="iva" type="text" class="e-input font-12 text-right decimal2" maxlength="15" size="6" value="" data-tipo="float2d" title="% que se aplica en las facturas"> <span class="c-azul">%</span></div>
+
+        <div class="mylabel">Exento Imp.</div>
+        <div class="mydivinput">
+            <input type="radio" name="exento_iva" id="exentono" value="no" checked data-tipo="noval" > No
+            <input type="radio" name="exento_iva" id="exentosi" value="si"  data-tipo="noval" > Sí&nbsp;&nbsp;&nbsp;
+        </div>
+        <div class="mylabel">Texto Exec.</div>
+        <div class="mydivinput"><input name="texto_exento" id="texto_exento" type="text" class="e-input font-12 ancho-100"  data-tipo="noval" title="Texto/Ley de la exención" placeholder="Texto/Ley de la exención" maxlength="100"></div>
+
+        <div class="mylabel">Retención</div>
+        <div class="mydivinput" style="width: 30%;"><input name="retencion" id="retencion" type="text" class="e-input font-12 text-right decimal2" maxlength="15" size="6" value="0.00" data-tipo="float2d" title="Retención en facturas (Profesionales o Autónomos)"> <span class="c-azul">%</span></div>
+            <div style="float: right;color: #3371c8;padding-top: 10px">Rec.Equi.
+                <input name="req_equi" id="req_equi" type="text" class="e-input font-12 text-right decimal2" maxlength="5" value="0.00" data-tipo="float2d" title="Recargo Equivalencia (%)" style="position: relative;top: -6px;left: 10px;color: #000;width: 40px">&nbsp;&nbsp;&nbsp;%</div>
+
+
+
+        <div class="mylabel">Prefijo Fac.</div>
+        <div class="mydivinput"><input name="prefijo_numfac" id="prefijo_numfac" type="text" class="e-input font-12" maxlength="10" data-tipo="noval" placeholder="Ejem. WEB-" title="Texto que va antes del número de factura"></div>
+        <div class="mylabel">Número Fac.</div>
+        <div class="mydivinput"><input name="numero_fac" id="numero_fac" type="text" class="e-input font-12 text-right" maxlength="15" size="6" value="" data-tipo="numero" title="Numero de factura" placeholder="Número entero"></div>
+        <div class="mylabel">Sufijo Fac.</div>
+        <div class="mydivinput"><input name="sufijo_numfac" id="sufijo_numfac" type="text" class="e-input font-12" maxlength="10" data-tipo="noval" placeholder="Ejem. /2018" title="Texto que va después del número de factura"></div>
+        <div class="mylabel">Texto R.M.</div>
+        <div class="mydivinput"><input name="registro_mercantil" id="registro_mercantil" type="text" class="e-input font-12 ancho-100"  data-tipo="noval" title="Texto de inscripción en el Registro Mercantil" placeholder="Texto Registro Mercantil"></div>
+        </form>
+
+        <form id="frm-empresa3">
+        <div class="mylabel">Moneda</div>
+        <div class="mydivinput"><input name="cf_moneda" id="cf_moneda" type="text" class="e-input font-12" maxlength="20" size="10" value="Eur" data-tipo="noval" title="Moneda base, a ser posible el código (3 letras)" placeholder="Moneda"></div>
+        <div class="mylabel">Símbolo Mo.</div>
+        <div class="mydivinput"><input name="cf_mo_simbolo" id="cf_mo_simbolo" type="text" class="e-input font-12" maxlength="5" value="€" data-tipo="noval" title="Símbolo de la moneda" placeholder="" style="width: 13%">
+            <div style="position: relative;left:60px;top: -12px;color: #3371c8;width: 20%">Decimales
+            <input name="cf_decimales" id="cf_decimales" type="text" class="e-input font-12 text-right" maxlength="5" size="5" value="2" data-tipo="numero" title="Los decimales de la factura" style="position: relative;top: -22px;left: 90px;color: #000;"></div>
+        </div>
+        </form>
+
+
+    </div>
+
+
+    <form id="frm-empresa4">
+    <div id="emp-col3" style="float: left;width: 32%; height: auto;padding-left: 15px">
+        <div class="float-left-100 c-azul" style="text-decoration: underline">Selecciona el Logo</div>
+        <div class="float-left-100">
+            <div id="verbase" alt="Visualización base" style="border: ;height: 200px; width: 100%; margin-top: 20px">
+            <img name="verlogo" id="verlogo" style="border: 0; max-height: 200px; max-width: 396px" src="" alt="Máximo tamaño 100 Kb (jpg,gif,png,svg)">
+        </div>
+        <div class="float-left-100" style="margin-top: 20px;padding-left: 0">
+            <input type="file" class="input-sm" id="logo" name="logo" style="width: 100%;padding-left: 0">
+        </div>
+
+        <div id="listafiles" class="float-left-100" style="height: 40px; margin-top: 20px">
+
+        </div>
+
+        <div class="float-left-100">
+            <div style="clear: both;float: left;width: 30%"><button type="button" id="btn-limpiaremp" class="btn btn-default input-sm" style="margin-right: 40px">limpiar Datos</button></div>
+            <div style="float: right;width: 30%"><button type="button" id="btn-anadiremp" class="btn-trans input-sm">Añadir Empresa</button></div>
+        </div>
+
+    </div>
+
+
+
+    </div>
+    </form>
+
+    <div class="float-left-100">
+        <ul>
+            <li>El logo no puede pasar de 100 Kb</li>
+            <li>Si sale cortado, aunque sea menor de 100 Kb habría que reducirlo</li>
+        </ul>
+    </div>
+
+
+
+
+
+
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
+
+    {{ parent() }}
+    <script src="/static/js/empresas.js"></script>
+
+
+{% endblock %}

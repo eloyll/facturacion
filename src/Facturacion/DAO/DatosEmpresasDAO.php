@@ -14,6 +14,19 @@ class DatosEmpresasDAO {
 
     public function insertDatos(array $d){
 
+        $ins = "insert into datos_empresas (id_empresa, tipo_iva, iva, retencion, req_equi, prefijo_numfac, sufijo_numfac, numero_fac, registro_mercantil, exento_iva, texto_exento) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        $stmt = $this->db->prepare($ins);
+        $stmt->bind_param('isdddssisss',$d['id_empresa'],$d['tipo_iva'],$d['iva'],$d['retencion'],$d['req_equi'],$d['prefijo_numfac'],$d['sufijo_numfac'],$d['numero_fac'],$d['registro_mercantil'],$d['exento_iva'],$d['texto_exento']);
+        $r['st'] = $stmt->execute();
+        if(!$r['st']){
+            $r['ok'] = 'nob';
+            $r['error'] = $stmt->error;
+            $r['errno'] = $stmt->errno;
+        }else{
+            $r['ok'] = 'si';
+        }
+
+        return $r;
     }
 
     public function selectDatos($idemp){

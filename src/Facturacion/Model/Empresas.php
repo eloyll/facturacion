@@ -13,6 +13,7 @@ use Facturacion\DAO\ConfiguracionesDAO;
 use Facturacion\DAO\DatosEmpresasDAO;
 use Facturacion\DAO\EmpresasDAO;
 use Facturacion\DAO\LogosDAO;
+use Facturacion\DataSource\Transacciones;
 use Files\Sesiones\GestionSesion;
 
 class Empresas {
@@ -23,8 +24,9 @@ class Empresas {
     private $configuracionesDAO;
     private $bancos;
     private $logos;
+    private $transacciones;
 
-    public function __construct(EmpresasDAO $empresasDAO, DatosEmpresasDAO $datosempresasDAO, GestionSesion $gestionsesion, ConfiguracionesDAO $configuracionesDAO, Bancos $bancos, Logos $logos) {
+    public function __construct(EmpresasDAO $empresasDAO, DatosEmpresasDAO $datosempresasDAO, GestionSesion $gestionsesion, ConfiguracionesDAO $configuracionesDAO, Bancos $bancos, Logos $logos, Transacciones $transacciones) {
 
         $this->empresasDAO = $empresasDAO;
         $this->gestionsesion = $gestionsesion;
@@ -32,6 +34,7 @@ class Empresas {
         $this->configuracionesDAO = $configuracionesDAO;
         $this->bancos = $bancos;
         $this->logos = $logos;
+        $this->transacciones = $transacciones;
     }
 
     public function putEmpresaSesion(array $d){
@@ -113,5 +116,35 @@ class Empresas {
         $r['ok'] = 'si';
 
         return $r;
+    }
+
+    public function anadirEmpresa(array $d, array $d1, array $d2, array $d3){
+        $this->transacciones->startTransaction();
+        $r1 = $this->empresasDAO->insertEmpresa($d);
+        if($r1['ok'] == 'no'){
+            $this->transacciones->stopTransaction();
+            return $r1;
+        }
+        $d1['id_empresa'] = $r1['id_empresa'];
+        $r2 = $this->datosempresasDAO->insertDatos($d1);
+        if($r2['ok'] == 'no'){
+            $this->transacciones->stopTransaction();
+            return $r2;
+        }
+        $d2['id_empresa'] = $r1['id_empresa'];
+        $r3 = $this->configuracionesDAO->insertConfiguracion($d2);
+        if($r3['ok'] == 'no'){
+            $this->transacciones->stopTransaction();
+            return $r3;
+        }
+        $d3['id_empresa'] = $r1['id_empresa'];
+        $r4 = $this->logos->anadirLogo($d3);
+        if($r4['ok'] == 'no'){
+            $this->transacciones->stopTransaction();
+            return $r4;
+        }
+
+        $this->transacciones->grabarTransaction();
+        return $r4;
     }
 }

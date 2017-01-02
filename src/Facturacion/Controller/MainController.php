@@ -221,6 +221,19 @@ class MainController {
         return json_encode($r);
     }
 
+    public function empresas(RequestInterface $request, ResponseInterface $response, array $args){
+        $r = $this->main->empresas();
+
+        return $this->view->render($response, "empresas.html.twig",["usuario"=>$r['usuario'],"idusu"=>$r['idusu'],"provincias"=>$r['provincias']]);
+    }
+
+    public function anadirempresa(RequestInterface $request, ResponseInterface $response, array $args){
+        $params = $request->getParsedBody();
+        $r = $this->main->validarDatosEmpresa($params);
+
+        return json_encode($r);
+    }
+
 
 
 

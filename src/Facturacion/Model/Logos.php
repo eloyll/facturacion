@@ -32,4 +32,10 @@ class Logos {
 
         return $r;
     }
+
+    public function anadirLogo(array $d){
+        $r = $this->logosDAO->insertLogo($d);
+
+        return $r;
+    }
 }

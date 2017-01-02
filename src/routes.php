@@ -27,3 +27,5 @@ $app->get("/veralbaranes/{clicif}","MainController:getalbaranescif")->setName("g
 $app->post("/cambiologo","MainController:cambiologo")->setName("cambiologo");
 $app->get("/clientes/{id}","MainController:clientes")->setName("clientes");
 $app->put("/anadircliente","MainController:anadircliente")->setName("anadircliente");
+$app->get("/empresas","MainController:empresas")->setName("empresas");
+$app->put("/anadirempresa","MainController:anadirempresa")->setName("anadirempresa");

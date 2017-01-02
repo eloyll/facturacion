@@ -194,7 +194,8 @@ $container['empresas'] = function($c){
     $configuracionesDAO = $c->get('configuracionesDAO');
     $bancos = $c->get('bancos');
     $logos = $c->get('logos');
-    $empresas = new Facturacion\Model\Empresas($empresasDAO,$datosempresasDAO,$gestionsesion,$configuracionesDAO,$bancos,$logos);
+    $transacciones = $c->get('transacciones');
+    $empresas = new Facturacion\Model\Empresas($empresasDAO,$datosempresasDAO,$gestionsesion,$configuracionesDAO,$bancos,$logos,$transacciones);
 
     return $empresas;
 };

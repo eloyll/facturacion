@@ -15,6 +15,21 @@ class EmpresasDAO {
 
     public function insertEmpresa(array $d){
 
+        $ins = "insert into empresas (id_usuario, cif, nombre, calle, cp, ciudad, provincia, pais, telf, movil, web, email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        $stmt = $this->db->prepare($ins);
+        $stmt->bind_param('isssssssssss',$d['idusu'],$d['cif'],$d['nombre'],$d['calle'],$d['cp'],$d['ciudad'],$d['provincia'],$d['pais'],$d['telf'],$d['movil'],$d['web'],$d['email']);
+        $r['st'] = $stmt->execute();
+        if(!$r['st']){
+            $r['ok'] = 'nob';
+            $r['error'] = $stmt->error;
+            $r['errno'] = $stmt->errno;
+        }else{
+            $r['ok'] = 'si';
+            $r['id_empresa'] = $stmt->insert_id;
+        }
+
+        return $r;
+
     }
 
     public function selectEmpresas($id){
@@ -31,9 +46,16 @@ class EmpresasDAO {
 
     public function selectEmpresaInicial($id){
 
-        $sel = "select * from empresas where id_usuario='$id' and ultima='si'";
+         $sel = "select id,id_usuario, cif, nombre, calle, cp, ciudad, provincia, pais, telf, movil, web, email, fecha_alta, ultima from empresas where id_usuario='$id' and ultima='si'";
         $rsel = $this->db->query($sel);
-        $r = $rsel->fetch_assoc();
+        if($rsel->num_rows < 1){
+            $sel = "select id,id_usuario, cif, nombre, calle, cp, ciudad, provincia, pais, telf, movil, web, email, fecha_alta, ultima from empresas where id_usuario='$id' LIMIT 1";
+            $rsel = $this->db->query($sel);
+            $r = $rsel->fetch_assoc();
+        }else{
+            $r = $rsel->fetch_assoc();
+        }
+
 
         return $r;
     }
