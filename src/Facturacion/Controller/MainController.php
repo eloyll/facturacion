@@ -142,6 +142,7 @@ class MainController {
                 $error = "No se encuentra esa factura (".$args['num']."), o el servidor no esta en servicio. Inténtalo más tarde.";
                 return $this->view->render($response, "error_slim.html.twig",["error"=>$error]);
             }else{
+
                 return $this->view->render($response, "factura.html.twig",["factura"=>$r[0]['factura'],"items"=>$r[0]['item'],"iva"=>$r[0]['iva'],"vcto"=>$r[0]['vcto']]);
             }
         }
