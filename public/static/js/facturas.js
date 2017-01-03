@@ -12,13 +12,31 @@ var g_optdialog = {
     hide: {effect: "fadeOut", duration: 500},
     show: {effect: "fadeIn", duration: 500},
     close: function (event, ui) {
-        //$(this).dialog("destroy");
+        //$(this).dialog("destroy");self.location.reload(true);
     }
     /* open: function (event, ui) {
 
      }*/
+};
 
+var g_optdialog2 = {
+    autoOpen: false,
+    height: 600,
+    //minHeight: 400,
+    width: 850,
+    zindex: 10000,
+    draggable: true,
+    resizable: true,
+    position: {my: "top-250", at: "right"},
+    closeText: "Cerrar/Close",
+    hide: {effect: "fadeOut", duration: 500},
+    show: {effect: "fadeIn", duration: 500},
+    close: function (event, ui) {
+        self.location.reload(true);
+    }
+    /* open: function (event, ui) {
 
+     }*/
 };
 
 function decimal2(da,id){
@@ -38,14 +56,58 @@ function decimal2(da,id){
     }
 }
 
+function decimales(da,id){
+   /* var da = "";
+    var id = "";
+    if(g_keycode == 13){
+        da = g_dato_input;
+        id = g_id_input;
+        g_id_input = '';
+        g_dato_input ='';
+        g_keycode = 0;
+    }else{
+        da = $(this).val();
+        id = $(this).prop('id');
+    }
+    if(da.length < 1){
+        da = (0/1).toFixed(g_decimales);
+        $('#'+id).val(da);
+        return;
+    }*/
+
+    var valor = '';
+    var patron = /^(\-)?[0-9]+([\.]?[0-9]{0,})$/;
+    if(!patron.test(da)){
+        Modal.poner("Solo se adminten números y el signo 'menos'<br>Ejemplo: 150116.255 ó -2236.36","Error de formato");
+        setTimeout(function(){
+            $('#'+id).focus().select();
+        },100);
+        return false;
+    }else{
+        valor = (da/1).toFixed(g_decimales);
+        $('#'+id).val(valor);
+        return true;
+    }
+}
+
 $('#precio').keyup(function(e){
     if(e.keyCode == 13){
-        g_keycode = 13;
+        /*g_keycode = 13;
         g_dato_input = $(this).val();
-        g_id_input = $(this).prop('id');
-        $('.decimals').trigger('blur');
-
+        g_id_input = $(this).prop('id');*/
+        var da = $(this).val();
+        var id = $(this).prop('id');
+        if(decimales(da,id)){
+            $('#btn-item').trigger('click');
+        }
     }
+});
+
+$('#precio').blur(function(e){
+
+    var da = $(this).val();
+    var id = $(this).prop('id');
+    decimales(da,id)
 
 });
 
@@ -114,6 +176,7 @@ $('#btn-item').click(function(){
         $('#concepto').val('');
         $('#descuento').val(g_items[g_conitem].descuento);
         $('#iva').val(g_items[g_conitem].iva);
+        $pre.val((0/1).toFixed(g_decimales))
         $('#totimp').val((g_totitem/1).toFixed(g_decimales));
         $('#vimporte').val((total/1).toFixed(g_decimales));
         $('#totalfactura').empty().html((total/1).toFixed(g_decimales));
@@ -123,11 +186,11 @@ $('#btn-item').click(function(){
 });
 $('#btn-limpiaritem').click(function(){
     $('#cantidad').val('1.00');
-    $('#codio').val('');
+    $('#codigo').val('');
     $('#concepto').val('');
     $('#descuento').val('0.00');
     $('#iva').val($('#usuiva').val());
-    $('#precio').val('0.00');
+    $('#precio').val((0/1).toFixed(g_decimales));
     $('#infoitem').empty();
     g_moditem = 'no';
 
@@ -239,7 +302,7 @@ function poneritems(){
     if(siniva == 'si'){
         $('#iva').val('0.00');
     }
-    $('#precio').val('0.00');
+    $('#precio').val((0/1).toFixed(g_decimales));
     $('#totimp').val((g_totitem/1).toFixed(g_decimales));
     $('#vimporte').val((total/1).toFixed(g_decimales));
     $('#totalfactura').empty().html((total/1).toFixed(g_decimales));
@@ -562,9 +625,16 @@ function facturacion() {
 
                 case 'si':
                     var url = "/factura/"+data['numero_fact']+"/"+idemp;
-                    var mipop = window.open(url,data['numero_fact'],"width=800,height=600,resizable=yes,top=30,left=100,menubar=yes,location=no,scrollbars=yes");
-                    mipop.focus();
+                    var mipop = window.open(url,data['numero_fact'],"width=800,height=600,resizable=yes,top=30,left=100,menubar=no,toolbar=no,location=no,scrollbars=yes");
+                     mipop.focus();
+
                     self.location.reload(true);
+                    /*g_trgexe = 'si';
+                    $('#btn-vaciaitems').trigger('click');
+                    setTimeout(function(){
+                        $('#dialog2').dialog(g_optdialog2).dialog('open');
+                        $('#webfactura').prop("src","/factura/"+data['numero_fact']+"/"+idemp);
+                    },500);*/
                     break;
                 case 'no':
                     Modal.poner('Error en los datos, notificarlo al programador','FACTURA','importe');
