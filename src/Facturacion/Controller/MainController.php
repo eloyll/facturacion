@@ -235,6 +235,12 @@ class MainController {
         return json_encode($r);
     }
 
+    public function modiempresas(RequestInterface $request, ResponseInterface $response, array $args){
+        $r = $this->main->empresas();
+
+        return $this->view->render($response, "empresas_modi.html.twig",["usuario"=>$r['usuario'],"idusu"=>$r['idusu'],"provincias"=>$r['provincias']]);
+    }
+
 
 
 

@@ -29,3 +29,4 @@ $app->get("/clientes/{id}","MainController:clientes")->setName("clientes");
 $app->put("/anadircliente","MainController:anadircliente")->setName("anadircliente");
 $app->get("/empresas","MainController:empresas")->setName("empresas");
 $app->put("/anadirempresa","MainController:anadirempresa")->setName("anadirempresa");
+$app->get("/modiempresas","MainController:modiempresas")->setName("modiempresas");
