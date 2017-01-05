@@ -56,7 +56,6 @@ class EmpresasDAO {
             $r = $rsel->fetch_assoc();
         }
 
-
         return $r;
     }
 
@@ -71,7 +70,6 @@ class EmpresasDAO {
             $r['ok'] = 'no';
         }
 
-
         return $r;
     }
 
@@ -81,5 +79,22 @@ class EmpresasDAO {
         $this->db->query("update empresas set ultima='si' where id='$id'");
 
         return true;
+    }
+
+    public function selectBuscaEmpresas(array $d){
+        $sel = "select id,nombre,cif,ciudad from empresas where id_usuario='$d[idusu]' and $d[campo] like '%$d[buscar]%' order by $d[campo]";
+        $rsel = $this->db->query($sel);
+        if($rsel){
+            $r = [];
+            for($i=0;$i<$rsel->num_rows;$i++){
+                $r[] = $rsel->fetch_assoc();
+            }
+            $r['ok'] = 'si';
+            $r['nl'] = $rsel->num_rows;
+        }else{
+            $r['ok'] = 'no';
+        }
+
+        return $r;
     }
 }

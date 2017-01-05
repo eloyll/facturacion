@@ -241,6 +241,13 @@ class MainController {
         return $this->view->render($response, "empresas_modi.html.twig",["usuario"=>$r['usuario'],"idusu"=>$r['idusu'],"provincias"=>$r['provincias']]);
     }
 
+    public function buscaempre(RequestInterface $request, ResponseInterface $response, array $args){
+        $p = $request->getParsedBody();
+        $r = $this->empresas->buscarEmpresas($p);
+
+        return json_encode($r);
+    }
+
 
 
 

@@ -13,7 +13,30 @@
     {{ parent () }}
 
     <div class="float-left-100-pad15" style="margin: 70px 0 15px 0;font-size: 18px;color: #900;text-decoration: underline">Modificar Empresa</div>
-    <form id="frm-empresa1">
+
+    <div class="float-left-100">
+        <div style="float: left;width: 40%; margin-left: 15px">
+        <fieldset>
+            <legend>Buscar por:</legend>
+            <input type="radio" name="buscaempre" id="buscaempre1" value="nombre" checked> Nombre &nbsp;&nbsp;&nbsp;
+            <input type="radio" name="buscaempre" id="buscaempre2" value="cif"> CIF/NIF &nbsp;&nbsp;&nbsp;
+            <input name="datosbusemp" id="datosbusemp" type="text" class="e-input font-12" style="width:40% "placeholder="Datos a buscar" autofocus>
+
+        </fieldset>
+        </div>
+        <div style="float: left;width: 40%; margin-left: 15px">
+            <fieldset>
+                <legend>Empresas</legend>
+                <select style="overflow-y: scroll;width: 100%; border: 1px dashed #3371c8; font: normal 12px monospace;" size="3" id="resbuscaemp">
+
+                </select>
+            </fieldset>
+        </div>
+    </div>
+
+
+
+    <form id="frm-modiempresa1">
     <div id="emp-col1" style="float: left;width: 33%">
         <div class="mylabel">Nombre</div><input type="hidden" name="idusu" value="{{ idusu }}" data-tipo="noval">
         <div class="mydivinput"><input name="nombre" id="nombre" type="text" class="e-input font-12 ancho-100" data-tipo="empresas"></div>
@@ -48,7 +71,7 @@
 
     <div id="emp-col2" style="float: left;width: 32%">
 
-        <form id="frm-empresa2">
+        <form id="frm-modiempresa2">
         <div class="mylabel">Tipo Imp.</div>
         <div class="mydivinput"><input name="tipo_iva" id="tipo_iva" type="text" class="e-input font-12" maxlength="10" data-tipo="codigos" placeholder="IVA,IGIC,IPSI" title="Nombre del Impuesto (IVA, IGIC,IPSI u otro)"></div>
         <div class="mylabel">Cuota Imp.</div>
@@ -79,7 +102,7 @@
         <div class="mydivinput"><input name="registro_mercantil" id="registro_mercantil" type="text" class="e-input font-12 ancho-100"  data-tipo="noval" title="Texto de inscripción en el Registro Mercantil" placeholder="Texto Registro Mercantil"></div>
         </form>
 
-        <form id="frm-empresa3">
+        <form id="frm-modiempresa3">
         <div class="mylabel">Moneda</div>
         <div class="mydivinput"><input name="cf_moneda" id="cf_moneda" type="text" class="e-input font-12" maxlength="20" size="10" value="Eur" data-tipo="noval" title="Moneda base, a ser posible el código (3 letras)" placeholder="Moneda"></div>
         <div class="mylabel">Símbolo Mo.</div>
@@ -93,7 +116,7 @@
     </div>
 
 
-    <form id="frm-empresa4">
+    <form id="frm-modiempresa4">
     <div id="emp-col3" style="float: left;width: 32%; height: auto;padding-left: 15px">
         <div class="float-left-100 c-azul" style="text-decoration: underline">Selecciona el Logo</div>
         <div class="float-left-100">
@@ -110,7 +133,7 @@
 
         <div class="float-left-100">
             <div style="clear: both;float: left;width: 30%"><button type="button" id="btn-limpiaremp" class="btn btn-default input-sm" style="margin-right: 40px">limpiar Datos</button></div>
-            <div style="float: right;width: 30%"><button type="button" id="btn-anadiremp" class="btn-trans input-sm">Añadir Empresa</button></div>
+            <div style="float: right;width: 30%"><button type="button" id="btn-anadiremp" class="btn-trans input-sm">Modificar Empresa</button></div>
         </div>
 
     </div>
@@ -140,7 +163,7 @@
 {% block javascript %}
 
     {{ parent() }}
-    <script src="/static/js/empresas.js"></script>
+    <script src="/static/js/empresas_modi.js"></script>
 
 
 {% endblock %}

@@ -147,4 +147,15 @@ class Empresas {
         $this->transacciones->grabarTransaction();
         return $r4;
     }
+
+    public function buscarEmpresas(array $d){
+        $d['idusu'] = $this->gestionsesion->getKey('FAC-IDUSU');
+        $r = $this->empresasDAO->selectBuscaEmpresas($d);
+        $r['datos'] = '';
+        for($i=0;$i < $r['nl'];$i++){
+            $r['datos'] .= '<option value="'.$r[$i]['id'].'">'.ucwords($r[$i]['nombre']).' - CIF. '.strtoupper($r[$i]['cif']).' - '.ucwords($r[$i]['ciudad']).'</option>';
+        }
+
+        return $r;
+    }
 }
