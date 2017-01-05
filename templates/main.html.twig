@@ -208,7 +208,7 @@
                     <option value="--" selected>Selcciona el Banco</option>
                     {% for bank in bancos %}
                         {% if bank.numero_cuenta is defined %}
-                            <option value="{{ bank.numero_cuenta~'#'~bank.swift }}">{{ bank.nombre ~ ' - ' ~  bank.numero_cuenta[-10:] | trim}}</option>
+                            <option value="{{ bank.numero_cuenta~'#'~bank.swift }}">{{ bank.banco ~ ' - ' ~  bank.numero_cuenta[-10:] | trim}}</option>
                         {% endif %}
                     {% endfor %}
                 </select>
