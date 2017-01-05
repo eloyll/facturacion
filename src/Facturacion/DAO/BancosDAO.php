@@ -14,7 +14,7 @@ class BancosDAO {
 
 
     public function selectBancosEmp($idemp){
-        $sel = "select id_empresa,numero_cuenta,swift,nombre from bancos_empresas where id_empresa='$idemp'";
+        $sel = "select id_empresa,numero_cuenta,swift,nombre from bancos_empresas where id_empresa='$idemp' and activo='si'";
         $rsel = $this->db->query($sel);
         $r = [];
         for($i=0;$i<$rsel->num_rows;$i++){
