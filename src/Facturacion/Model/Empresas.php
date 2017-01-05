@@ -118,7 +118,7 @@ class Empresas {
         return $r;
     }
 
-    public function anadirEmpresa(array $d, array $d1, array $d2, array $d3){
+    public function anadirEmpresa(array $d, array $d1, array $d2, array $d3, array $d4){
         $this->transacciones->startTransaction();
         $r1 = $this->empresasDAO->insertEmpresa($d);
         if($r1['ok'] == 'no'){
@@ -143,9 +143,15 @@ class Empresas {
             $this->transacciones->stopTransaction();
             return $r4;
         }
+        $d4['id_empresa'] = $r1['id_empresa'];
+        $r5 = $this->bancos->anadirBanco($d4);
+        if($r5['ok'] == 'no'){
+            $this->transacciones->stopTransaction();
+            return $r5;
+        }
 
         $this->transacciones->grabarTransaction();
-        return $r4;
+        return $r5;
     }
 
     public function buscarEmpresas(array $d){

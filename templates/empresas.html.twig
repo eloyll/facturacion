@@ -13,8 +13,9 @@
     {{ parent () }}
 
     <div class="float-left-100-pad15" style="margin: 70px 0 15px 0;font-size: 18px;color: #900;text-decoration: underline">Nueva Empresa</div>
-    <form id="frm-empresa1">
+
     <div id="emp-col1" style="float: left;width: 33%">
+        <form id="frm-empresa1">
         <div class="mylabel">Nombre</div><input type="hidden" name="idusu" value="{{ idusu }}" data-tipo="noval">
         <div class="mydivinput"><input name="nombre" id="nombre" type="text" class="e-input font-12 ancho-100" data-tipo="empresas"></div>
         <div class="mylabel">CIF/NIF</div>
@@ -42,8 +43,18 @@
         <div class="mydivinput"><input name="email" id="email" type="text" class="e-input font-12 ancho-100" maxlength="255" data-tipo="email-b"></div>
         <div class="mylabel">Pág. WEB</div>
         <div class="mydivinput"><input name="web" id="web" type="text" class="e-input font-12 ancho-100" maxlength="100" data-tipo="noval"></div>
+        </form>
+
+        <form id="frm-empresa5">
+            <div class="mylabel">Banco</div>
+            <div class="mydivinput"><input name="banco" id="banco" type="text" class="e-input font-12 ancho-100" maxlength="100" placeholder="Nombre del Banco" data-tipo="noval"></div>
+            <div class="mylabel">C/Bancaria</div>
+            <div class="mydivinput"><input name="numero_cuenta" id="numero_cuenta" type="text" class="e-input font-12" maxlength="24" placeholder="Número de cuenta" data-tipo="banco-b" style="width: 59%; font: normal 12px monospace;">&nbsp;&nbsp;&nbsp;&nbsp;<input name="swift" id="swift" type="text" class="e-input font-12" maxlength="15" placeholder="SWIFT" data-tipo="banco-b" style="width: 34%; font: normal 12px monospace;"></div>
+
+        </form>
+
     </div>
-    </form>
+
 
 
     <div id="emp-col2" style="float: left;width: 32%">
@@ -82,11 +93,15 @@
         <form id="frm-empresa3">
         <div class="mylabel">Moneda</div>
         <div class="mydivinput"><input name="cf_moneda" id="cf_moneda" type="text" class="e-input font-12" maxlength="20" size="10" value="Eur" data-tipo="noval" title="Moneda base, a ser posible el código (3 letras)" placeholder="Moneda"></div>
+
+
+
         <div class="mylabel">Símbolo Mo.</div>
-        <div class="mydivinput"><input name="cf_mo_simbolo" id="cf_mo_simbolo" type="text" class="e-input font-12" maxlength="5" value="€" data-tipo="noval" title="Símbolo de la moneda" placeholder="" style="width: 13%">
-            <div style="position: relative;left:60px;top: -12px;color: #3371c8;width: 20%">Decimales
-            <input name="cf_decimales" id="cf_decimales" type="text" class="e-input font-12 text-right" maxlength="5" size="5" value="2" data-tipo="numero" title="Los decimales de la factura" style="position: relative;top: -22px;left: 90px;color: #000;"></div>
-        </div>
+        <div class="mydivinput"><input name="cf_mo_simbolo" id="cf_mo_simbolo" type="text" class="e-input font-12" maxlength="5" value="€" data-tipo="noval" title="Símbolo de la moneda" placeholder="" style="width: 13%"></div>
+
+            <div class="mylabel">Decimales</div>
+            <div class="mydivinput"><input name="cf_decimales" id="cf_decimales" type="text" class="e-input font-12 text-right" maxlength="5" size="5" value="2" data-tipo="numero" title="Los decimales de la factura" style="width: 13%"></div>
+
         </form>
 
 
@@ -120,7 +135,7 @@
     </div>
     </form>
 
-    <div class="float-left-100">
+    <div class="float-left-50">
         <ul>
             <li>El logo no puede pasar de 100 Kb</li>
             <li>Si sale cortado, aunque sea menor de 100 Kb habría que reducirlo</li>

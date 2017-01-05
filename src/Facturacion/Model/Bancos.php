@@ -20,4 +20,11 @@ class Bancos {
 
         return $r;
     }
+
+    public function anadirBanco(array $d){
+        $r = $this->bancosDAO->insertBanco($d);
+
+        return $r;
+
+    }
 }

@@ -105,8 +105,12 @@ class Main {
         if($v2['ok'] == 'no'){
             return $v2;
         }
+        $v3 = $this->validaciones->validarEmpresa($d['banco']);
+        if($v3['ok'] == 'no'){
+            return $v3;
+        }
 
-        $r = $this->empresas->anadirEmpresa($v, $v1, $v2, $d['logo']);
+        $r = $this->empresas->anadirEmpresa($v, $v1, $v2, $d['logo'], $v3);
         if($r['ok'] == 'no'){
             return $r;
         }

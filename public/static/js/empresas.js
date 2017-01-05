@@ -50,6 +50,7 @@ $('#btn-limpiaremp').click(function(){
     $('#frm-empresa2')[0].reset();
     $('#frm-empresa3')[0].reset();
     $('#frm-empresa4')[0].reset();
+    $('#frm-empresa5')[0].reset();
     $('#verlogo').prop('src','');
     $('#listafiles').empty();
     g_base64 = '';
@@ -60,6 +61,7 @@ $('#btn-anadiremp').click(function(){
     datos['empresa'] = $('#frm-empresa1').serializeArray();
     datos['datos_iva'] = $('#frm-empresa2').serializeArray();
     datos['config'] = $('#frm-empresa3').serializeArray();
+    datos['banco'] = $('#frm-empresa5').serializeArray();
     datos['logo'] = {'base64':g_base64,
                     'nombre': $('input[name=logo]').val()};
     for(var i in datos['empresa']){
@@ -82,6 +84,14 @@ $('#btn-anadiremp').click(function(){
         datos['config'][i]['tipo'] = tipo;
         datos['config'][i]['id'] = name;
         delete datos['config'][i]['name'];
+
+    }
+    for(i in datos['banco']){
+        name = datos['banco'][i].name;
+        tipo = $('input[name='+name+']').data('tipo');
+        datos['banco'][i]['tipo'] = tipo;
+        datos['banco'][i]['id'] = name;
+        delete datos['banco'][i]['name'];
 
     }
 
