@@ -20,6 +20,11 @@ class Logos {
 
         return $r;
     }
+    public function logoId($id){
+        $r = $this->logosDAO->selectLogoId($id);
+
+        return $r;
+    }
 
     public function logosEmpresa($idemp){
         $r = $this->logosDAO->selectLogosEmp($idemp);

@@ -14,13 +14,15 @@ class Facturas {
     private $datosempresasDAO;
     private $gestionsesion;
     private $transacciones;
+    private $logos;
 
-    public function __construct(FacturasDAO $facturasDAO, DatosEmpresasDAO $datosEmpresasDAO,GestionSesion $gestionsesion,Transacciones $transacciones ) {
+    public function __construct(FacturasDAO $facturasDAO, DatosEmpresasDAO $datosEmpresasDAO,GestionSesion $gestionsesion,Transacciones $transacciones, Logos $logos ) {
 
         $this->facturasDAO = $facturasDAO;
         $this->datosempresasDAO = $datosEmpresasDAO;
         $this->gestionsesion = $gestionsesion;
         $this->transacciones = $transacciones;
+        $this->logos = $logos;
     }
 
     public function hacerFactura(array $d){
@@ -45,7 +47,7 @@ class Facturas {
         $datos['direccion'] = $_SESSION['EMP-CALLE']."\n".$_SESSION['EMP-CP'].' - '.$_SESSION['EMP-CIUDAD']."\n".ucwords(strtolower($_SESSION['EMP-PROVINCIA']));
         $datos['direccion'].= ' - ('.ucwords($_SESSION['EMP-PAIS']).")\n Telfs. ".$_SESSION['EMP-TELF'].' - '.$_SESSION['EMP-MOVIL']."\n";
         $datos['direccion'].= 'Email: '.$_SESSION['EMP-EMAIL']."\n".$_SESSION['EMP-WEB'];
-        $datos['logo'] = $_SESSION['EMP-LOGO'];
+        $datos['logo'] = $this->logos->logoId($_SESSION['EMP-IDLOGO']);
         $datos['registro_mercantil'] = $_SESSION['EMP-REGISTRO_MERCANTIL'];
         $datos['cliente'] = $cli['nombre'];
         $datos['cif_cliente'] = $cli['cif'];

@@ -213,7 +213,8 @@ $container['facturas'] = function($c){
     $datosempresasDAO = $c->get('datosempresasDAO');
     $gestionsesion = $c->get('gestionsesion');
     $transacciones = $c->get('transacciones');
-    $facturas = new Facturacion\Model\Facturas($facturasDAO,$datosempresasDAO,$gestionsesion,$transacciones);
+    $logos = $c->get('logos');
+    $facturas = new Facturacion\Model\Facturas($facturasDAO,$datosempresasDAO,$gestionsesion,$transacciones,$logos);
 
     return $facturas;
 };

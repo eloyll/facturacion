@@ -21,8 +21,17 @@ class LogosDAO {
         return $r;
     }
 
+    public function selectLogoId($id){
+        $sel = "select logo from logos_empresas where id='$id'";
+        $rsel = $this->db->query($sel);
+        $l = $rsel->fetch_assoc();
+        $r = $l['logo'];
+
+        return $r;
+    }
+
     public function selectLogosEmp($idemp){
-        $sel = "select id,logo,ultimo,nombre from logos_empresas where id_empresa='$idemp'";
+        $sel = "select id as idlogo,logo,ultimo,nombre from logos_empresas where id_empresa='$idemp'";
         $rsel = $this->db->query($sel);
         $r = [];
         for($i=0;$i<$rsel->num_rows;$i++){
