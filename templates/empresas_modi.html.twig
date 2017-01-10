@@ -4,6 +4,7 @@
 
     {{ parent () }}
     <title>EMPRESAS - Echip</title>
+
 {% endblock %}
 
 {% block body %}
@@ -24,7 +25,7 @@
 
         </fieldset>
         </div>
-        <div style="float: left;width: 40%; margin-left: 15px">
+        <div style="float: left;width: 50%; margin-left: 15px">
             <fieldset>
                 <legend>Empresas</legend>
                 <select style="overflow-y: scroll;width: 100%; border: 1px dashed #3371c8; font: normal 12px monospace;" size="3" id="resbuscaemp">
@@ -34,11 +35,11 @@
         </div>
     </div>
 
-
+    <div class="float-left-100" style="margin: 10px 0 15px 0;font-size: 18px;color: #900;text-decoration: underline"><hr></div>
 
     <form id="frm-modiempresa1">
     <div id="emp-col1" style="float: left;width: 33%">
-        <div class="mylabel">Nombre</div><input type="hidden" name="idusu" value="{{ idusu }}" data-tipo="noval">
+        <div class="mylabel">Nombre</div><input type="hidden" name="idusu" value="{{ idusu }}" data-tipo="noval"><input type="hidden" name="id" id="id" data-tipo="numero" value="">
         <div class="mydivinput"><input name="nombre" id="nombre" type="text" class="e-input font-12 ancho-100" data-tipo="empresas"></div>
         <div class="mylabel">CIF/NIF</div>
         <div class="mydivinput"><input name="cif" id="cif" type="text" class="e-input font-12" maxlength="20" data-tipo="dni"></div>
@@ -65,6 +66,19 @@
         <div class="mydivinput"><input name="email" id="email" type="text" class="e-input font-12 ancho-100" maxlength="255" data-tipo="email-b"></div>
         <div class="mylabel">Pág. WEB</div>
         <div class="mydivinput"><input name="web" id="web" type="text" class="e-input font-12 ancho-100" maxlength="100" data-tipo="noval"></div>
+
+        <div class="float-left-100" style="height: 40px"></div>
+
+        <div class="float-left-100-pad15">
+        <fieldset style="border-color: #900">
+            <legend style="color: #900">Bancos</legend>
+            <div id="listabancos" class="float-left-100" style="float: left; background-color: #fff;overflow-y: scroll;font:normal 12px monospace;padding-right: 5px;height: 60px">
+
+            </div>
+
+        </fieldset>
+        </div>
+
     </div>
     </form>
 
@@ -106,10 +120,39 @@
         <div class="mylabel">Moneda</div>
         <div class="mydivinput"><input name="cf_moneda" id="cf_moneda" type="text" class="e-input font-12" maxlength="20" size="10" value="Eur" data-tipo="noval" title="Moneda base, a ser posible el código (3 letras)" placeholder="Moneda"></div>
         <div class="mylabel">Símbolo Mo.</div>
-        <div class="mydivinput"><input name="cf_mo_simbolo" id="cf_mo_simbolo" type="text" class="e-input font-12" maxlength="5" value="€" data-tipo="noval" title="Símbolo de la moneda" placeholder="" style="width: 13%">
-            <div style="position: relative;left:60px;top: -12px;color: #3371c8;width: 20%">Decimales
-            <input name="cf_decimales" id="cf_decimales" type="text" class="e-input font-12 text-right" maxlength="5" size="5" value="2" data-tipo="numero" title="Los decimales de la factura" style="position: relative;top: -22px;left: 90px;color: #000;"></div>
+
+        <div class="mydivinput"><input name="cf_mo_simbolo" id="cf_mo_simbolo" type="text" class="e-input font-12" maxlength="5" value="€" data-tipo="noval" title="Símbolo de la moneda" placeholder="" style="width: 13%;margin-bottom: 10px">
+            <input name="cf_decimales" id="cf_decimales" type="text" class="e-input font-12 text-right" maxlength="5" size="5" value="2" data-tipo="numero" title="Los decimales de la factura" style="color: #000;"><span style="color: #3371c8;line-height: 1.2">&nbsp;&nbsp;&nbsp;Decimales</span>
         </div>
+        </form>
+
+        <div class="float-left-100" style="height: 40px">
+            <!--<div style="clear: both;float: left;width: 30%"><button type="button" id="btn-limpiaremp" class="btn-trans input-sm color-negro" style="margin-right: 40px">limpiar Datos</button></div>-->
+            <div style="float: right;width: 40%;text-align: right"><button type="button" id="btn-modiempresa" class="btn-trans input-sm" style="border: 1px solid #3371c8">Modificar Empresa</button></div>
+        </div>
+
+        <form id="frm-modiempresa5">
+            <div class="mylabel" style="color: #900">C/Bancaria</div>
+            <div class="mydivinput">
+                <input name="numero_cuenta" id="numero_cuenta" type="text" class="e-input font-12 ancho-100" maxlength="4" data-tipo="banco" style="border-color: #900;width: 35px;font: normal 12px monospace">
+                <input id="cc2" type="text" class="e-input font-12 ancho-100" maxlength="4" style="border-color: #900;width: 35px;font: normal 12px monospace">
+                <input id="cc3" type="text" class="e-input font-12 ancho-100" maxlength="4" style="border-color: #900;width: 35px;font: normal 12px monospace">
+                <input id="cc4" type="text" class="e-input font-12 ancho-100" maxlength="4" style="border-color: #900;width: 35px;font: normal 12px monospace">
+                <input id="cc5" type="text" class="e-input font-12 ancho-100" maxlength="4" style="border-color: #900;width: 35px;font: normal 12px monospace">
+                <input id="cc6" type="text" class="e-input font-12 ancho-100" maxlength="4" style="border-color: #900;width: 35px;font: normal 12px monospace">
+            </div>
+            <div class="mylabel" style="color: #900">Banco</div>
+            <div class="mydivinput"><input name="banco" id="banco" type="text" class="e-input font-12" maxlength="24" placeholder="Nombre del Banco" data-tipo="noval" style="width: 59%; font: normal 12px monospace;border-color: #900">&nbsp;&nbsp;&nbsp;&nbsp;<input name="swift" id="swift" type="text" class="e-input font-12" maxlength="15" placeholder="SWIFT" title="swift" data-tipo="banco-b" style="width: 34%;border-color: #900;font: normal 12px monospace"></div>
+            <div class="mylabel" style="color: #900">Usar Cuenta</div>
+            <div class="mydivinput">
+                <input type="radio" name="activa" id="sino1" value="si" data-tipo="noval"> Si &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="activa" id="sino2" value="no" data-tipo="noval"> No&nbsp;&nbsp;&nbsp;
+            </div>
+
+            <div class="float-left-100">
+
+                <div style="float: right;width: 50%;text-align: right"><button type="button" id="btn-modibanco" class="btn-trans input-sm color-rojo"  style="border: 1px solid #900">Modificar/Añadir Banco</button></div>
+            </div>
         </form>
 
 
@@ -117,8 +160,10 @@
 
 
     <form id="frm-modiempresa4">
-    <div id="emp-col3" style="float: left;width: 32%; height: auto;padding-left: 15px">
-        <div class="float-left-100 c-azul" style="text-decoration: underline">Selecciona el Logo</div>
+    <div id="emp-col3" style="float: left;width: 32%; height: auto;padding-left: 15px;margin-left:15px;border-left: 1px dashed #ddd">
+        <div class="float-left-50 c-azul" style="text-decoration: underline">Nuevo logo</div>
+        <div id="listafiles" class="float-left-50" style="height: auto; text-align: right;font-size: 10px;padding-top: 5px">&nbsp;</div>
+
         <div class="float-left-100">
             <div id="verbase" alt="Visualización base" style="border: ;height: 200px; width: 100%; margin-top: 20px">
             <img name="verlogo" id="verlogo" style="border: 0; max-height: 200px; max-width: 396px" src="" alt="Máximo tamaño 100 Kb (jpg,gif,png,svg)">
@@ -127,13 +172,20 @@
             <input type="file" class="input-sm" id="logo" name="logo" style="width: 100%;padding-left: 0">
         </div>
 
-        <div id="listafiles" class="float-left-100" style="height: 40px; margin-top: 20px">
+        <div class="float-left-100" style="height: auto; margin-top: 40px">
+            <fieldset>
+                <legend>Logos disponibles</legend>
+                <div id="listalogos" class="float-left-100" style="float: left; background-color: #d0e5f5;min-height: 35px">
 
+
+                </div>
+
+            </fieldset>
         </div>
 
         <div class="float-left-100">
-            <div style="clear: both;float: left;width: 30%"><button type="button" id="btn-limpiaremp" class="btn btn-default input-sm" style="margin-right: 40px">limpiar Datos</button></div>
-            <div style="float: right;width: 30%"><button type="button" id="btn-anadiremp" class="btn-trans input-sm">Modificar Empresa</button></div>
+
+            <div style="float: right;width: 40%; text-align: right"><button type="button" id="btn-anadirlogo" class="btn-trans input-sm" style="border: 1px solid #3371c8">Añadir Logo</button></div>
         </div>
 
     </div>

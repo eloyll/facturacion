@@ -159,9 +159,88 @@ class Empresas {
         $r = $this->empresasDAO->selectBuscaEmpresas($d);
         $r['datos'] = '';
         for($i=0;$i < $r['nl'];$i++){
-            $r['datos'] .= '<option value="'.$r[$i]['id'].'">'.ucwords($r[$i]['nombre']).' - CIF. '.strtoupper($r[$i]['cif']).' - '.ucwords($r[$i]['ciudad']).'</option>';
+            $r['datos'] .= '<option value="'.$r[$i]['id'].'" class="pointer">'.ucwords($r[$i]['nombre']).' - CIF. '.strtoupper($r[$i]['cif']).' - '.ucwords($r[$i]['ciudad']).'</option>';
         }
 
         return $r;
     }
+
+    public function getEmpresaId(int $idemp){
+        $e = $this->empresasDAO->selectEmpresa($idemp);
+        if($e['ok'] == 'no'){
+            return $e;
+        }
+        unset($e['ok']);
+        $r['empresa'] = $e;
+        $e = [];
+        $r['datos'] = $this->datosEmpresas($idemp);
+        $r['config'] = $this->configuracionesDAO->selectConfiguracion($idemp);
+        $r['bancos'] = $this->divBancosModi($idemp);
+        /*$logos = $this->logos->logosEmpresa($idemp);
+        for($i=0;$i<$logos['nl'];$i++){
+            $r['logos'] .= '
+            <div style="float:left;background-image: url('.$logos[$i]['logo'].');width: 70px;height: 35px;background-size: 100% auto;background-repeat: no-repeat"><i class="fa fa-window-close cerrarventana" title="Eliminar Logo" onclick="borrarlogo(\''.$logos[$i]['id'].'\')"></i> </div>
+            ';
+        }*/
+        $r['logos'] = $this->divLogosModi($idemp);
+        $r['ok'] = 'si';
+        return $r;
+    }
+
+    public function modificarEmpresa(array $d, array $d1, array $d2){
+        $this->transacciones->startTransaction();
+        $r1 = $this->empresasDAO->updateEmpresa($d);
+        if($r1['ok'] == 'no'){
+            $this->transacciones->stopTransaction();
+            return $r1;
+        }
+        $d1['id_empresa'] = $d['id'];
+        $r2 = $this->datosempresasDAO->updateDatos($d1);
+        if($r2['ok'] == 'no'){
+            $this->transacciones->stopTransaction();
+            return $r2;
+        }
+        $d2['id_empresa'] = $d['id'];
+        $r3 = $this->configuracionesDAO->updateConfiguracion($d2);
+        if($r3['ok'] == 'no'){
+            $this->transacciones->stopTransaction();
+            return $r3;
+        }
+
+        $this->transacciones->grabarTransaction();
+        return $r3;
+    }
+
+    public function divBancosModi(string $id_empresa){
+        $bancos = $this->bancos->getAllBancosEmp($id_empresa);
+        $r = '';
+        for($i=0;$i<$bancos['nl'];$i++){
+            $tacha = '';
+            if($bancos[$i]['activo'] == 'no'){
+                $tacha = 'text-decoration: line-through';
+            }
+            $r .= '
+            <div style="clear: both;float: left;width: 35%">'.$bancos[$i]['banco'].'</div>
+                <div style="float: left;width: 40%;'.$tacha.'" title="Swift:'.$bancos[$i]['swift'].'">'.$bancos[$i]['numero_cuenta'].'</div>
+                <div style="float: right;width: 15%;text-align: right">
+                <i class="fa fa-pencil c-azul" title="Editar/Modificar" onclick="editabanco(\''.$bancos[$i]['banco'].'\',\''.$bancos[$i]['numero_cuenta'].'\',\''.$bancos[$i]['swift'].'\',\''.$bancos[$i]['activo'].'\')"></i>&nbsp;&nbsp;
+                <i class="fa fa-close color-rojo" title="Eliminar" onclick="eliminabanco(\''.$bancos[$i]['numero_cuenta'].'\')"></i></div>
+            ';
+        }
+
+        return $r;
+    }
+
+    public function divLogosModi(int $id_empresa){
+        $logos = $this->logos->logosEmpresa($id_empresa);
+        $r = '';
+        for($i=0;$i<$logos['nl'];$i++){
+            $r .= '
+            <div style="float:left;background-image: url(\''.$logos[$i]['logo'].'\');width: 70px;height: 35px;background-size: 100% auto;background-repeat: no-repeat"><i class="fa fa-window-close cerrarventana" title="Eliminar Logo" onclick="borrarlogo(\''.$logos[$i]['id'].'\',\''.$logos[$i]['nombre'].'\')"></i> </div>
+            ';
+        }
+
+        return $r;
+    }
+
 }

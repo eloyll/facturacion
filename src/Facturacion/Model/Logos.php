@@ -38,4 +38,9 @@ class Logos {
 
         return $r;
     }
+    public function borraLogoId(int $id){
+        $r = $this->logosDAO->deleteLogoId($id);
+
+        return $r;
+    }
 }

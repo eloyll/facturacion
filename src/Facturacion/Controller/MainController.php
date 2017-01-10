@@ -248,6 +248,47 @@ class MainController {
         return json_encode($r);
     }
 
+    public function buscaempresa(RequestInterface $request, ResponseInterface $response, array $args){
+        $r = $this->empresas->getEmpresaId($args['id']);
+
+        return json_encode($r);
+    }
+
+    public function modificaempresa(RequestInterface $request, ResponseInterface $response, array $args){
+        $params = $request->getParsedBody();
+        $r = $this->main->validarModificarEmpresa($params);
+
+        return json_encode($r);
+    }
+
+    public function modificabanco(RequestInterface $request, ResponseInterface $response, array $args){
+        $params = $request->getParsedBody();
+        $r = $this->main->validarModificarBanco($params);
+
+        return json_encode($r);
+    }
+
+    public function borrabanco(RequestInterface $request, ResponseInterface $response, array $args){
+        $params = $request->getParsedBody();
+        $r = $this->main->borraBanco($params);
+
+        return json_encode($r);
+    }
+
+    public function nuevologo(RequestInterface $request, ResponseInterface $response, array $args){
+        $params = $request->getParsedBody();
+        $r = $this->main->nuevoLogo($params);
+
+        return json_encode($r);
+    }
+
+    public function borralogo(RequestInterface $request, ResponseInterface $response, array $args){
+        $params = $request->getParsedBody();
+        $r = $this->main->borraLogoId($params);
+
+        return json_encode($r);
+    }
+
 
 
 

@@ -60,8 +60,7 @@ class EmpresasDAO {
     }
 
     public function selectEmpresa($id){
-
-        $sel = "select * from empresas where id='$id'";
+        $sel = "select id,id_usuario, cif, nombre, calle, cp, ciudad, provincia, pais, telf, movil, web, email, fecha_alta, ultima from empresas where id='$id'";
         $rsel = $this->db->query($sel);
         if($rsel){
             $r = $rsel->fetch_assoc();
@@ -93,6 +92,22 @@ class EmpresasDAO {
             $r['nl'] = $rsel->num_rows;
         }else{
             $r['ok'] = 'no';
+        }
+
+        return $r;
+    }
+
+    public function updateEmpresa(array $d){
+        $upd = "update empresas set cif=?, nombre=?, calle=?, cp=?, ciudad=?, provincia=?, pais=?, telf=?, movil=?, web=?, email=? where id='$d[id]'";
+        $stmt = $this->db->prepare($upd);
+        $stmt->bind_param('sssssssssss',$d['cif'],$d['nombre'],$d['calle'],$d['cp'],$d['ciudad'],$d['provincia'],$d['pais'],$d['telf'],$d['movil'],$d['web'],$d['email']);
+        $r['st'] = $stmt->execute();
+        if(!$r['st']){
+            $r['ok'] = 'no';
+            $r['error'] = $stmt->error;
+            $r['errno'] = $stmt->errno;
+        }else{
+            $r['ok'] = 'si';
         }
 
         return $r;

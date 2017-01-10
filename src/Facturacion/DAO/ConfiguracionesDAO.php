@@ -36,4 +36,20 @@ class ConfiguracionesDAO {
         return $r;
     }
 
+    public function updateConfiguracion(array $d){
+        $upd = "update configuraciones set cf_moneda=?, cf_mo_simbolo=?, cf_decimales=? where id_empresa='$d[id_empresa]'";
+        $stmt = $this->db->prepare($upd);
+        $stmt->bind_param('sss',$d['cf_moneda'],$d['cf_mo_simbolo'],$d['cf_decimales']);
+        $r['st'] = $stmt->execute();
+        if(!$r['st']){
+            $r['ok'] = 'no';
+            $r['error'] = $stmt->error;
+            $r['errno'] = $stmt->errno;
+        }else{
+            $r['ok'] = 'si';
+        }
+
+        return $r;
+    }
+
 }

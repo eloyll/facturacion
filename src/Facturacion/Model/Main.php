@@ -118,4 +118,64 @@ class Main {
         return $r;
     }
 
+    public function validarModificarEmpresa(array $d){
+        $v = $this->validaciones->validarEmpresa($d['empresa']);
+        if($v['ok'] == 'no'){
+            return $v;
+        }
+        $v1 = $this->validaciones->validarEmpresa($d['datos_iva']);
+        if($v1['ok'] == 'no'){
+            return $v1;
+        }
+        $v2 = $this->validaciones->validarEmpresa($d['config']);
+        if($v2['ok'] == 'no'){
+            return $v2;
+        }
+        $r = $this->empresas->modificarEmpresa($v,$v1,$v2);
+
+        return $r;
+    }
+
+    public function validarModificarBanco(array $d){
+        $v = $this->validaciones->validarEmpresa($d['banco']);
+        if($v['ok'] == 'no'){
+            return $v;
+        }
+        $r = $this->bancos->modifcaBanco($v);
+        if($r['ok'] != 'no'){
+            $r['bancos'] = $this->empresas->divBancosModi($r['id_empresa']);
+        }
+
+        return $r;
+    }
+
+    public function borraBanco(array $d){
+        $r = $this->bancos->borraBanco($d['numero_cuenta']);
+        $r['bancos'] = $this->empresas->divBancosModi($d['id_empresa']);
+
+        return $r;
+    }
+
+    public function nuevoLogo(array $d){
+        $r = $this->logos->anadirLogo($d['logo']);
+        if($r['ok'] == 'no'){
+            return $r;
+        }
+        $r['logos'] = $this->empresas->divLogosModi($d['logo']['id_empresa']);
+
+        return $r;
+    }
+
+    public function borraLogoId(array $d){
+        $r = $this->logos->borraLogoId($d['id']);
+        if($r['ok'] == 'no'){
+            return $r;
+        }
+        $r['logos'] = $this->empresas->divLogosModi($d['id_empresa']);
+
+        return $r;
+    }
+
+
+
 }

@@ -139,6 +139,12 @@ hr {
 }
 .btn-trans:hover{
     cursor: pointer;
+    text-decoration: none;
+    text-shadow: 1px 0 0;
+}
+
+.pointer:hover{
+    cursor: pointer;
 }
 
 .sombra-blanca{
@@ -208,7 +214,7 @@ hr {
 }
 
 legend{
-    width: 120px;font-size: 14px;margin: 5px 0 0 10px;padding-left: 10px;border: none;
+    width: auto;font-size: 14px;margin: 5px 0 0 10px;padding: 0 10px 0 10px;border: none;
     color: #009;background-color: whitesmoke;
 }
 fieldset{
@@ -265,6 +271,14 @@ fieldset{
 }
 .font-16{
     font-size: 16px;
+}
+.cerrarventana{
+    font-weight: lighter; font-size: 24px;
+    margin-top:7px;margin-left:22px;
+    color: #900;
+}
+.cerrarventana:hover{
+    cursor: pointer;
 }
 #div-imprime{
     border: 1px dashed #439A00; border-radius: 5px; padding-top: 10px;

@@ -54,9 +54,23 @@ class DatosEmpresasDAO {
         $nfactura = trim($num['prefijo_numfac'].$nuevo.$num['sufijo_numfac']);
 
         return $nfactura;
+    }
 
+    public function updateDatos(array $d){
 
+        $upd = "update datos_empresas set id_empresa=?, tipo_iva=?, iva=?, retencion=?, req_equi=?, prefijo_numfac=?, sufijo_numfac=?, numero_fac=?, registro_mercantil=?, exento_iva=?, texto_exento=? where id_empresa='$d[id_empresa]'";
+        $stmt = $this->db->prepare($upd);
+        $stmt->bind_param('isdddssisss',$d['id_empresa'],$d['tipo_iva'],$d['iva'],$d['retencion'],$d['req_equi'],$d['prefijo_numfac'],$d['sufijo_numfac'],$d['numero_fac'],$d['registro_mercantil'],$d['exento_iva'],$d['texto_exento']);
+        $r['st'] = $stmt->execute();
+        if(!$r['st']){
+            $r['ok'] = 'no';
+            $r['error'] = $stmt->error;
+            $r['errno'] = $stmt->errno;
+        }else{
+            $r['ok'] = 'si';
+        }
 
+        return $r;
     }
 
 }

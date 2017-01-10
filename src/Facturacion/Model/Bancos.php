@@ -21,10 +21,27 @@ class Bancos {
         return $r;
     }
 
-    public function anadirBanco(array $d){
+    public function anadirBanco(array $d) {
         $r = $this->bancosDAO->insertBanco($d);
 
         return $r;
 
+    }
+    public function getAllBancosEmp($idemp){
+        $r = $this->bancosDAO->selectAllBancosEmp($idemp);
+
+        return $r;
+    }
+
+    public function modifcaBanco(array $d){
+        $r = $this->bancosDAO->upadteBanco($d);
+
+        return $r;
+    }
+
+    public function borraBanco(string $cuenta){
+        $r = $this->bancosDAO->deleteBanco($cuenta);
+
+        return $r;
     }
 }

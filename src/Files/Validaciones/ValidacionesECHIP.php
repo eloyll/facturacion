@@ -29,6 +29,7 @@ class ValidacionesECHIP {
         $patron['clave'] = "/^[0-9]{5,15}$/";
         $patron['codcont'] = "/^[a-z0-9\-]{1,5}$/i";
         $patron['codigos'] = "/^[a-z0-9]{1,10}$/i";
+        $patron['banco'] = "/^[a-z0-9]{5,30}$/i";
         $patron['banco-b'] = "/^(|[a-z0-9]{1,30})$/i";
         $patron['sexo'] = "/^(hombre|mujer){1}$/i";
         $patron['pass'] = "/^\\S{5,15}$/";

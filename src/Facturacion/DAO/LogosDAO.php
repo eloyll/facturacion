@@ -14,7 +14,7 @@ class LogosDAO {
     }
 
     public function selectLogoInicial($idemp){
-        $sel = "select logo from logos_empresas where id_empresa='$idemp' and ultimo='si'";
+        $sel = "select id as idlogo,logo from logos_empresas where id_empresa='$idemp' and ultimo='si'";
         $rsel = $this->db->query($sel);
         $r = $rsel->fetch_assoc();
 
@@ -28,6 +28,7 @@ class LogosDAO {
         for($i=0;$i<$rsel->num_rows;$i++){
             $r[] = $rsel->fetch_assoc();
         }
+        $r['nl'] = $rsel->num_rows;
 
         return $r;
     }
@@ -43,12 +44,25 @@ class LogosDAO {
     public function insertLogo(array $d){
         $ins = "insert into logos_empresas (id_empresa, logo, nombre) VALUES (?,?,?)";
         $stmt = $this->db->prepare($ins);
-        $stmt->bind_param('iss',$d['id_empresa'],$d['base64'],$d['nombre']);
+        $stmt->bind_param('ibs',$d['id_empresa'],$d['base64'],$d['nombre']);
         $r['st'] = $stmt->execute();
         if(!$r['st']){
             $r['ok'] = 'nob';
             $r['error'] = $stmt->error;
             $r['errno'] = $stmt->errno;
+        }else{
+            $r['ok'] = 'si';
+        }
+
+        return $r;
+    }
+
+    public function deleteLogoId(int $id){
+        $del = "delete from logos_empresas where id='$id'";
+        $rdel = $this->db->query($del);
+        if(!$rdel){
+            $r['ok'] = 'no';
+            $r['error'] = $this->db->errno;
         }else{
             $r['ok'] = 'si';
         }
