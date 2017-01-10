@@ -319,7 +319,7 @@ $('#btn-anadirlogo').click(function() {
         dataType:'json',
         headers:{'Content-Type':'application/json'},
         url:'/nuevologo',
-        data:JSON.stringify(encodeURIComponent(datos)),
+        data:JSON.stringify(datos),
         success: function(data){
             console.log(data);
 
