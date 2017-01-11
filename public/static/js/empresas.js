@@ -95,6 +95,7 @@ $('#btn-anadiremp').click(function(){
 
     }
 
+console.log (datos);
 
     $.ajax({
         type:'put',

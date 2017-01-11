@@ -14,7 +14,7 @@ class LogosDAO {
     }
 
     public function selectLogoInicial($idemp){
-        $sel = "select id as idlogo,logo from logos_empresas where id_empresa='$idemp' and ultimo='si'";
+        $sel = "select id as idlogo,logo from logos_empresas where id_empresa='$idemp' ORDER BY ultimo DESC limit 1";
         $rsel = $this->db->query($sel);
         $r = $rsel->fetch_assoc();
 
@@ -43,8 +43,8 @@ class LogosDAO {
     }
 
     public function updateUltimoLogo(array $d){
-        $this->db->query("update logos_empresas set ultimo='no' where id_empresa='$d[idemp]'");
-        $this->db->query("update logos_empresas set ultimo='si' where id_empresa='$d[idemp]' and logo='$d[logo]'");
+        $this->db->query("update logos_empresas set ultimo=0 where id_empresa='$d[idemp]'");
+        $this->db->query("update logos_empresas set ultimo=1 where id_empresa='$d[idemp]' and logo='$d[logo]'");
         $r['ok'] = 'si';
 
         return $r;
@@ -53,7 +53,7 @@ class LogosDAO {
     public function insertLogo(array $d){
         $ins = "insert into logos_empresas (id_empresa, logo, nombre) VALUES (?,?,?)";
         $stmt = $this->db->prepare($ins);
-        $stmt->bind_param('iss',$d['id_empresa'],$d['base64'],$d['nombre']);
+        $stmt->bind_param('iss',$d['id_empresa'],$d['ruta'],$d['nombre']);
         $r['st'] = $stmt->execute();
         if(!$r['st']){
             $r['ok'] = 'nob';
