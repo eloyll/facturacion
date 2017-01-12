@@ -110,6 +110,13 @@ class Main {
             return $v3;
         }
 
+        if(!empty($d['logo']['nombre'])){
+            $l = $this->logos->existeLogo($d['logo']['nombre']);
+            if($l['ok'] == 'no'){
+                $l['ok'] = 'logo';
+                return $l;
+            }
+        }
         $r = $this->empresas->anadirEmpresa($v, $v1, $v2, $d['logo'], $v3);
         if($r['ok'] == 'no'){
             return $r;
@@ -157,6 +164,13 @@ class Main {
     }
 
     public function nuevoLogo(array $d){
+
+        $l = $this->logos->existeLogo($d['logo']['nombre']);
+        if($l['ok'] == 'no'){
+            $l['ok'] = 'logo';
+            return $l;
+        }
+
         $r = $this->logos->anadirLogo($d['logo']);
         if($r['ok'] == 'no'){
             return $r;

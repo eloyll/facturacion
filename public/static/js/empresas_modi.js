@@ -1,4 +1,4 @@
-var g_filesize = 100; //Kb
+var g_filesize = 200; //Kb
 var g_base64 = '';
 
 function ponformu(dato,f){
@@ -338,8 +338,8 @@ $('#btn-anadirlogo').click(function() {
                     $('#' + data['id']).errorForm();
                     Modal.poner('Hay errores en este campo o está vacio', 'Empresas', data['id']);
                     break;
-                case 'nob':
-                    Modal.poner('El CIF está duplicado o hay problemas con el servidor', 'Empresas');
+                case 'logo':
+                    Modal.poner('El nombre del logo ya existe, renombra el archivo', 'Empresas');
                     break;
                 case 'sesion':
                     window.self.location.assign('/');

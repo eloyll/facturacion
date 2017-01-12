@@ -792,7 +792,7 @@ $('#sel-empresa').change(function(){
                     $('#div-items').empty();
                     $('#div-vctos').empty();
                     $('#cambialogo').empty().html(data['logos']);
-                    $('#usunombre').empty().html(priMay(data['nombre']));
+                    $('#usunombre').empty().html(data['nombre'].toUpperCase());
                     $('#usucif').empty().html(data['cif'].toUpperCase());
                     if(data['exento_iva'] == 'si'){
                         $('#exentosi').prop('checked', true);
@@ -818,7 +818,8 @@ $('#sel-empresa').change(function(){
                     $('#usuiva').val(data['iva']);
                     $('#usuret').val(data['retencion']);
                     $('#usureq').val(data['req_equi']);
-                    $('#logoempresa').prop('src',data['logo']);
+                    $('#cambialogo').trigger('change');
+                    //$('#logoempresa').prop('src',data['logo']);
                     $('#item-tipoiva,#tipoexento').empty().html(data['tipo_iva']);
                     $('#simb-moneda,#simb-moneda2').empty().html(data['cf_mo_simbolo']);
                     g_decimales = data['cf_decimales'] ;

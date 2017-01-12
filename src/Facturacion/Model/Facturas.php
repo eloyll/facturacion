@@ -47,7 +47,7 @@ class Facturas {
         $datos['direccion'] = $_SESSION['EMP-CALLE']."\n".$_SESSION['EMP-CP'].' - '.$_SESSION['EMP-CIUDAD']."\n".ucwords(strtolower($_SESSION['EMP-PROVINCIA']));
         $datos['direccion'].= ' - ('.ucwords($_SESSION['EMP-PAIS']).")\n Telfs. ".$_SESSION['EMP-TELF'].' - '.$_SESSION['EMP-MOVIL']."\n";
         $datos['direccion'].= 'Email: '.$_SESSION['EMP-EMAIL']."\n".$_SESSION['EMP-WEB'];
-        $datos['logo'] = $this->logos->logoId($_SESSION['EMP-IDLOGO']);
+        $datos['logo'] = $_SESSION['EMP-LOGO'];
         $datos['registro_mercantil'] = $_SESSION['EMP-REGISTRO_MERCANTIL'];
         $datos['cliente'] = $cli['nombre'];
         $datos['cif_cliente'] = $cli['cif'];

@@ -44,7 +44,7 @@
                 <select id="cambialogo" class="e-select input-sm color-negro">
                     {% for lg in logos %}
                         {% if lg.logo is defined %}
-                            <option value="{{ lg.logo }}" {% if lg.ultimo == 'si' %} selected="selected" {% endif %}>{{ lg.nombre }} </option>
+                            <option value="{{ lg.logo }}" {% if lg.ultimo == '1' %} selected="selected" {% endif %}>{{ lg.nombre }} </option>
                         {% endif %}
                     {% endfor %}
                 </select>
@@ -55,7 +55,7 @@
     <div class="row" style="margin: 0 0 0 0; border-bottom: 2px dashed #9acfea; padding: 20px 0 10px 0">
         <div class="col-md-4 col-xs-12 paddleft-0">
             <div class="col-md-4 color-rojo paddright-0">Empresa:</div>
-            <div id="usunombre" class="col-md-8 paddleft-0">{{ inicial.nombre }}</div>
+            <div id="usunombre" class="col-md-8 paddleft-0">{{ inicial.nombre | upper}}</div>
             <div class="col-md-4 color-rojo paddright-0">CIF/NIF:</div>
             <div id="usucif"  class="col-md-8 paddleft-0">{{ inicial.cif | upper}}</div>
             <div class="col-md-4 color-rojo paddright-0">Exento <span id="tipoexento">{{ inicial.tipo_iva }}</span>:</div>
@@ -86,7 +86,7 @@
             <div style="float: left;width: auto"><input type="text" class="e-input input-sm text-right decimal2" id="usureq" value="{{ inicial.req_equi }}" style="width: 40px;padding: 0;height: 20px;"> %</div>
         </div>
         <div class="paddleft-0" style="float: left;width: 20%; margin-left: 20px">
-            <img id="logoempresa" src="{{ inicial.logo }}" height="60">
+            <img id="logoempresa" src="{{ inicial.logo }}" height="60" alt=" ">
         </div>
 
     </div>
@@ -208,7 +208,7 @@
                     <option value="--" selected>Selcciona el Banco</option>
                     {% for bank in bancos %}
                         {% if bank.numero_cuenta is defined %}
-                            <option value="{{ bank.numero_cuenta~'#'~bank.swift }}">{{ bank.banco ~ ' - ' ~  bank.numero_cuenta[-10:] | trim}}</option>
+                            <option value="{{ bank.numero_cuenta~'#'~bank.swift }}">{{ bank.banco}} - {{ bank.numero_cuenta[-10:] | trim}}</option>
                         {% endif %}
                     {% endfor %}
                 </select>

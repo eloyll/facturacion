@@ -89,13 +89,13 @@ class Empresas {
             if(is_null($bancos[$i]['numero_cuenta'])){
                 continue;
             }
-            $r['bancos'] .= '<option value="'.$bancos[$i]['numero_cuenta'].'#'.$bancos[$i]['swift'].'">'.$bancos[$i]['nombre'].' - '.trim(substr($bancos[$i]['numero_cuenta'],-10)).'</option>';
+            $r['bancos'] .= '<option value="'.$bancos[$i]['numero_cuenta'].'#'.$bancos[$i]['swift'].'">'.$bancos[$i]['banco'].' - '.trim(substr($bancos[$i]['numero_cuenta'],-10)).'</option>';
         }
         $logos = $this->logos->logosEmpresa($r1['id']);
-        for($j=0;$j < count($logos);$j++){
+        for($j=0;$j < $logos['nl'];$j++){
             $opt = explode('/',$logos[$j]['logo']);
             $chk = '';
-            if($logos[$j]['ultimo'] == 'si'){
+            if($logos[$j]['ultimo'] == '1'){
                 $chk = 'selected';
                 $this->gestionsesion->setKey('EMP-LOGO',$logos[$j]['logo']);
                 $r['logo'] = $logos[$j]['logo'];
@@ -137,21 +137,27 @@ class Empresas {
             $this->transacciones->stopTransaction();
             return $r3;
         }
-        $d3['id_empresa'] = $r1['id_empresa'];
-        $r4 = $this->logos->anadirLogo($d3);
-        if($r4['ok'] == 'no'){
-            $this->transacciones->stopTransaction();
-            return $r4;
-        }
-        $d4['id_empresa'] = $r1['id_empresa'];
-        $r5 = $this->bancos->anadirBanco($d4);
-        if($r5['ok'] == 'no'){
-            $this->transacciones->stopTransaction();
-            return $r5;
+        if(!empty($d3['base64'])){
+            $d3['id_empresa'] = $r1['id_empresa'];
+            $r4 = $this->logos->anadirLogo($d3);
+            if($r4['ok'] == 'no'){
+                $this->transacciones->stopTransaction();
+                return $r4;
+            }
         }
 
+        if(!empty($d4['numero_cuenta'])){
+            $d4['id_empresa'] = $r1['id_empresa'];
+            $r5 = $this->bancos->anadirBanco($d4);
+            if($r5['ok'] == 'no'){
+                $this->transacciones->stopTransaction();
+                return $r5;
+            }
+        }
         $this->transacciones->grabarTransaction();
-        return $r5;
+        $r['ok'] = 'si';
+
+        return $r;
     }
 
     public function buscarEmpresas(array $d){

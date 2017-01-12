@@ -17,6 +17,10 @@ class LogosDAO {
         $sel = "select id as idlogo,logo from logos_empresas where id_empresa='$idemp' ORDER BY ultimo DESC limit 1";
         $rsel = $this->db->query($sel);
         $r = $rsel->fetch_assoc();
+        if($rsel->num_rows < 1){
+            $r['idlogo'] = '0';
+            $r['logo'] = '';
+        }
 
         return $r;
     }
@@ -26,6 +30,15 @@ class LogosDAO {
         $rsel = $this->db->query($sel);
         $l = $rsel->fetch_assoc();
         $r = $l['logo'];
+
+        return $r;
+    }
+
+    public function selectLogoNombre(string $nombre){
+        $sel = "select id,logo,nombre from logos_empresas where nombre='$nombre'";
+        $rsel = $this->db->query($sel);
+        $r = $rsel->fetch_assoc();
+        $r['nl'] = $rsel->num_rows;
 
         return $r;
     }

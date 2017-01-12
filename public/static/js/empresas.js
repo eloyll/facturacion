@@ -1,4 +1,4 @@
-var g_filesize = 100; //Kb
+var g_filesize = 200; //Kb
 var g_base64 = '';
 
 $('#logo').change(function(){
@@ -119,6 +119,9 @@ console.log (datos);
                     break;
                 case 'nob':
                     Modal.poner('El CIF está duplicado o hay problemas con el servidor', 'Empresas');
+                    break;
+                case 'logo':
+                    Modal.poner('El nombre del logo ya existe, renombra el archivo', 'Empresas');
                     break;
                 case 'sesion':
                     window.self.location.assign('/');
