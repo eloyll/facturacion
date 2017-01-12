@@ -91,4 +91,26 @@ class LogosDAO {
 
         return $r;
     }
+
+    public function updateCampoFactura(string $logo){
+        $upd = "update logos_empresas set facturas='si' where logo='$logo'";
+        $rupd = $this->db->query($upd);
+        if(!$rupd){
+            $r['ok'] = 'no';
+            $r['error'] = $this->db->errno;
+        }else{
+            $r['ok'] = 'si';
+        }
+
+        return $r;
+    }
+
+    public function selectFacturasLogo(int $id){
+        $sel = "select facturas from logos_empresas where id='$id'";
+        $rsel = $this->db->query($sel);
+        $l = $rsel->fetch_assoc();
+        $r = $l['facturas'];
+
+        return $r;
+    }
 }

@@ -397,6 +397,9 @@ function borrarlogo(id,nombre){
                     $('#' + data['id']).errorForm();
                     Modal.poner('Hay errores en este campo o está vacio', 'Empresas', data['id']);
                     break;
+                case 'fac':
+                    Modal.poner('El logo esta en facturas, no se puede borrar', 'Empresas');
+                    break;
                 case 'nob':
                     Modal.poner('El CIF está duplicado o hay problemas con el servidor', 'Empresas');
                     break;

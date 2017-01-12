@@ -242,7 +242,7 @@ class Empresas {
         $r = '';
         for($i=0;$i<$logos['nl'];$i++){
             $r .= '
-            <div style="float:left;background-image: url(\''.$logos[$i]['logo'].'\');width: 70px;height: 35px;background-size: 100% auto;background-repeat: no-repeat"><i class="fa fa-window-close cerrarventana" title="Eliminar Logo" onclick="borrarlogo(\''.$logos[$i]['id'].'\',\''.$logos[$i]['nombre'].'\')"></i> </div>
+            <div style="float:left;background-image: url(\''.$logos[$i]['logo'].'\');width: 70px;height: 35px;background-size: 100% auto;background-repeat: no-repeat"><i class="fa fa-window-close cerrarventana" title="Eliminar Logo" onclick="borrarlogo(\''.$logos[$i]['idlogo'].'\',\''.$logos[$i]['nombre'].'\')"></i> </div>
             ';
         }
 

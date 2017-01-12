@@ -4,6 +4,7 @@
 namespace Facturacion\Model;
 
 
+use Facturacion\DAO\FacturasDAO;
 use Facturacion\DAO\LogosDAO;
 
 class Logos {
@@ -39,6 +40,7 @@ class Logos {
     }
 
     public function existeLogo(string $nombre){
+
         $r = $this->logosDAO->selectLogoNombre($nombre);
         if($r['nl'] > 0){
             $r['ok'] = 'no';
@@ -66,7 +68,19 @@ class Logos {
         return $r;
     }
     public function borraLogoId(int $id){
-        $r = $this->logosDAO->deleteLogoId($id);
+        $f = $this->logosDAO->selectFacturasLogo($id);
+        if($f == 'si'){
+            $r['ok'] = 'fac';
+            $r['fac'] = 'si';
+        }else{
+            $r = $this->logosDAO->deleteLogoId($id);
+        }
+
+        return $r;
+    }
+
+    public function actualizaCampoFactura(string $logo){
+        $r = $this->logosDAO->updateCampoFactura($logo);
 
         return $r;
     }

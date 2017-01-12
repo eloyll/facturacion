@@ -76,6 +76,11 @@ class Facturas {
         $datos['items'] = $items;
         $datos['jash'] = md5($datos['idempresa'].$datos['numero_fact'].$datos['total']);
 
+        $l = $this->logos->actualizaCampoFactura($datos['logo']);
+        if($l['ok'] == 'no'){
+            $this->transacciones->stopTransaction();
+            $r['ok'] = 'no';
+        }
 
         $f = $this->facturasDAO->insertFactura($datos);
         if($f['ok'] == 'si'){
