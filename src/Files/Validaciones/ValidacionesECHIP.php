@@ -16,7 +16,7 @@ class ValidacionesECHIP {
     }*/
 
     public function control_inputs(array $v){
-        $patron['nombres'] = "/^[a-zñáéíóúÑÁÉÍÓÚ\-\/ ]{3,}$/i";
+        $patron['nombres'] = "/^[a-zñáéíóúÑÁÉÍÓÚ\-\/\. ]{3,}$/i";
         $patron['nombres-b'] = "/^(|[a-zñáéíóúÑÁÉÍÓÚ\-\/ ]{3,})$/i";
         $patron['ciudad'] = "/^[a-zñáéíóúÑÁÉÍÓÚ()\/\- ]{3,}$/i";
         $patron['direc'] = "/^([a-z0-9ñáéíóúÑÁÉÍÓÚºª#:\/\,\.\- ]{3,})$/i";
