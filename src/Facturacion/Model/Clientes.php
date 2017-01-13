@@ -4,16 +4,19 @@ namespace Facturacion\Model;
 
 
 use Facturacion\DAO\ClientesDAO;
+use Files\Sesiones\GestionSesion;
 
 class Clientes {
 
     private $clientesDAO;
     private $validaciones;
+    private $gestionsesion;
 
-    public function __construct(ClientesDAO $clientesDAO, Validaciones $validaciones) {
+    public function __construct(ClientesDAO $clientesDAO, Validaciones $validaciones, GestionSesion $gestionsesion) {
 
         $this->clientesDAO = $clientesDAO;
         $this->validaciones = $validaciones;
+        $this->gestionsesion = $gestionsesion;
     }
 
     public function clientesUsuarioList($idusu){
@@ -48,6 +51,28 @@ class Clientes {
         $s = $this->clientesDAO->insertCliente($r);
 
         return $s;
+    }
+
+    public function buscarClientes(array $d){
+        $r = $this->clientesDAO->selectBuscaClientes($d);
+        $r['datos'] = '';
+        for($i=0;$i < $r['nl'];$i++){
+            $r['datos'] .= '<option value="'.$r[$i]['id'].'" class="pointer">'.ucwords($r[$i]['nombre']).' - CIF. '.strtoupper($r[$i]['cif']).' - '.ucwords($r[$i]['poblacion']).'</option>';
+        }
+
+        return $r;
+    }
+
+    public function buscarClienteId(int $id){
+        $r = $this->clientesDAO->selectClienteId($id);
+
+        return $r;
+    }
+
+    public function modificarClienteId(array $d){
+        $r = $this->clientesDAO->updateClienteId($d);
+
+        return $r;
     }
 
 }

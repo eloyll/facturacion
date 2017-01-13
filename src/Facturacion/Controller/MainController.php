@@ -288,8 +288,32 @@ class MainController {
 
         return json_encode($r);
     }
+     public function modiclientes(RequestInterface $request, ResponseInterface $response, array $args){
+         $r = $this->main->clientes($args);
 
+         return $this->view->render($response, "clientes_modi.html.twig",["usuario"=>$r['usuario'],"provincias"=>$r['provincias'],"formaspago"=>$r['formaspago'],"id"=>$r['id'],"idusu"=>$r['idusu']]);
+     }
 
+     public function buscacli(RequestInterface $request, ResponseInterface $response, array $args){
+         $p = $request->getQueryParams();
+         $r = $this->clientes->buscarClientes($p);
+
+         return json_encode($r);
+     }
+
+     public function buscarcliente(RequestInterface $request, ResponseInterface $response, array $args) {
+         $r = $this->clientes->buscarClienteId($args['id']);
+
+         return json_encode($r);
+
+     }
+
+     public function modificarcliente(RequestInterface $request, ResponseInterface $response, array $args) {
+         $params = $request->getParsedBody();
+         $r = $this->main->modificarClienteId($params);
+
+         return json_encode($r);
+     }
 
 
 

@@ -1,45 +1,6 @@
 var g_filesize = 200; //Kb
 var g_base64 = '';
 
-function ponformu(dato,f){
-    var datos = dato;
-    var idd = '';
-    $('#'+f).find(':input').each(function(){
-
-        switch($(this).prop('type')){
-
-            case 'radio':
-            case 'checkbox':
-                idd = $(this).prop('name');
-                $('input[name="'+idd+'"]').each(function(){
-                    $(this).prop('checked',false);
-                    if($(this).val() == datos[idd]){
-                        $(this).prop('checked',true);
-                    }
-                })
-                break;
-            case 'button':
-
-                break;
-            default:
-                idd = $(this).prop('name');
-                if(datos[idd] != undefined) {
-                    if(datos[idd].indexOf('0000-00-00')>=0 || datos[idd].indexOf('00/00/0000')>=0){
-                        datos[idd] = '';
-                    }
-                    $('input[name="'+idd+'"]').val(datos[idd]);
-                }else{
-                    //alert(datos)
-                }
-                break;
-        }
-    });
-    $('#'+f).find('textarea').each(function(){
-        idd = $(this).prop('name');
-        $('textarea[name="'+idd+'"]').val(datos[idd])
-
-    });
-}
 
 $('#datosbusemp').keyup(function(){
     var val = $(this).val();

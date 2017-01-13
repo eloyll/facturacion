@@ -190,6 +190,16 @@ class Main {
         return $r;
     }
 
+    public function modificarClienteId(array $d){
+        $v = $this->validaciones->validarEmpresa($d);
+        if($v['ok'] == 'no'){
+            return $v;
+        }
+        $r = $this->clientes->modificarClienteId($v);
+
+        return $r;
+    }
+
 
 
 }

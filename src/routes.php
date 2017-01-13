@@ -37,3 +37,7 @@ $app->put("/modificabanco","MainController:modificabanco")->setName("modificaban
 $app->delete("/borrabanco","MainController:borrabanco")->setName("borrabanco");
 $app->post("/nuevologo","MainController:nuevologo")->setName("nuevologo");
 $app->delete("/borralogo","MainController:borralogo")->setName("borralogo");
+$app->get("/modiclientes","MainController:modiclientes")->setName("modiclientes");
+$app->get("/buscacli","MainController:buscacli")->setName("buscacli");
+$app->get("/buscarcliente/{id}","MainController:buscarcliente")->setName("buscarcliente");
+$app->put("/modificarcliente","MainController:modificarcliente")->setName("modificarcliente");

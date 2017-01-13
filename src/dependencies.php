@@ -203,7 +203,8 @@ $container['empresas'] = function($c){
 $container['clientes'] = function($c){
     $clientesDAO = $c->get('clientesDAO');
     $validaciones = $c->get('validaciones');
-    $clientes = new Facturacion\Model\Clientes($clientesDAO,$validaciones);
+    $gestionsesion = $c->get('gestionsesion');
+    $clientes = new Facturacion\Model\Clientes($clientesDAO,$validaciones,$gestionsesion);
 
     return $clientes;
 };
