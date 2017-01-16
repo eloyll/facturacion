@@ -41,3 +41,4 @@ $app->get("/modiclientes","MainController:modiclientes")->setName("modiclientes"
 $app->get("/buscacli","MainController:buscacli")->setName("buscacli");
 $app->get("/buscarcliente/{id}","MainController:buscarcliente")->setName("buscarcliente");
 $app->put("/modificarcliente","MainController:modificarcliente")->setName("modificarcliente");
+$app->get("/buscarfacturas","MainController:buscarfacturas")->setName("buscarfacturas");

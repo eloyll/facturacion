@@ -1,0 +1,120 @@
+{% extends 'layout_main.html.twig' %}
+
+{% block css %}
+
+    {{ parent () }}
+    <title>BUSCAR FACTURAS - Echip</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid" style="padding: 0">
+
+    {{ parent () }}
+
+    <div class="float-left-100-pad15" style="margin: 70px 0 15px 0;font-size: 18px;color: #900;text-decoration: underline">Buscar Facturas</div>
+
+        <div class="float-left-100">
+            <div style="float: left;width: 40%; margin-left: 15px">
+                <fieldset>
+                    <legend>Buscar:</legend>
+                    <select id="buscaempresa" name="buscaempresa" class="e-select input-sm">
+                        <option value="--">Selecciona tu empresa</option>
+                    </select>
+                    <span class="c-azul">&nbsp;&nbsp;&nbsp;Filtrar por:</span>
+                    <input type="radio" name="buscarcampo" id="buscacli1" value="nombre" checked> Nombre &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="buscarcampo" id="buscacli2" value="cif"> CIF/NIF &nbsp;&nbsp;&nbsp;
+                    <div class="float-left-50" style="margin: 5px 0"><input name="buscatexto" id="buscatexto" type="text" class="e-input font-12" style="width:100% "placeholder="Nombre/CIF"></div>
+                    <div class="float-right-50" style="margin: 5px 0"><span class="c-azul">&nbsp;&nbsp;&nbsp;Desde:</span><input name="buscafecha" id="buscafecha" type="text" class="e-input font-12" style="width:40% "placeholder="Nombre/CIF"></div>
+
+
+
+                </fieldset>
+            </div>
+            <div style="float: left;width: 50%; margin-left: 15px">
+                <fieldset>
+                    <legend>Clientes</legend>
+                    <select style="overflow-y: scroll;width: 100%; border: 1px dashed #3371c8; font: normal 12px monospace;" size="3" id="resbuscar">
+
+                    </select>
+                </fieldset>
+            </div>
+        </div>
+
+    <form id="frm-modicliente">
+    <div id="cli-col1" style="float: left;width: 33%">
+        <div class="mylabel">Nombre</div><input type="hidden" name="idusu" id="idusu" value="{{ idusu }}" data-tipo="noval"><input type="hidden" name="id" id="id" data-tipo="numero">
+        <div class="mydivinput"><input name="nombre" id="nombre" type="text" class="e-input font-12 ancho-100" data-tipo="nombres"></div>
+        <div class="mylabel">CIF/NIF</div>
+        <div class="mydivinput"><input name="cif" id="cif" type="text" class="e-input font-12" maxlength="20" data-tipo="dni" disabled></div>
+        <div class="mylabel">Dirección</div>
+        <div class="mydivinput"><input name="direccion" id="direccion" type="text" class="e-input font-12 ancho-100" maxlength="100" data-tipo="direc"></div>
+        <div class="mylabel">Población</div>
+        <div class="mydivinput"><input name="poblacion" id="poblacion" type="text" class="e-input font-12 ancho-100" maxlength="50" data-tipo="ciudad"></div>
+        <div class="mylabel">C.P.</div>
+        <div class="mydivinput"><input name="cp" id="cp" type="text" class="e-input font-12" maxlength="7" data-tipo="cp-b"></div>
+        <div class="mylabel">Provincia</div>
+        <div class="mydivinput"><input name="provincia" id="provincia" type="text" class="e-input font-12 ancho-100" maxlength="25" list="aux-prov" data-tipo="ciudad"></div>
+        <datalist id="aux-prov">
+            {% for pr in provincias %}
+                <option value="{{ pr.provincia }}">{{ pr.provincia }}</option>
+            {% endfor %}
+        </datalist>
+        <div class="mylabel">Pais</div>
+        <div class="mydivinput"><input name="pais" id="pais" type="text" class="e-input font-12 ancho-100" maxlength="25" value="" data-tipo="ciudad"></div>
+        <div class="mylabel">Fecha Alta</div>
+        <div class="mydivinput"><div id="fecha_alta" style="padding-top: 3px;color: #900;"></div> </div>
+    </div>
+    <div id="cli-col2" style="float: left;width: 32%">
+        <div class="mylabel">Contacto</div>
+        <div class="mydivinput"><input name="contacto" id="contacto" type="text" class="e-input font-12 ancho-100" data-tipo="nombres-b"></div>
+        <div class="mylabel">Teléfono</div>
+        <div class="mydivinput"><input name="telf" id="telf" type="text" class="e-input font-12" maxlength="15" data-tipo="telf-b"></div>
+        <div class="mylabel">Móvil</div>
+        <div class="mydivinput"><input name="movil" id="movil" type="text" class="e-input font-12" maxlength="15" data-tipo="telf-b"></div>
+        <div class="mylabel">E-mail</div>
+        <div class="mydivinput"><input name="email" id="email" type="text" class="e-input font-12 ancho-100" maxlength="255" data-tipo="email-b"></div>
+        <div class="mylabel">Pág. WEB</div>
+        <div class="mydivinput"><input name="web" id="web" type="text" class="e-input font-12 ancho-100" maxlength="100" data-tipo="noval"></div>
+        <div class="mylabel">Descuento</div>
+        <div class="mydivinput"><input name="descuento" id="descuento" type="text" class="e-input font-12 text-right" maxlength="15" size="6" value="" data-tipo="float2d"> %</div>
+        <div class="mylabel">F. Pago</div>
+        <div class="mydivinput"><input name="forma_pago" id="forma_pago" type="text" class="e-input font-12" maxlength="25" placeholder="Forma de Pago" list="aux-pagos" data-tipo="noval"></div>
+        <datalist id="aux-pagos">
+            {% for pg in formaspago %}
+                <option value="{{ pg.forma_pago }}">{{ pg.forma_pago }}</option>
+            {% endfor %}
+        </datalist>
+        <div class="mylabel">Activo</div>
+        <div class="mydivinput">
+            <input type="radio" name="activo" id="activo1" value="si" data-tipo="noval"> Si &nbsp;&nbsp;&nbsp;
+            <input type="radio" name="activo" id="activo2" value="no" data-tipo="noval"> No &nbsp;&nbsp;&nbsp;
+        </div>
+
+    </div>
+    <div id="cli-col3" style="float: left;width: 32%; height: auto;padding-left: 15px">
+        <fieldset>
+            <legend>Observaciones</legend>
+            <textarea name="obser" id="obser" class="font-12 ancho-100" rows="6" style="border:none;" data-tipo="noval"></textarea>
+        </fieldset>
+        <div style="clear: both;float: left;width: 30%"><button type="button" id="btn-limpiarcli" class="btn btn-default input-sm" style="margin-right: 40px">limpiar Datos</button></div>
+        <div style="float: right;width: 40%;text-align: right;">
+            <button type="button" id="btn-modicliente" class="btn-trans input-sm" style="padding-right: 0">Modificar Cliente</button>
+        </div>
+    </div>
+    </form>
+
+
+
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
+
+    {{ parent() }}
+    <script src="/static/js/clientes_modi.js"></script>
+
+
+{% endblock %}

@@ -333,8 +333,16 @@ fieldset{
     float: left;
     width: 100%;
 }
+.float-right-100{
+    float: right;
+    width: 100%;
+}
 .float-left-50{
     float: left;
+    width: 50%;
+}
+.float-right-50{
+    float: right;
     width: 50%;
 }
 .float-left-50-pad15{

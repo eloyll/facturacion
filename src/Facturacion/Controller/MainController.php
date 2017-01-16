@@ -314,6 +314,11 @@ class MainController {
 
          return json_encode($r);
      }
+    public function buscarfacturas(RequestInterface $request, ResponseInterface $response, array $args){
+        //$r = $this->main->buscarfacturas($args);
+
+        return $this->view->render($response, "buscarfacturas.html.twig",["usuario"=>$r['usuario'],"provincias"=>$r['provincias'],"formaspago"=>$r['formaspago'],"id"=>$r['id'],"idusu"=>$r['idusu']]);
+    }
 
 
 
