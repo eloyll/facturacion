@@ -21,9 +21,9 @@ class FacturasDAO {
 
     public function insertFactura(array $d){
 
-        $ins = "insert into facturas (id_empresa, numero_fac, fecha_factura, empresa, cif, direccion, logo, registro_mercantil, cliente, cif_cliente, direc_cliente, obser, importe, tipo_iva, iva, retencion,pctge_retencion, recargo_equ, pctge_req, total,moneda,decimales,jash,exento_iva,texto_exento) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $ins = "insert into facturas (id_empresa, numero_fac, fecha_factura, empresa, cif, direccion, logo, registro_mercantil, cliente, cif_cliente, direc_cliente, obser, importe, tipo_iva, iva, retencion,pctge_retencion, recargo_equ, pctge_req, total,moneda,decimales,jash,exento_iva,texto_exento,tipo_fac) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $this->db->prepare($ins);
-        $stmt->bind_param("issssssssssssssssssssssss",$d['idempresa'],$d['numero_fact'],$d['fechafact'],$d['empresa'],$d['cif'],$d['direccion'],$d['logo'],$d['registro_mercantil'],$d['cliente'],$d['cif_cliente'],$d['direc_cliente'],$d['obser'],$d['importe'],$d['tipo_iva'],$d['iva'],$d['retencion'],$d['pctge_retencion'],$d['recargo_equ'],$d['pctge_req'],$d['total'],$d['moneda'],$d['decimales'],$d['jash'],$d['exento_iva'],$d['texto_exento']);
+        $stmt->bind_param("isssssssssssssssssssssssss",$d['idempresa'],$d['numero_fact'],$d['fechafact'],$d['empresa'],$d['cif'],$d['direccion'],$d['logo'],$d['registro_mercantil'],$d['cliente'],$d['cif_cliente'],$d['direc_cliente'],$d['obser'],$d['importe'],$d['tipo_iva'],$d['iva'],$d['retencion'],$d['pctge_retencion'],$d['recargo_equ'],$d['pctge_req'],$d['total'],$d['moneda'],$d['decimales'],$d['jash'],$d['exento_iva'],$d['texto_exento'],$d['tipo-fac']);
 
         $r['fac'] = $stmt->execute();
         if(!$r['fac']){
@@ -46,7 +46,7 @@ class FacturasDAO {
 
     public function selectFactura(array $d){
 
-        $fac = "select id_empresa, numero_fac, date_format(fecha_factura,'%d/%m/%Y') as fecha_factura, empresa, cif, direccion, logo, registro_mercantil, cliente, cif_cliente, direc_cliente, obser, importe, tipo_iva, iva, retencion, pctge_retencion, recargo_equ, pctge_req, total, moneda, decimales, jash, exento_iva, texto_exento from facturas where id_empresa='$d[idemp]' and numero_fac='$d[num]'";
+        $fac = "select id_empresa, numero_fac, date_format(fecha_factura,'%d/%m/%Y') as fecha_factura, empresa, cif, direccion, logo, registro_mercantil, cliente, cif_cliente, direc_cliente, obser, importe, tipo_iva, iva, retencion, pctge_retencion, recargo_equ, pctge_req, total, moneda, decimales, jash, exento_iva, texto_exento,tipo_fac from facturas where id_empresa='$d[idemp]' and numero_fac='$d[num]'";
         $rfac = $this->db->query($fac);
         if($rfac){
             $r['factura'] = $rfac->fetch_assoc();

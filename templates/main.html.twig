@@ -66,7 +66,7 @@
 
         </div>
         <div class=" paddleft-0" style="float: left;width: 25%">
-            <div class="color-rojo paddright-0" style="float: left;width: 33%;margin-right: 10px">Núm. Factura:</div>
+            <div class="color-rojo paddright-0" style="float: left;width: 33%;margin-right: 10px">Núm. <span id="txt-numfac">Factura</span>:</div>
             {% set numerofactura = inicial.numero_fac + 1 %}
             {% set numerofac = inicial.prefijo_numfac ~ numerofactura ~ inicial.sufijo_numfac%}
             <div class="paddleft-0"  style="float: left;width: 56%"><input id="usunumfac" class="e-input" value="{{ numerofac }}"></div>
@@ -130,8 +130,13 @@
     <div class="row" style="margin: 0 0 0 0; padding: 20px 0 10px 0; background-color: #fff">
         <div class="col-md-12 col-xs-12" style="text-decoration: underline; font-size: 16px; color: #3371c8; margin-bottom: 20px">
             <div class="col-md-3"> Elementos Facturados</div>
-            <div class="col-md-3"><button id="btn-vaciaitems" type="button" class="btn btn-trans color-rojo" style="font-size: 13px; margin-top: 0;padding: 0">Vaciar Elementos</button></div>
+            <div class="col-md-3"><button id="btn-vaciaitems" type="button" class="btn btn-trans color-negro" style="font-size: 13px; margin-top: 0;padding: 0">Vaciar Elementos</button></div>
             <div class="col-md-3"><button type="button" id="btn-factalba" class="btn-trans font-14">Facturar Albaranes</button></div>
+            <div class="col-md-3" style="font-size: 13px;text-decoration: none">
+            <input type="radio" name="tipofactura" id="tipofac1" value="factura" checked > Factura &nbsp;&nbsp;&nbsp;
+            <input type="radio" name="tipofactura" id="tipofac2" value="proforma" style="font-size: 13px;text-decoration: none"> Proforma&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="tipofactura" id="tipofac3" value="presupuesto" style="font-size: 13px;text-decoration: none"> Presupuesto
+            </div>
         </div>
         <div class="borde-left" style="margin-left: 15px;float: left;width: 5%">Cant.</div>
         <div class="borde-left" style="float: left;width: 15%">Codigo</div>
@@ -184,7 +189,7 @@
         <div style="clear: both;float: left;width: 100%">
             <div id="infoitem" style="height: 36px;color: #900; text-align: center;font-size: 18px;margin-top: 20px;float: left;width: 45%"></div>
             <div style="float: right">
-                <button id="btn-verfactura" type="button" class="btn btn-success" title="Ver Factura / Facturar" style="height: 20px; margin: 10px 0 0 10px; padding-top: 0px;font-weight: 600; width: 123px" ><i class="fa fa-file-text-o"></i> Facturar</button>
+                <button id="btn-verfactura" type="button" class="btn btn-success" title="Ver Factura / Facturar" style="height: 20px; margin: 10px 0 0 10px; padding-top: 0px;font-weight: 600; width: 123px" ><i class="fa fa-file-text-o"></i> <span id="span-factura">Facturar</span></button>
             </div>
         </div>
 

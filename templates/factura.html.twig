@@ -13,9 +13,17 @@
 
 {% block body %}
 <div style="position: relative;width: 17.4cm;height: 25.8cm;border: 0px solid black;font:normal 12px factura-mono" class="si-print">
-    <div style="float:left;width: 40%;border-top: 12px solid #3371c8"></div>
-    <div style="float:left;width: 20%;height: 10px;text-align: center;font-family: factura-mono-bold, monospace; font-size: 20px;margin-top: -3px;letter-spacing: 2.5px">FACTURA</div>
-    <div style="float:left;width: 40%;border-top: 12px solid #3371c8"></div>
+    <div style="float:left;width: 38%;border-top: 12px solid #3371c8"></div>
+    <div style="float:left;width: 24%;height: 10px;text-align: center;font-family: factura-mono-bold, monospace; font-size: 20px;margin-top: -3px;letter-spacing: 2.5px">
+        {% if factura.tipo_fac == 'factura' %}
+            FACTURA
+        {% elseif factura.tipo_fac == 'proforma' %}
+            F. PROFORMA
+        {% else %}
+            PRESUPUESTO
+        {% endif %}
+    </div>
+    <div style="float:left;width: 38%;border-top: 12px solid #3371c8"></div>
     <div class="factura-fechanum">
         <div class="no-print text-left" style="clear: both;width: 20%;float: left"><button type="button" class="btn-trans no-print" onclick="window.print()" style="color: #900"><i class="fa fa-print"></i>&nbsp;Imprimir</button></div>
         <div id="txt-numfac" class="text-center" style="width: 60%;float: left"><span class="font-factura-bold font-14">FECHA:</span> {{ factura.fecha_factura }} <i class="fa fa-circle" style="font-size: 10px;color: #3371c8;" ></i><span class="font-factura-bold font-14"> NUMERO:</span> {{ factura.numero_fac | upper }}</div>

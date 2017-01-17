@@ -29,11 +29,16 @@ class Facturas {
 
         $this->transacciones->startTransaction();
         $datos = json_decode($d['facturadatos'],true);
-        $numfac = $this->datosempresasDAO->nuevoNumeroFactura($datos['idempresa']);
-        if($numfac == 'error'){
-            $this->transacciones->stopTransaction();
-            $r['ok'] = 'no';
-            return $r;
+        if($datos['tipo-fac'] == 'factura') {
+            $numfac = $this->datosempresasDAO->nuevoNumeroFactura($datos['idempresa']);
+            if ($numfac == 'error') {
+                $this->transacciones->stopTransaction();
+                $r['ok'] = 'no';
+                return $r;
+            }
+            $datos['numero_fact'] = $numfac;
+        }else{
+            $datos['numero_fact'] = $datos['num_fact'];
         }
         $cli = json_decode($d['facturacliente'],true);
         $iva = json_decode($d['facturaiva'],true);
@@ -41,7 +46,7 @@ class Facturas {
         $items = json_decode($d['facturaitems'],true);
 
         $dec = $_SESSION['EMP-CF_DECIMALES'];
-        $datos['numero_fact'] = $numfac;
+
         $datos['empresa'] = $_SESSION['EMP-NOMBRE'];
         $datos['cif'] = strtoupper($_SESSION['EMP-CIF']);
         $datos['direccion'] = $_SESSION['EMP-CALLE']."\n".$_SESSION['EMP-CP'].' - '.$_SESSION['EMP-CIUDAD']."\n".ucwords(strtolower($_SESSION['EMP-PROVINCIA']));
@@ -87,6 +92,7 @@ class Facturas {
             $r['ok'] = 'si';
             $r['numero_fact'] = $datos['numero_fact'];
             $r['id_empresa'] = $datos['idempresa'];
+            $r['tipo-fac'] = $datos['tipo-fac'];
             $this->transacciones->grabarTransaction();
         }else{
             $this->transacciones->stopTransaction();

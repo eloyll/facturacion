@@ -1,4 +1,5 @@
 var g_trgexe = '';
+var g_numfactura = '--';
 var g_optdialog = {
     autoOpen: false,
     height: 600,
@@ -320,7 +321,7 @@ $('#btn-v-anadir').click(function(){
     var vtipo = $('#vtipo').val();
     var vimpo = $('#vimporte').val();
     var vbanco = $('#vbanco').val().split('#');
-    if(parseFloat(vimpo) == 0 || Object.keys(g_items).length == 0){
+    if(Object.keys(g_items).length == 0){
         return false;
     }
     if(vbanco.length < 2 && vtipo.toLowerCase() != 'contado'){
@@ -499,11 +500,12 @@ $('#btn-verfactura').click(function() {
     var nvctos = Object.keys(g_vctmo).length;
     var siniva = $('input[name=exentoiva]:checked').val();
     var lentxt = $('#textoexento').val().length;
+    var tipofac = $("input[name='tipofactura']:checked").val();
     if(nitems < 1){
         Modal.poner('Debes de poner por lo menos un producto','Factura vacia','cantidad');
         return false;
     }
-    if(nvctos < 1){
+    if(nvctos < 1 && tipofac == 'factura'){
         Modal.poner('Debes de poner por lo menos Vencimiento/Cobro','Vencimientos/Cobros','vfecha');
         return false;
     }
@@ -514,7 +516,8 @@ $('#btn-verfactura').click(function() {
     var datos = {"items": g_items,
         "usufechafac":fechamysql($('#usufechafac').val()),
         "factcif":$('#factcif').val(),
-        "venci":g_vctmo};
+        "venci":g_vctmo,
+        "tipo-fac":tipofac};
 
     var lnom = $('#factnombre').html().trim();
 
@@ -587,15 +590,17 @@ function facturacion() {
     datosempresa = {"retencion":g_ret,
         "recargo":g_req,
         "fechafact":fechamysql($('#usufechafac').val()),
-        "num_fact":'',
+        "num_fact":$('#usunumfac').val(),
         "importe":g_totitem,
         "almacen":$("input[name='almacen']:checked").val(),
         "idempresa":idemp,
         "reload":segs,
         "exento_iva":$("input[name='exentoiva']:checked").val(),
         "texto_exento":$('#textoexento').val(),
-        "total":g_total
+        "total":g_total,
+        "tipo-fac":$("input[name='tipofactura']:checked").val()
     };
+
     var cliente = {};
 
     cliente = {"cif":$('#factcif').val(),
@@ -847,7 +852,34 @@ $('#sel-empresa').change(function(){
 
 });
 
+$('input[name=tipofactura]').change(function(){
+    var val = $(this).val();
+    var  hoy = new Date();
+    var spl = String(hoy.getTime()/1000).split('.');
+    var num = spl[0].substring(5);
 
+    switch (val){
+        case 'factura':
+            $('#txt-numfac').empty().html('Factura');
+            $('#usunumfac').val(g_numfactura);
+            $('#span-factura').empty().html('Facturar');
+            $('#fact-obser').val('');
+            break;
+        case 'proforma':
+            $('#txt-numfac').empty().html('Profor.');
+            $('#usunumfac').val("PROF-"+num);
+            $('#span-factura').empty().html('Proforma ');
+            $('#fact-obser').val('');
+            break;
+        case 'presupuesto':
+            $('#txt-numfac').empty().html('Presup.');
+            $('#usunumfac').val("PRSU-"+num);
+            $('#span-factura').empty().html('Presupuesto ');
+            $('#fact-obser').val('El presupuesto tiene una vigencia de 15 dias naturales');
+            break;
+    }
+
+});
 
 $(document).ready(function(){
 
@@ -866,5 +898,6 @@ $(document).ready(function(){
     $('#totalfactura').empty().html((0/1).toFixed(g_decimales))
     $('#vfecha').val(g_hoy);
     $('#fact-obser').val('');
+    g_numfactura = $('#usunumfac').val();
 
 });
