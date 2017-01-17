@@ -875,7 +875,7 @@ $('input[name=tipofactura]').change(function(){
             $('#txt-numfac').empty().html('Presup.');
             $('#usunumfac').val("PRSU-"+num);
             $('#span-factura').empty().html('Presupuesto ');
-            $('#fact-obser').val('El presupuesto tiene una vigencia de 15 dias naturales');
+            $('#fact-obser').val('El presupuesto tiene una vigencia de 15 dias naturales a partir de la fecha del presupuesto');
             break;
     }
 
