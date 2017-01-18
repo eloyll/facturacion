@@ -65,12 +65,26 @@
     <!-- Items factgura-->
     {% for it in items %}
         <div style="clear: both;float: left;width: 100%; margin-top: 3px">
-            <div style="clear:both;float: left;width: 6.5%; text-align: right;margin-right: 12px">{{ it.cantidad }}</div>
+            {% if it.cantidad == 0 %}
+                <div style="clear:both;float: left;width: 6.5%; text-align: right;margin-right: 12px">&nbsp;</div>
+            {% else %}
+                <div style="clear:both;float: left;width: 6.5%; text-align: right;margin-right: 12px">{{ it.cantidad }}</div>
+            {% endif %}
+
             <div style="float: left;width: 52%; margin-right: 3px">{{ it.concepto }}</div>
-            <div style="float: left;width: 7%; text-align: center;margin-right: 6px;">{{ it.descuento }}</div>
-            <div style="float: left;width: 6.5%; text-align: center;margin-right: 6px">{{ it.iva }}</div>
-            <div style="float: left;width: 10%; text-align: right;margin-right: 6px">{{ it.precio }}</div>
-            <div style="float: left;width: 12.7%; text-align: right;">{{ it.importe }}</div>
+
+            {% if it.precio == 0 %}
+                <div style="float: left;width: 7%; text-align: center;margin-right: 6px;">&nbsp;</div>
+                <div style="float: left;width: 6.5%; text-align: center;margin-right: 6px">&nbsp;</div>
+                <div style="float: left;width: 10%; text-align: right;margin-right: 6px">&nbsp;</div>
+                <div style="float: left;width: 12.7%; text-align: right;">&nbsp;</div>
+            {% else %}
+                <div style="float: left;width: 7%; text-align: center;margin-right: 6px;">{{ it.descuento }}</div>
+                <div style="float: left;width: 6.5%; text-align: center;margin-right: 6px">{{ it.iva }}</div>
+                <div style="float: left;width: 10%; text-align: right;margin-right: 6px">{{ it.precio }}</div>
+                <div style="float: left;width: 12.7%; text-align: right;">{{ it.importe }}</div>
+            {% endif %}
+
         </div>
     {% endfor %}
 

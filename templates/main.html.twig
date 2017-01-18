@@ -130,11 +130,11 @@
     <div class="row" style="margin: 0 0 0 0; padding: 20px 0 10px 0; background-color: #fff">
         <div class="col-md-12 col-xs-12" style="text-decoration: underline; font-size: 16px; color: #3371c8; margin-bottom: 20px">
             <div class="col-md-3"> Elementos Facturados</div>
-            <div class="col-md-3"><button id="btn-vaciaitems" type="button" class="btn btn-trans color-negro" style="font-size: 13px; margin-top: 0;padding: 0">Vaciar Elementos</button></div>
+            <div class="col-md-2"><button id="btn-vaciaitems" type="button" class="btn btn-trans color-negro" style="font-size: 13px; margin-top: 0;padding: 0">Vaciar Elementos</button></div>
             <div class="col-md-3"><button type="button" id="btn-factalba" class="btn-trans font-14">Facturar Albaranes</button></div>
-            <div class="col-md-3" style="font-size: 13px;text-decoration: none">
+            <div class="col-md-4" style="font-size: 13px;text-decoration: none"><span style="color: #900;">Tipo Docu.:</span>&nbsp;&nbsp;
             <input type="radio" name="tipofactura" id="tipofac1" value="factura" checked > Factura &nbsp;&nbsp;&nbsp;
-            <input type="radio" name="tipofactura" id="tipofac2" value="proforma" style="font-size: 13px;text-decoration: none"> Proforma&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="tipofactura" id="tipofac2" value="proforma" style="width: 13px;text-decoration: none"> Proforma&nbsp;&nbsp;&nbsp;
             <input type="radio" name="tipofactura" id="tipofac3" value="presupuesto" style="font-size: 13px;text-decoration: none"> Presupuesto
             </div>
         </div>
@@ -220,10 +220,10 @@
             </div>
 
             <div id="div-vctos" class="col-md-7" style="background-color: #dddddd; height: 70px;overflow-y: scroll;margin-top: 5px;font-size: 12px"></div>
-            <div class="col-md-5">
+            <div class="col-md-5" style="padding-right: 0">
                 <div style="float: left;margin-right: 10px "><button type="button" id="btn-v-anadir" class="btn btn-trans" style="height: 20px; margin: 5px 0 0 10px; padding-top: 0px;font-weight: 600;">Añadir</button></div>
 
-                <div style="float: left;font-weight: bold;color: #009;margin-top: 8px">Total Factura... <span id="totalfactura" style="font: bold 13px monospace">0.00</span></div>
+                <div style="clear: both;float: right;font-weight: bold;color: #009;margin-top: 8px;padding-right: 0;text-align: right">Total <span id="span-total">Factura</span> <div id="totalfactura" style="font: bold 20px monospace;color: #900;">0.00</div></div>
 
             </div>
         </div>

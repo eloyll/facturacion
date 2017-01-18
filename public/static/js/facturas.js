@@ -813,6 +813,7 @@ $('#sel-empresa').change(function(){
                         $('#txtexe').empty().html(txe);
                     }
                     var numerofac = data['prefijo_numfac']+data['numero_fac']+data['sufijo_numfac'];
+                    g_numfactura = numerofac;
                     $('#usunumfac').val(numerofac);
                     $('#factcif').val('');
                     $('#obsercli').html('');
@@ -824,6 +825,7 @@ $('#sel-empresa').change(function(){
                     $('#usuret').val(data['retencion']);
                     $('#usureq').val(data['req_equi']);
                     $('#cambialogo').trigger('change');
+                    $('#tipofac1').prop('checked',true);
                     //$('#logoempresa').prop('src',data['logo']);
                     $('#item-tipoiva,#tipoexento').empty().html(data['tipo_iva']);
                     $('#simb-moneda,#simb-moneda2').empty().html(data['cf_mo_simbolo']);
@@ -863,18 +865,19 @@ $('input[name=tipofactura]').change(function(){
             $('#txt-numfac').empty().html('Factura');
             $('#usunumfac').val(g_numfactura);
             $('#span-factura').empty().html('Facturar');
+            $('#span-total').empty().html('Factura');
             $('#fact-obser').val('');
             break;
         case 'proforma':
             $('#txt-numfac').empty().html('Profor.');
             $('#usunumfac').val("PROF-"+num);
-            $('#span-factura').empty().html('Proforma ');
+            $('#span-factura,#span-total').empty().html('Proforma ');
             $('#fact-obser').val('');
             break;
         case 'presupuesto':
             $('#txt-numfac').empty().html('Presup.');
             $('#usunumfac').val("PRSU-"+num);
-            $('#span-factura').empty().html('Presupuesto ');
+            $('#span-factura,#span-total').empty().html('Presupuesto ');
             $('#fact-obser').val('El presupuesto tiene una vigencia de 15 dias naturales a partir de la fecha del presupuesto');
             break;
     }
@@ -893,6 +896,8 @@ $(document).ready(function(){
         g_navega = 'pc';
         //$('#llamada').css('text-align','right');
     }
+
+    $('#tipofac1').prop('checked',true);
 
     $('#precio,#totimp,#vimporte').val((0/1).toFixed(g_decimales));
     $('#totalfactura').empty().html((0/1).toFixed(g_decimales))
